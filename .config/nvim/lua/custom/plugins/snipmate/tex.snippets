@@ -1,0 +1,59 @@
+snippet cha "chapter{} and label" 
+    \chapter{${1:ChaName}} % (fold)
+    \label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    $0
+
+    % chapter $2 (end)
+
+snippet sec "section{} and label" 
+    \section{${1:SecName}} % (fold)
+    \label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    $0
+
+    % section $2 (end)
+
+snippet sub "subsection{} and label" 
+    \subsection{${1:SubName}} % (fold)
+    \label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    $0
+
+    % subsection $2 (end)
+
+snippet ssub "subsubsection{} and label" 
+    \subsubsection{${1:SubSubName}} % (fold)
+    \label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    $0
+
+    % subsubsection $2 (end)
+
+
+
+
+snippet fig "figure and label" b
+    \begin{figure}[H]
+      \centering
+      \includegraphics[angle=0,width=1.0\textwidth]{${1:Filename}}
+      \caption{$0}
+      \label{fig:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    \end{figure}
+
+snippet tabl "add table" b
+    \begin{table}[H]
+    \caption{${1:Description}}
+    \label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+    \centering
+      \begin{tabular}{+l^c}
+      \rowstyle{\itshape}
+             Label1 & Label2 \\\\
+      Full spectrum & 0.358 \\\\
+        Narrow band & 0.343 \\\\
+      \end{tabular}
+    \end{table}
+
+snippet par "add paragraph" b
+    \paragraph{${1:paragraph name}} % (fold)
+    \label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
+
+    $0
+
+    % paragraph $2 (end)
