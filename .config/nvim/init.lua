@@ -55,6 +55,10 @@ vim.cmd [[
   aunmenu PopUp.-1-
 
 ]]
+vim.keymap.set('n', '<delete>', '')
+-- vim.keymap.set('n', '<delete>', '')
+-- vim.keymap.set('i', '<c-s-w>', 'X<esc>lbce')
+-- Don show the mode, since it's already in the status line
 
 vim.keymap.set('n', '<c-ScrollWheelUp>', '')
 vim.keymap.set('n', '<c-ScrollWheelDown>', '')
