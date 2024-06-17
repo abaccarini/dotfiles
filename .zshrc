@@ -12,6 +12,9 @@ export IPELATEXPATH="/usr/local/texlive/2023/bin/x86_64-linux"
 export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
