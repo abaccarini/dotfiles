@@ -126,6 +126,8 @@ vim.keymap.set('v', '>', '>gv')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps
+vim.keymap.set('c', 'qq', 'qa')
+
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")

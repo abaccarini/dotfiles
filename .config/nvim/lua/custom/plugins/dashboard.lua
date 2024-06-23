@@ -4,7 +4,36 @@ return {
     {
       'folke/persistence.nvim',
       event = 'BufReadPre',
-      opts = { options = vim.opt.sessionoptions:get() },
+      opts = {
+        options = vim.opt.sessionoptions:get(),
+        -- options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
+        -- pre_save = function()
+        --   local get_ls = vim.tbl_filter(function(buf)
+        --     return vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, 'buflisted')
+        --   end, vim.api.nvim_list_bufs())
+
+        pre_save = function()
+          local bufs = vim.api.nvim_list_bufs()
+          -- local current_buf = vim.api.nvim_get_current_buf()
+          for _, i in ipairs(bufs) do
+            local buf_name = vim.fn.bufname(i)
+            if buf_name == '' then
+              vim.api.nvim_buf_delete(i, {})
+            end
+          end
+          -- local buf_name = vim.fn.bufname(buf_number)
+          -- -- so we can edit the fugitive config file, while preventing the actual fugitive window from being shown
+          -- if string.find(buf_name, 'fugitive') and not string.find(buf_name, 'fugitive.lua') then
+          --   return false
+          -- end
+
+          -- local filetype = vim.bo[buf_number].filetype
+
+          -- if filetype == '' and buf_name == '' then
+          --   return false
+          -- end
+        end,
+      },
       -- stylua: ignore
       -- keys = {
       --   { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },

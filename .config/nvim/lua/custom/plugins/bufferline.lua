@@ -159,8 +159,8 @@ return {
         },
 
         duplicate_selected = {
-          fg = colors['menu'],
-          bg = colors['menu'],
+          -- fg = colors['menu'],
+          -- bg = colors['menu'],
         },
         duplicate = {
           bg = colors['menu'],
