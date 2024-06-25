@@ -17,7 +17,7 @@ return {
   },
 
   config = function()
-    vim.keymap.set('n', '<leader>w', '<Cmd>bd<cr>', { desc = 'Delete Buffer' })
+    vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
     local dracula = require 'dracula'
