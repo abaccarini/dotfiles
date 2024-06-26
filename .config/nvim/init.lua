@@ -70,7 +70,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -138,9 +138,11 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 if vim.loop.os_uname().sysname == 'Darwin' then
   vim.keymap.set({ 'n', 'v' }, '<leader>y', [["*y]], { desc = 'Yank pattern into system clipboard' })
   vim.keymap.set('n', '<leader>Y', [["*Y]], { desc = 'Yank line into system clipboard' })
+  vim.keymap.set('n', '<leader>P', [["*p]], { desc = 'Paste from system clipboard' })
 else
   vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Yank pattern into global clipboard' })
   vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Yank line into global clipboard' })
+  vim.keymap.set('n', '<leader>P', [["+p]], { desc = 'Paste from system clipboard' })
 end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
