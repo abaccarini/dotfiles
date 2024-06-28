@@ -105,6 +105,7 @@ alias !!='sudo $(fc -ln -1)'
 alias nvc='cd ~/dotfiles/.config/nvim' 
 alias dfl='cd ~/dotfiles' 
 alias est='cd ~/Dropbox/estimators' 
+alias diss='cd ~/Dropbox/dissertation/' 
 alias pc='cd ~/picco' 
 alias rg3='./scripts/rigel_login.sh' 
 
