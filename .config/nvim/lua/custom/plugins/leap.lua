@@ -8,9 +8,14 @@ return { -- LSP Configuration & Plugins
     -- vim.keymap.set('n', '<leader>f', '<Plug>(leap)')
     -- vim.keymap.set({ 'n', 'x', 'o' }, '<leader>f', '<Plug>(leap-forward)')
     -- vim.keymap.set({ 'n', 'x', 'o' }, '<leader>F', '<Plug>(leap-backward)')
-    vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
-    vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
-    vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
+
+
+require('leap').create_default_mappings()
+    -- vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
+    -- vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
+    -- vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
+
+
     -- vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
     -- require('leap').opts.special_keys.next_target = '<cr>'
     -- require('leap').opts.special_keys.prev_group = '<backspace>'

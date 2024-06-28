@@ -4,12 +4,14 @@ vim.opt.linebreak = true
 -- vim.opt.wrap = false
 -- vim.g.loaded_matchparen = 0
 
+
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 vim.opt.iskeyword:remove(":")
+-- vim.opt.iskeyword:append(":")
 
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
 vim.api.nvim_create_autocmd('FileType', {
@@ -49,8 +51,6 @@ vim.opt.mouse = 'a'
 vim.opt.mousemoveevent = true
 vim.api.nvim_set_keymap('n', '<c-ScrollWheelUp>', '', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-ScrollWheelDown>', '', { noremap = true })
-
-
 
 vim.cmd [[
   aunmenu PopUp.How-to\ disable\ mouse
@@ -171,6 +171,7 @@ vim.keymap.set('n', ']d', function()
 end)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- vim.keymap.set('n', '<leader>Q', vim.cmd.cclose)
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -529,6 +530,7 @@ require('lazy').setup({
       vim.cmd.hi('LspReferenceText   guifg=none guibg=' .. colors['selection'])
       vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
       vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors['selection'])
+      vim.cmd.hi('MatchParen gui=none guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])

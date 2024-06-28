@@ -84,27 +84,41 @@ return {
   --   }),
   --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   -- ),
-  s(
-    { trig = '([^%a])^^', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-    fmta('<>^{<>}', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-      i(1),
-    }),
-    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
-  ),
+  -- s(
+  --   { trig = '([^%a])^^', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+  --   fmta('<>^{<>}', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
 
   s(
-    { trig = '([^%a])__', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-    fmta('<>_{<>}', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
+    { trig = '^^', wordTrig = false, snippetType = 'autosnippet' },
+    fmta('^{<>}', {
       i(1),
     }),
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
+  s(
+    { trig = '__', wordTrig = false, snippetType = 'autosnippet' },
+    fmta('_{<>}', {
+      i(1),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
+  -- s(
+  --   { trig = '([^%a])__', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+  --   fmta('<>_{<>}', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
   s(
     { trig = '([^%a])pd', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
     fmta('<>\\prod{<>}', {

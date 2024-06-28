@@ -32,14 +32,14 @@ return { -- Autocompletion
           end,
         },
       },
-      -- config = function()
-      --   require('luasnip').config.setup {
-      --     history = true,
-      --     -- Enable autotriggered snippets
-      --     enable_autosnippets = true,
-      --     store_selection_keys = '<Tab>',
-      --   }
-      -- end,
+      config = function()
+        require('luasnip').config.setup {
+          history = true,
+          -- Enable autotriggered snippets
+          enable_autosnippets = true,
+          store_selection_keys = '<Tab>',
+        }
+      end,
     },
     'saadparwaiz1/cmp_luasnip',
 
@@ -139,6 +139,7 @@ return { -- Autocompletion
     local MAX_LABEL_WIDTH = 30
     local MIN_LABEL_WIDTH = 30
 
+    vim.opt.pumheight = 12
     cmp.setup {
       snippet = {
         expand = function(args)
@@ -219,6 +220,7 @@ return { -- Autocompletion
         --    $body
         --  end
         --
+
         -- <c-l> will move you to the right of each of the expansion locations.
         -- <c-h> is similar, except moving you backwards.
         ['<C-k>'] = cmp.mapping(function()
@@ -236,7 +238,7 @@ return { -- Autocompletion
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },
       sources = {
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp', max_item_count = 12 },
         { name = 'luasnip' },
         { name = 'path' },
         {

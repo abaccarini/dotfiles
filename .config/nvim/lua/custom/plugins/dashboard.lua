@@ -16,23 +16,18 @@ return {
           local bufs = vim.api.nvim_list_bufs()
           -- local current_buf = vim.api.nvim_get_current_buf()
           for _, i in ipairs(bufs) do
+          local filetype = vim.bo[i].filetype
             local buf_name = vim.fn.bufname(i)
+            -- local buf_type = vim.fn.getwininfo(i)
             if buf_name == '' then
               vim.api.nvim_buf_delete(i, {})
             end
+            -- if filetype == '' then
+            --   vim.api.nvim_buf_delete(i, {})
+            -- end
           end
-          -- local buf_name = vim.fn.bufname(buf_number)
-          -- -- so we can edit the fugitive config file, while preventing the actual fugitive window from being shown
-          -- if string.find(buf_name, 'fugitive') and not string.find(buf_name, 'fugitive.lua') then
-          --   return false
-          -- end
-
-          -- local filetype = vim.bo[buf_number].filetype
-
-          -- if filetype == '' and buf_name == '' then
-          --   return false
-          -- end
         end,
+
       },
       -- stylua: ignore
       -- keys = {

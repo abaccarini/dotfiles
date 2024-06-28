@@ -9,15 +9,20 @@ return {
     { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
     { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
     { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
-    { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
-    { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
+    { '<leader>bl', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
+    { '<leader>bh', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
     { '<leader>bd', '<Cmd>bd<CR>', desc = 'Delete current buffer' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
   },
 
   config = function()
-    vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
+    -- vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
+    vim.keymap.set('n', '<leader>w', function()
+      vim.cmd'silent only'
+      vim.cmd.bd()
+    end, {silent=true, desc = 'Delete Buffer' })
+
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
     local dracula = require 'dracula'
@@ -204,6 +209,10 @@ return {
           local buf_name = vim.fn.bufname(buf_number)
           -- so we can edit the fugitive config file, while preventing the actual fugitive window from being shown
           if string.find(buf_name, 'fugitive') and not string.find(buf_name, 'fugitive.lua') then
+            return false
+          end
+
+          if string.find(vim.fs.basename(buf_name), '0') then
             return false
           end
 

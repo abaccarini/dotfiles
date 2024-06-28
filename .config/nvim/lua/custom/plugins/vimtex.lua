@@ -10,31 +10,54 @@ return {
       command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
       group = my_augroup,
     })
+
     vim.o.conceallevel = 2
     vim.g.tex_conceal = ''
-    vim.g.tex_fast = 'bMpr'
+    -- vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'
+    vim.g.vimtex_quickfix_method = 'pplatex'
 
     -- vim.g.vimtex_compiler_latexmk = {
     --   continuous = false,
     -- }
 
+    -- vim.cmd [[
+    --   let g:vimtex_compiler_latexmk = {
+    --               \ 'backend' : 'jobs',
+    --               \ 'background' : 1,
+    --               \ 'build_dir' : '',
+    --               \ 'callback' : 1,
+    --               \ 'continuous' : 1,
+    --               \ 'executable' : 'latexmk',
+    --               \ 'options' : [
+    --               \   '-pdf',
+    --               \   '-bibtex',
+    --               \   '-verbose',
+    --               \   '-file-line-error',
+    --               \   '-synctex=1',
+    --               \   '-interaction=nonstopmode',
+    --               \ ],
+    --               \}
+    --   ]]
+
     vim.cmd [[
         let g:vimtex_quickfix_ignore_filters = [
-        \'Underfull',
-          \'Overfull',
+          \ '\(Ov\|Und\)erfull',
           \'Missing character',
+          \'(LaTeX Font)',
+          \'(Package caption)',
+          \'Token not allowed in a PDF string',
           \]
-        ]]
+      ]]
+
     vim.cmd [[
       let g:vimtex_complete_bib = {
       \ 'abbr_fmt' : '[@type] @author_short (@year)',
       \ 'menu_fmt' : '@title',
       \}
-
       ]]
 
-    -- vim.g.vimtex_quickfix_enabled = 0
-    vim.g.vimtex_match_paren_enabled = 0
+    vim.g.vimtex_quickfix_enabled = 1
+    -- vim.g.vimtex_match_paren_enabled = 0
     -- vim.g.vimtex_format_enabled = 1
 
     vim.g.vimtex_syntax_nospell_comments = 1

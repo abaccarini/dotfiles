@@ -7,7 +7,7 @@ local in_mathzone = function()
 end
 
 return {
-  s({ trig = ';vl', snippetType = 'autosnippet' }, {
+  s({ trig = ';el', snippetType = 'autosnippet' }, {
     t '\\ell',
   }, { condition = in_mathzone }),
   s({ trig = ';a', snippetType = 'autosnippet' }, {
@@ -25,7 +25,7 @@ return {
   s({ trig = ';d', snippetType = 'autosnippet' }, {
     t '\\delta',
   }, { condition = in_mathzone }),
-  s({ trig = ';e', snippetType = 'autosnippet' }, {
+  s({ trig = ';ee', snippetType = 'autosnippet' }, {
     t '\\epsilon    ',
   }, { condition = in_mathzone }),
   s({ trig = ';ve', snippetType = 'autosnippet' }, {

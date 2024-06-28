@@ -37,75 +37,99 @@ return {
     { condition = tex.in_text }
   ),
   -- ITALIC i.e. \textit
-  s(
-    { trig = 'tt', snippetType = 'autosnippet' },
-    fmta('\\texttt{<>}', {
-      i(1),
-    }),
-    { condition = line_begin }
-  ),
-  s(
-    { trig = 'sf', snippetType = 'autosnippet' },
-    fmta('\\textsf{<>}', {
-      i(1),
-    }),
-    { condition = line_begin }
-  ),
+  -- s(
+  --   { trig = 'tt', snippetType = 'autosnippet' },
+  --   fmta('\\texttt{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
+  -- s(
+  --   { trig = 'sf', snippetType = 'autosnippet' },
+  --   fmta('\\textsf{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
+  -- s(
+  --   { trig = 'bf', snippetType = 'autosnippet' },
+  --   fmta('\\textbf{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
+  -- s(
+  --   { trig = 'tii', snippetType = 'autosnippet' },
+  --   fmta('\\textit{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
   s(
     { trig = 'bf', snippetType = 'autosnippet' },
     fmta('\\textbf{<>}', {
-      i(1),
-    }),
-    { condition = line_begin }
+      d(1, get_visual),
+    })
   ),
   s(
     { trig = 'tii', snippetType = 'autosnippet' },
     fmta('\\textit{<>}', {
-      i(1),
-    }),
-    { condition = line_begin }
+      d(1, get_visual),
+    })
+  ),
+  s(
+    { trig = 'sf', snippetType = 'autosnippet' },
+    fmta('\\textsf{<>}', {
+      d(1, get_visual),
+    })
   ),
   s(
     { trig = 'em', snippetType = 'autosnippet' },
     fmta('\\emph{<>}', {
-      i(1),
-    }),
-    { condition = line_begin }
-  ),
-  s(
-    { trig = '([^%a])em', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-    fmta('<>\\emph{<>}', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-      d(1, get_visual),
-    }),
-    { condition = tex.in_text }
-  ),
-  s(
-    { trig = '([^%a])tii', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-    fmta('<>\\textit{<>}', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
       d(1, get_visual),
     })
   ),
-  s(
-    { trig = 'bf', snippetType = 'autosnippet' },
-    fmta('\\textbf{<>}', {
-      d(1, get_visual),
-    })
-  ),
-  s(
-    { trig = '([^%a])sf', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
-    fmta('<>\\textsf{<>}', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-      d(1, get_visual),
-    })
-  ),
+  -- s(
+  --   { trig = 'em', snippetType = 'autosnippet' },
+  --   fmta('\\emph{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
+  -- s(
+  --   { trig = '([^%a])em', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+  --   fmta('<>\\emph{<>}', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --     d(1, get_visual),
+  --   }),
+  --   {}
+  -- ),
+  -- s(
+  --   { trig = '([^%a])tii', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+  --   fmta('<>\\textit{<>}', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --     d(1, get_visual),
+  --   })
+  -- ),
+  -- s(
+  --   { trig = 'bf', snippetType = 'autosnippet' },
+  --   fmta('\\textbf{<>}', {
+  --     d(1, get_visual),
+  --   })
+  -- ),
+  -- s(
+  --   { trig = '([^%a])sf', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+  --   fmta('<>\\textsf{<>}', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --     d(1, get_visual),
+  --   })
+  -- ),
   -- MATH ROMAN i.e. \mathrm
   s(
     { trig = '([^%a])rmm', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
