@@ -84,7 +84,7 @@ return {
     })
   ),
   s(
-    { trig = 'em', snippetType = 'autosnippet' },
+    { trig = 'em;', snippetType = 'autosnippet' },
     fmta('\\emph{<>}', {
       d(1, get_visual),
     })

@@ -4,13 +4,12 @@ vim.opt.linebreak = true
 -- vim.opt.wrap = false
 -- vim.g.loaded_matchparen = 0
 
-
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
-vim.opt.iskeyword:remove(":")
+vim.opt.iskeyword:remove ':'
 -- vim.opt.iskeyword:append(":")
 
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
@@ -463,6 +462,34 @@ require('lazy').setup({
             require('lspconfig')[server_name].setup(server)
           end,
         },
+      }
+
+      require('lspconfig').texlab.setup {
+        -- on_attach = on_attach,
+        settings = {
+          texlab = {
+            diagnostics = {
+              allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
+              -- ignoredPatterns = {
+              --   'Unused label',
+              --   'Unused entry',
+              --   'Undefined reference',
+              --   'Underfull',
+              --   'Overfull',
+              --   'Missing character',
+              --   '(LaTeX Font)',
+              --   '(Package caption)',
+              --   'Token not allowed in a PDF string',
+              --   'Float too large',
+              --   'No file OMScmtt.fd.',
+              -- },
+            },
+          },
+        },
+
+        -- diagnostics = {
+        --   ignoredPatterns = { 'Unused label' },
+        -- },
       }
 
       require('lspconfig').clangd.setup {

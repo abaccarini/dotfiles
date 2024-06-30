@@ -228,6 +228,20 @@ return {
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
   s(
+    { trig = 'bb', snippetType = 'autosnippet' },
+    fmta('\\mathbb{<>}', {
+      i(1),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
+  s(
+    { trig = 'cl', snippetType = 'autosnippet' },
+    fmta('\\mathcal{<>}', {
+      i(1),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
+  s(
     { trig = 'tt', snippetType = 'autosnippet' },
     fmta('\\text{<>}', {
       i(1),

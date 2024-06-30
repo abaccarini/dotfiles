@@ -46,6 +46,8 @@ return {
           \'(LaTeX Font)',
           \'(Package caption)',
           \'Token not allowed in a PDF string',
+          \'Float too large',
+          \'No file OMScmtt.fd.',
           \]
       ]]
 
