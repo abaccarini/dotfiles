@@ -6,6 +6,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH="/home/alessandro/libraries/vcpkg:$PATH"
 
+
 export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
 export IPELATEXPATH="/usr/local/texlive/2023/bin/x86_64-linux"
 
@@ -118,4 +119,7 @@ export EDITOR="$VISUAL"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
-precmd () {print -Pn "\e]0;%~\a"}
+# precmd () {print -Pn "\e]0;%~\a"}
+
+
+
