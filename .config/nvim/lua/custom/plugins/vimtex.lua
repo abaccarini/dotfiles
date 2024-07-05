@@ -45,6 +45,7 @@ return {
           \'Missing character',
           \'(LaTeX Font)',
           \'(Package caption)',
+          \'(Package fancyhdr)',
           \'Token not allowed in a PDF string',
           \'Float too large',
           \'No file OMScmtt.fd.',
@@ -58,8 +59,30 @@ return {
       \}
       ]]
 
+    -- vim.cmd [[ let g:vimtex_mappings_disable = {  'i': '\]\]', } ]]
+    -- vim.api.nvim_set_keymap('i', ']', ']', { noremap = true, silent = true })
+    -- vim.api.nvim_set_keymap('i', ']]', "<plug>(disable-]]) <plug>(vimtex-delim-close)", { noremap = true, silent = true });
+
+    -- vim.cmd [[
+    -- imap <plug>(disable-]]) <plug>(vimtex-delim-close)
+    -- -- let g:vimtex_mappings_disable =
+    -- --   \ 'i': ['\]\]']
+    -- --   \}
+    --   ]]
+    -- vim.g.vimtex_mappings_disable = { 'i': ['\]\]'] }
+
+vim.api.nvim_set_keymap('i', '<ctrl>-|', '<plug>(vimtex-delim-close)', { noremap = true }) -- set this to something I can't type, essentially just remove it
+    -- vim.cmd [[
+    -- let g:vimtex_mappings_disable = {
+    --     " \ 'n': ['tse', 'tsd'],
+    --     " \ 'x': ['tsd'],
+    --     \ 'i': [' ]],
+    --     \}
+    -- ]]
+
     vim.g.vimtex_quickfix_enabled = 1
-    -- vim.g.vimtex_match_paren_enabled = 0
+    vim.g.vimtex_matchparen_enabled = 0
+    vim.g.vimtex_mwatchparen_enabled = 0
     -- vim.g.vimtex_format_enabled = 1
 
     vim.g.vimtex_syntax_nospell_comments = 1

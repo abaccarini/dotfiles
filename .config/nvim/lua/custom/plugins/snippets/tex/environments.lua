@@ -20,7 +20,7 @@ end
 
 return {
   s(
-    { trig = 'env', snippetType = 'autosnippet' },
+    { trig = 'env;', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{<>}

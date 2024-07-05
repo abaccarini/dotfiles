@@ -26,6 +26,16 @@ tex.in_text = function()
 end
 
 return {
+s(
+    { trig = '([^%a]);rf', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+    fmta('<>~\\ref{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    {  }
+  ),
   -- s({ trig = 'sec', dscr = 'section' }, 
   --   fmta(
   --     [[

@@ -22,12 +22,12 @@ return { -- Collection of various small independent plugins/modules
         ['<'] = { output = { left = '<', right = '>' } },
       },
       mappings = {
-        add = '<leader>sa', -- Add surrounding in Normal and Visual modes
-        delete = '<leader>sd', -- Delete surrounding
+        add = 'sa', -- Add surrounding in Normal and Visual modes
+        delete = 'sd', -- Delete surrounding
         find = '', -- Find surrounding (to the right)
         find_left = '', -- Find surrounding (to the left)
         highlight = '', -- Highlight surrounding
-        replace = '<leader>sr', -- Replace surrounding
+        replace = 'sr', -- Replace surrounding
         update_n_lines = '', -- Update `n_lines`
       },
     }
