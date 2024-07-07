@@ -7,7 +7,7 @@ local in_mathzone = function()
 end
 
 return {
-  s({ trig = ';el', snippetType = 'autosnippet' }, {
+  s({ trig = ';el', snippetType = 'autosnippet',  wordTrig = false  }, {
     t '\\ell',
   }, { condition = in_mathzone }),
   s({ trig = ';a', snippetType = 'autosnippet' }, {
