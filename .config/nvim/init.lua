@@ -417,6 +417,7 @@ require('lazy').setup({
         -- gopls = {},
         -- pyright = {},
         black = {},
+        -- markdown = {},
         -- rust_analyzer = {},
 
         lua_ls = {

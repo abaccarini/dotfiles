@@ -61,7 +61,7 @@ return {
         defaults = {
           file_ignore_patterns = { 'add.spl', 'pdf', 'png', 'csv', 'final', 'eps', 'pgf', 'bbl', 'bbx', 'ipe', 'bst', 'bcf', 'snm', 'nav', 'run.xml' },
           -- makes the telescope prompt slightly transparent
-          winblend = 10,
+        winblend = 10,
           -- path_display = function(_, path)
           --   local tail = require('telescope.utils').path_tail(path)
           --   return string.format('%s (%s)', tail, path), { { { 1, #tail }, 'Constant' } }
@@ -70,9 +70,10 @@ return {
           --   local tail = require('telescope.utils').path_tail(path)
           --   return string.format('%s (%s)', tail, path)
           -- end,
-          -- mappings = {
-          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          --   },
+          mappings = {
+              i = { ['<c-s-n>'] = require("telescope.actions").move_selection_previous ,
+            },
+            },
           path_display = filenameFirst,
         },
         pickers = {
@@ -130,7 +131,7 @@ return {
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
-          previewer = false,
+          previewe = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 

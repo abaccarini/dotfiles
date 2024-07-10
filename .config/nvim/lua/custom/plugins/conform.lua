@@ -3,7 +3,8 @@ return { -- Autoformat
   lazy = false,
   keys = {
     {
-      '<leader>f',
+      -- '<leader>f',
+      '<C-S-i>',
       function()
         require('conform').format { async = true, lsp_fallback = true }
       end,
@@ -47,6 +48,7 @@ return { -- Autoformat
       python = { 'black' },
       cpp = { 'clang-format' },
       tex = { 'latexindent' },
+      markdown = { 'markdownlint' },
       --
       -- You can use a sub-list to tell conform to run *until* a formatter
       -- is found.
