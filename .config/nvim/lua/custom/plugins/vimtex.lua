@@ -16,6 +16,9 @@ return {
     -- vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'
     -- vim.g.vimtex_quickfix_method = 'pplatex'
 
+    if vim.loop.os_uname().sysname ~= 'Darwin' then
+      vim.g.vimtex_quickfix_method = 'pplatex'
+    end
     -- vim.g.vimtex_compiler_latexmk = {
     --   continuous = false,
     -- }

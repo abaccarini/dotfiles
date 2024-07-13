@@ -61,7 +61,7 @@ return {
         defaults = {
           file_ignore_patterns = { 'add.spl', 'pdf', 'png', 'csv', 'final', 'eps', 'pgf', 'bbl', 'bbx', 'ipe', 'bst', 'bcf', 'snm', 'nav', 'run.xml' },
           -- makes the telescope prompt slightly transparent
-        winblend = 10,
+          winblend = 10,
           -- path_display = function(_, path)
           --   local tail = require('telescope.utils').path_tail(path)
           --   return string.format('%s (%s)', tail, path), { { { 1, #tail }, 'Constant' } }
@@ -71,9 +71,8 @@ return {
           --   return string.format('%s (%s)', tail, path)
           -- end,
           mappings = {
-              i = { ['<c-s-n>'] = require("telescope.actions").move_selection_previous ,
-            },
-            },
+            i = { ['<c-s-n>'] = require('telescope.actions').move_selection_previous },
+          },
           path_display = filenameFirst,
         },
         pickers = {
@@ -82,6 +81,9 @@ return {
             -- theme = 'ivy',
             -- theme = 'dropdown',
             -- hidden = true,
+          },
+          oldfiles = {
+            cwd_only = true,
           },
         },
         extensions = {
@@ -119,7 +121,7 @@ return {
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sD', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sR', builtin.resume, { desc = '[S]earch [R]esume' })
-      -- vim.keymap.set('n', '<leader><leader>sr', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch in existing [B]uffers' })
       vim.keymap.set('n', '<leader>pl', require('telescope').extensions.project.project, { desc = 'Switch [P]roject' })
       -- vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
