@@ -14,7 +14,7 @@ return {
     -- vim.o.conceallevel = 2
     -- vim.g.tex_conceal = ''
     -- vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'
-    vim.g.vimtex_quickfix_method = 'pplatex'
+    -- vim.g.vimtex_quickfix_method = 'pplatex'
 
     -- vim.g.vimtex_compiler_latexmk = {
     --   continuous = false,
@@ -43,11 +43,18 @@ return {
         let g:vimtex_quickfix_ignore_filters = [
           \ '\(Ov\|Und\)erfull',
           \'Missing character',
+          \'Missing "publisher"',
+          \'Missing "author"',
+          \'Missing "address"',
+          \'Unused global option(s):',
           \'(LaTeX Font)',
+          \'Package caption Warning',
           \'(Package caption)',
           \'(Package fancyhdr)',
           \'Token not allowed in a PDF string',
           \'Float too large',
+          \'Class acmart Warning:',
+          \'Package fancyhdr Warning:',
           \'No file OMScmtt.fd.',
           \]
       ]]
@@ -71,7 +78,7 @@ return {
     --   ]]
     -- vim.g.vimtex_mappings_disable = { 'i': ['\]\]'] }
 
-vim.api.nvim_set_keymap('i', '<c-|>', '<plug>(vimtex-delim-close)', { noremap = true }) -- set this to something I can't type, essentially just remove it
+    vim.api.nvim_set_keymap('i', '<c-|>', '<plug>(vimtex-delim-close)', { noremap = true }) -- set this to something I can't type, essentially just remove it
     -- vim.cmd [[
     -- let g:vimtex_mappings_disable = {
     --     " \ 'n': ['tse', 'tsd'],

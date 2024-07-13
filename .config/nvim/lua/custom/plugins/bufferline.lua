@@ -267,7 +267,7 @@ return {
           reveal = { 'close' },
         },
         -- show_buffer_icons = false,
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
           local icon = level:match 'error' and ' ' or ' '

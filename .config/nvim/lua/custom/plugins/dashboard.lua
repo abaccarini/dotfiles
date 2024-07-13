@@ -4,37 +4,10 @@ return {
     {
       'folke/persistence.nvim',
       event = 'BufReadPre',
+
       opts = {
         options = vim.opt.sessionoptions:get(),
-        -- options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
-        -- pre_save = function()
-        --   local get_ls = vim.tbl_filter(function(buf)
-        --     return vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, 'buflisted')
-        --   end, vim.api.nvim_list_bufs())
-
-        pre_save = function()
-          local bufs = vim.api.nvim_list_bufs()
-          -- local current_buf = vim.api.nvim_get_current_buf()
-          for _, i in ipairs(bufs) do
-          local filetype = vim.bo[i].filetype
-            local buf_name = vim.fn.bufname(i)
-            -- local buf_type = vim.fn.getwininfo(i)
-            if buf_name == '' then
-              vim.api.nvim_buf_delete(i, {})
-            end
-            -- if filetype == '' then
-            --   vim.api.nvim_buf_delete(i, {})
-            -- end
-          end
-        end,
-
       },
-      -- stylua: ignore
-      -- keys = {
-      --   { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-      --   { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      --   { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
-      -- },
     },
     {
       'nvim-telescope/telescope-file-browser.nvim',

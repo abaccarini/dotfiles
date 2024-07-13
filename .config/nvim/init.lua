@@ -207,6 +207,43 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
+-- vim.api.nvim_create_autocmd('BufReadPre', {
+vim.api.nvim_create_autocmd('VimLeavePre', {
+  -- desc = 'Highlight when yanking (copying) text',
+  -- group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    local bufs = vim.api.nvim_list_bufs()
+    -- local current_buf = vim.api.nvim_get_current_buf()
+    for _, i in ipairs(bufs) do
+      local filetype = vim.bo[i].filetype
+      local buf_name = vim.fn.bufname(i)
+      local buf_type = vim.fn.getwininfo(i)
+      -- print(buf_name)
+      -- print(buf_type)
+      -- print(filetype)
+      -- if filetype == '' then
+      --   vim.api.nvim_buf_delete(i, {})
+      -- end
+      if buf_name == '' then
+        vim.api.nvim_buf_delete(i, {})
+      end
+      -- if buf_name == '/tmp/nvim.alessandro/mwewqH/0' then
+      --   vim.api.nvim_buf_delete(i, {})
+      -- end
+
+      if string.find(buf_name,'/tmp/nvim.alessandro/') then
+        vim.api.nvim_buf_delete(i, {})
+      end
+      -- if string.find(vim.fs.basename(buf_name), '0')  then
+      --   vim.api.nvim_buf_delete(i, {})
+      -- end
+      -- if filetype == '' then
+      --   vim.api.nvim_buf_delete(i, {})
+      -- end
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),

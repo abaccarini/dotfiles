@@ -3,28 +3,20 @@ snippet cha "chapter{} and label"
     \label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
     $0
 
-    % chapter $2 (end)
-
 snippet sec "section{} and label" 
     \section{${1:SecName}} % (fold)
     \label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
     $0
-
-    % section $2 (end)
 
 snippet sub "subsection{} and label" 
     \subsection{${1:SubName}} % (fold)
     \label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
     $0
 
-    % subsection $2 (end)
-
 snippet ssub "subsubsection{} and label" 
     \subsubsection{${1:SubSubName}} % (fold)
     \label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
     $0
-
-    % subsubsection $2 (end)
 
 
 
@@ -53,7 +45,4 @@ snippet tabl "add table" b
 snippet par "add paragraph" b
     \paragraph{${1:paragraph name}} % (fold)
     \label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/${3:/downcase}${4:+_}/g}}}
-
     $0
-
-    % paragraph $2 (end)

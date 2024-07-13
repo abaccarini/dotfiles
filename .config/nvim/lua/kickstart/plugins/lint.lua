@@ -7,6 +7,7 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        -- python = { 'pylint' },
         -- cpp = { 'clang-tidy' },
       }
       local markdownlint = require('lint').linters.markdownlint

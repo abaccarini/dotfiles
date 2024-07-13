@@ -26,7 +26,7 @@ return {
     t '\\delta',
   }, { condition = in_mathzone }),
   s({ trig = ';ee', snippetType = 'autosnippet' }, {
-    t '\\epsilon    ',
+    t '\\epsilon',
   }, { condition = in_mathzone }),
   s({ trig = ';ve', snippetType = 'autosnippet' }, {
     t '\\varepsilon',

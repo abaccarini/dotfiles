@@ -29,11 +29,12 @@ return { -- Autoformat
     formatters = {
       latexindent = {
         -- Change where to find the command
+        prepend_args = { '-l' },
         command = function()
           if vim.loop.os_uname().sysname == 'Darwin' then
             return '/Library/TeX/texbin/latexindent'
           else
-            return '/usr/local/texlive/2023/bin/x86_64-linux/latexindent'
+            return '/usr/local/texlive/2024/bin/x86_64-linux/latexindent'
           end
         end,
         -- Adds environment args to the yamlfix formatter

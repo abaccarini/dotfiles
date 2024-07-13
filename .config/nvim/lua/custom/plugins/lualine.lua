@@ -35,6 +35,7 @@ return {
         -- },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = {
+          -- 'filename',
           { symbols.get, cond = symbols.has },
         },
         lualine_x = {

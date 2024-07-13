@@ -7,11 +7,11 @@
 # export PATH="/home/alessandro/libraries/vcpkg:$PATH"
 
 
-export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
-export IPELATEXPATH="/usr/local/texlive/2023/bin/x86_64-linux"
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+export IPELATEXPATH="/usr/local/texlive/2024/bin/x86_64-linux"
 
-export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
+export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -108,6 +108,7 @@ alias dfl='cd ~/dotfiles'
 alias est='cd ~/Dropbox/estimators' 
 alias diss='cd ~/Dropbox/dissertation/' 
 alias pc='cd ~/picco' 
+alias res='cd ~/Dropbox/resume/' 
 alias rg3='./scripts/rigel_login.sh' 
 
 fpath=( ~/.zsh_functions "${fpath[@]}" )
