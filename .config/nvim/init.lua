@@ -389,7 +389,8 @@ require('lazy').setup({
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
+          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -530,6 +531,11 @@ require('lazy').setup({
         -- },
       }
 
+      require('lspconfig').grammarly.setup {
+        filetypes = { 'tex', 'md'},
+        -- capabilities = capabilities,
+        -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
+      }
       require('lspconfig').clangd.setup {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,

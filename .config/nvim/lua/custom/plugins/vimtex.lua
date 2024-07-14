@@ -2,6 +2,7 @@ return {
   'lervag/vimtex',
   dependencies = { 'Mofiqul/dracula.nvim' },
   lazy = false, -- we don't want to lazy load VimTeX
+  -- enabled = false,
   -- tag = "v2.15", -- uncomment to pin to a specific release
   init = function()
     local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
@@ -55,6 +56,7 @@ return {
           \'(Package caption)',
           \'(Package fancyhdr)',
           \'Token not allowed in a PDF string',
+          \'(Package hyperref)  removing',
           \'Float too large',
           \'Class acmart Warning:',
           \'Package fancyhdr Warning:',
