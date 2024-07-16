@@ -231,7 +231,7 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
       --   vim.api.nvim_buf_delete(i, {})
       -- end
 
-      if string.find(buf_name,'/tmp/nvim.alessandro/') then
+      if string.find(buf_name, '/tmp/nvim.alessandro/') then
         vim.api.nvim_buf_delete(i, {})
       end
       -- if string.find(vim.fs.basename(buf_name), '0')  then
@@ -297,15 +297,7 @@ require('lazy').setup({
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
-    opts = {
-      -- signs = {
-      --   add = { text = '+' },
-      --   change = { text = '~' },
-      --   delete = { text = '_' },
-      --   topdelete = { text = '‾' },
-      --   changedelete = { text = '~' },
-      -- },
-    },
+    opts = {},
   },
   {
     'rachartier/tiny-devicons-auto-colors.nvim',
@@ -329,7 +321,18 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          progress = {
+            suppress_on_insert = true, -- Suppress new messages while in insert mode
+            display = {
+              render_limit = 2, -- How many LSP messages to show at once
+              done_ttl = 1,               -- How long a message should persist after completion
+            },
+          },
+        },
+      },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
@@ -531,8 +534,15 @@ require('lazy').setup({
         -- },
       }
 
-      require('lspconfig').grammarly.setup {
-        filetypes = { 'tex', 'md'},
+      require('lspconfig').ltex.setup {
+        capabilities = capabilities,
+        settings = {
+          ltex = {
+            language = 'en-US',
+            disabledRules = { ['en-US'] = { 'A_BIT' } },
+          },
+        },
+        -- filetypes = { 'tex', 'md' },
         -- capabilities = capabilities,
         -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
       }
