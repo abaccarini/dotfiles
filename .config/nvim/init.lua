@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 -- vim.opt.wrap = false
--- vim.g.loaded_matchparen = 0
+
 
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
@@ -328,7 +328,7 @@ require('lazy').setup({
             suppress_on_insert = true, -- Suppress new messages while in insert mode
             display = {
               render_limit = 2, -- How many LSP messages to show at once
-              done_ttl = 1,               -- How long a message should persist after completion
+              done_ttl = 1, -- How long a message should persist after completion
             },
           },
         },
@@ -539,13 +539,18 @@ require('lazy').setup({
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = { 'A_BIT' } },
+            disabledRules = { ['en-US'] = { 'A_BIT', 'ON_COMPOUNDS' } },
           },
-        },
-        -- filetypes = { 'tex', 'md' },
-        -- capabilities = capabilities,
-        -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
-      }
+        }
+        }
+      -- filetypes = { 'tex', 'md' },
+      -- capabilities = capabilities,
+      -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
+      -- }
+
+      -- require('lspconfig').grammarly.setup {
+      --   filetypes = { 'tex', 'md' },
+      -- }
       require('lspconfig').clangd.setup {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,

@@ -6,6 +6,7 @@ return {
       event = 'BufReadPre',
 
       opts = {
+        dir = vim.fn.expand("$HOME/nvim_sessions"),
         options = vim.opt.sessionoptions:get(),
       },
     },

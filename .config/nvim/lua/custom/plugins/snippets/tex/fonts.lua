@@ -36,35 +36,6 @@ return {
     }),
     { condition = tex.in_text }
   ),
-  -- ITALIC i.e. \textit
-  -- s(
-  --   { trig = 'tt', snippetType = 'autosnippet' },
-  --   fmta('\\texttt{<>}', {
-  --     i(1),
-  --   }),
-  --   { condition = line_begin }
-  -- ),
-  -- s(
-  --   { trig = 'sf', snippetType = 'autosnippet' },
-  --   fmta('\\textsf{<>}', {
-  --     i(1),
-  --   }),
-  --   { condition = line_begin }
-  -- ),
-  -- s(
-  --   { trig = 'bf', snippetType = 'autosnippet' },
-  --   fmta('\\textbf{<>}', {
-  --     i(1),
-  --   }),
-  --   { condition = line_begin }
-  -- ),
-  -- s(
-  --   { trig = 'tii', snippetType = 'autosnippet' },
-  --   fmta('\\textit{<>}', {
-  --     i(1),
-  --   }),
-  --   { condition = line_begin }
-  -- ),
   s(
     { trig = 'bf', snippetType = 'autosnippet' },
     fmta('\\textbf{<>}', {
