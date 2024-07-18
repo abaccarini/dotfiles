@@ -553,17 +553,6 @@ require('lazy').setup({
       }
     end,
   },
-  -- {
-  --   'folke/tokyonight.nvim',
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  --   config = function()
-  --     vim.cmd.colorscheme 'tokyonight-moon'
-  --     require('tokyonight').setup {
-  --     }
-  --   end,
-  -- },
   { -- You can easily change to a different colorscheme.
     'Mofiqul/dracula.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
