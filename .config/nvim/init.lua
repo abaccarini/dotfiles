@@ -3,7 +3,6 @@ vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 -- vim.opt.wrap = false
 
-
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
@@ -541,12 +540,8 @@ require('lazy').setup({
             language = 'en-US',
             disabledRules = { ['en-US'] = { 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
           },
-        }
-        }
-      -- filetypes = { 'tex', 'md' },
-      -- capabilities = capabilities,
-      -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
-      -- }
+        },
+      }
 
       require('lspconfig').grammarly.setup {
         filetypes = { 'tex', 'md' },
