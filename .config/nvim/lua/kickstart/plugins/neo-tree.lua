@@ -11,7 +11,13 @@ return {
     { '<leader>\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
+    close_if_last_window = true,
     filesystem = {
+      follow_current_file = {
+        enabled = true, -- This will find and focus the file in the active buffer every time
+        leave_dirs_open = true,
+      },
+
       window = {
         mappings = {
           ['<leader>\\'] = 'close_window',

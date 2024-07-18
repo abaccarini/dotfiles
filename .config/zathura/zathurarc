@@ -14,5 +14,14 @@ map J zoom out
 map i recolor
 map p print
 map g goto top
+# map [normal] <C-f> search forward
+# map [normal] <C-S-f> search backward
+map [normal] n search forward
+map [normal] p search backward
+map <C-f> focus_inputbar "/"
+map <C-F> focus_inputbar "?"
+# map <C-f> exec 'xdotool key slash' 
+# map <C-S-f> search backward
+# map <C-f> /
 
 map <C-o> exec "zathura $FILE"

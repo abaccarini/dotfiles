@@ -539,7 +539,7 @@ require('lazy').setup({
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = { 'A_BIT', 'ON_COMPOUNDS' } },
+            disabledRules = { ['en-US'] = { 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
           },
         }
         }
@@ -548,9 +548,9 @@ require('lazy').setup({
       -- cmd = { 'clangd', '--background-index', '--clang-tidy' },
       -- }
 
-      -- require('lspconfig').grammarly.setup {
-      --   filetypes = { 'tex', 'md' },
-      -- }
+      require('lspconfig').grammarly.setup {
+        filetypes = { 'tex', 'md' },
+      }
       require('lspconfig').clangd.setup {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,

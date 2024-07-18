@@ -6,9 +6,23 @@ return {
       event = 'BufReadPre',
 
       opts = {
-        dir = vim.fn.expand("$HOME/nvim_sessions"),
+        dir = vim.fn.expand '$HOME/nvim_sessions',
         options = vim.opt.sessionoptions:get(),
       },
+
+      -- config = function()
+      --   vim.api.nvim_create_autocmd('VimEnter', {
+      --     group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
+      --     callback = function()
+      --       if vim.fn.getcwd() ~= vim.env.HOME then
+      --         require('persistence').load()
+      --         vim.cmd [[Neotree filesystem show]]
+      --       end
+      --     end,
+      --     nested = true,
+      --   })
+        -- require('persistence').setup()
+      -- end,
     },
     {
       'nvim-telescope/telescope-file-browser.nvim',

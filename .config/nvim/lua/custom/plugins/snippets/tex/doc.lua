@@ -38,6 +38,12 @@ return {
 --   ),
 
   s(
+    { trig = ';ll', snippetType = 'autosnippet',wordTrig =false },
+    fmta('\\label{line:<>}', {
+      d(1, get_visual),
+    })
+  ),
+  s(
     { trig = ';ct', snippetType = 'autosnippet',wordTrig =false },
     fmta('~\\cite{<>}', {
       d(1, get_visual),
