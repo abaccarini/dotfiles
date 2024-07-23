@@ -19,11 +19,15 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
+      { 'Mofiqul/dracula.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
+      local dracula = require 'dracula'
+      local colors = dracula.colors()
+
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'TelescopeResults',
         callback = function(ctx)
@@ -61,7 +65,7 @@ return {
         defaults = {
           file_ignore_patterns = { 'add.spl', 'pdf', 'png', 'csv', 'final', 'eps', 'pgf', 'bbl', 'bbx', 'ipe', 'bst', 'bcf', 'snm', 'nav', 'run.xml' },
           -- makes the telescope prompt slightly transparent
-          winblend = 10,
+          -- winblend = 10,
           -- path_display = function(_, path)
           --   local tail = require('telescope.utils').path_tail(path)
           --   return string.format('%s (%s)', tail, path), { { { 1, #tail }, 'Constant' } }
@@ -85,6 +89,10 @@ return {
           oldfiles = {
             cwd_only = true,
           },
+
+          live_grep = {
+            -- only_sort_text = true,
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -105,19 +113,23 @@ return {
         },
       }
 
+      -- vim.cmd.hi('TelescopePreviewMatch   guibg=' .. colors['red'].. ' guifg=' .. colors['red'])
+      -- vim.cmd.hi('TelescopePreviewLine  guibg=none guifg=' .. colors['red'])
+      -- vim.cmd.hi('TelescopeMatching  guibg=none guifg=' .. colors['red'])
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'file_browser')
       pcall(require('telescope').load_extension, 'project')
+      -- pcall(require('telescope').load_extension, 'live_grep_args')
       -- pcall(require('telescope').load_extension, 'frecency')
-
+      -- require'telescope.builtin'.grep_string{ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' }
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      -- vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sD', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sR', builtin.resume, { desc = '[S]earch [R]esume' })
@@ -125,15 +137,19 @@ return {
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch in existing [B]uffers' })
       vim.keymap.set('n', '<leader>pl', require('telescope').extensions.project.project, { desc = 'Switch [P]roject' })
       -- vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
       -- vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope frecency<CR>', { desc = '[S]earch [F]iles' })
+
+      -- vim.keymap.set('n', '<leader>sw', function()
+      --   builtin.grep_string {  word_match = '-w', only_sort_text = false, search = '' }
+      -- end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
-          previewe = false,
+          preview = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
@@ -150,6 +166,12 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'TelescopePreviewerLoaded',
+        callback = function(args)
+          vim.wo.wrap = true
+        end,
+      })
     end,
   },
   --   {

@@ -592,6 +592,7 @@ require('lazy').setup({
 
       -- vim.cmd.hi('NormalFloat  guifg=none guibg=' .. colors['menu'])
       -- vim.cmd.hi 'StatusLine  guibg=none'
+
       vim.cmd.hi('TabLineSel  guibg=' .. colors['comment']) -- control the underline for the bufferline tab
       vim.cmd.hi('StatusLine  guibg=' .. colors['selection'])
       vim.cmd.hi('FloatBorder  guifg= ' .. colors['comment'])
@@ -603,6 +604,7 @@ require('lazy').setup({
       vim.cmd.hi('MatchParen gui=none guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
+
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticVirtualTextError guibg=' .. colors['menu'])

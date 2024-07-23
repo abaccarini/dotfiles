@@ -219,6 +219,10 @@ return {
 
           local filetype = vim.bo[buf_number].filetype
 
+          if filetype == 'TelescopePrompt' then
+            return false
+          end
+
           if filetype == 'gitcommit' then
             return false
           end

@@ -36,7 +36,7 @@ return {
   ),
   s(
     { trig = '([^%a])mm', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-    fmta('<>$<>$', {
+    fmta('<>$<> $', {
       f(function(_, snip)
         return snip.captures[1]
       end),
@@ -45,7 +45,7 @@ return {
   ),
   s(
     { trig = 'mm', snippetType = 'autosnippet' },
-    fmta('$<>$', {
+    fmta('$<> $', {
       i(0),
     }),
     { condition = line_begin }

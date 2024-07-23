@@ -270,3 +270,10 @@ precomputational
 roundings
 parallelized
 FLDiv
+EQ
+multithreaded
+RandomBit
+decrementing
+decrement
+subcases
+subcase

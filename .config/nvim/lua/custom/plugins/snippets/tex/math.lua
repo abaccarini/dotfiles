@@ -307,10 +307,13 @@ return {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
   -- CROSS PRODUCT, i.e. \times
-  s({ trig = 'le', snippetType = 'autosnippet', wordTrig = false }, {
+  s({ trig = 'gets', snippetType = 'autosnippet', wordTrig = false }, {
+    t '\\gets ',
+  }, { condition = tex.in_mathzone }),
+  s({ trig = 'leq', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\leq ',
   }, { condition = tex.in_mathzone }),
-  s({ trig = 'ge', snippetType = 'autosnippet' ,wordTrig = false}, {
+  s({ trig = 'geq', snippetType = 'autosnippet' ,wordTrig = false}, {
     t '\\geq ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'xx', snippetType = 'autosnippet' }, {
