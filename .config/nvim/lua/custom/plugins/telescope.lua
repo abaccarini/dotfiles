@@ -140,9 +140,9 @@ return {
       -- vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
       -- vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope frecency<CR>', { desc = '[S]earch [F]iles' })
 
-      -- vim.keymap.set('n', '<leader>sw', function()
-      --   builtin.grep_string {  word_match = '-w', only_sort_text = false, search = '' }
-      -- end, { desc = '[/] Fuzzily search in current buffer' })
+      vim.keymap.set('n', '<leader>sw', function()
+        builtin.grep_string {  word_match = '-w', only_sort_text = false, search = '' }
+      end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()

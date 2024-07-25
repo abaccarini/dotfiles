@@ -50,7 +50,6 @@ return {
           \'Missing "publisher"',
           \'Missing "author"',
           \'Missing "address"',
-          \'Unused global option(s):',
           \'(LaTeX Font)',
           \'Package caption Warning',
           \'(Package caption)',
@@ -61,6 +60,9 @@ return {
           \'Class acmart Warning:',
           \'Package fancyhdr Warning:',
           \'No file OMScmtt.fd.',
+          \'balance=false',
+          \'A possible image without description',
+          \'(Class acmart)'
           \]
       ]]
 

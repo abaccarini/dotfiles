@@ -6,7 +6,7 @@ return {
       event = 'BufReadPre',
 
       opts = {
-        dir = vim.fn.expand '$HOME/nvim_sessions',
+        dir = vim.fn.expand '$HOME/nvim_sessions/',
         options = vim.opt.sessionoptions:get(),
       },
 
@@ -63,7 +63,6 @@ return {
       },
       config = {
         header = logo,
-        -- stylua: ignore
 
       -- vim.keymap.set('n', '<leader>sn', function()
       --   builtin.find_files { cwd = vim.fn.stdpath 'config' }

@@ -121,4 +121,7 @@ return {
   s({ trig = ';z', snippetType = 'autosnippet' }, {
     t '\\zeta',
   }, { condition = in_mathzone }),
+  s({ trig = ';N', snippetType = 'autosnippet' }, {
+    t '\\nabla',
+  }, { condition = in_mathzone }),
 }
