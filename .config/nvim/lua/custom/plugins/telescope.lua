@@ -113,7 +113,6 @@ return {
         },
       }
 
-      -- vim.cmd.hi('TelescopePreviewMatch   guibg=' .. colors['red'].. ' guifg=' .. colors['red'])
       -- vim.cmd.hi('TelescopePreviewLine  guibg=none guifg=' .. colors['red'])
       -- vim.cmd.hi('TelescopeMatching  guibg=none guifg=' .. colors['red'])
       -- Enable Telescope extensions if they are installed
@@ -137,7 +136,7 @@ return {
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch in existing [B]uffers' })
       vim.keymap.set('n', '<leader>pl', require('telescope').extensions.project.project, { desc = 'Switch [P]roject' })
       -- vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      -- vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
       -- vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope frecency<CR>', { desc = '[S]earch [F]iles' })
 
       vim.keymap.set('n', '<leader>sw', function()

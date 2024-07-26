@@ -102,9 +102,11 @@ return {
     vim.g.vimtex_syntax_nospell_comments = 1
 
     if vim.loop.os_uname().sysname == 'Darwin' then
-      vim.g.vimtex_view_method = 'skim'
-      vim.g.vimtex_view_skim_sync = 1
-      vim.g.vimtex_view_skim_activate = 1
+      -- vim.g.vimtex_view_method = 'skim'
+      vim.g.vimtex_view_method = 'sioyek'
+      vim.g.vimtex_view_sioyek_exe = '/Applications/sioyek.app/Contents/MacOS/sioyek'
+      -- vim.g.vimtex_view_skim_sync = 1
+      -- vim.g.vimtex_view_skim_activate = 1
     else
       vim.g.vimtex_view_method = 'zathura'
     end
