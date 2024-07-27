@@ -123,4 +123,7 @@ export EDITOR="$VISUAL"
 # precmd () {print -Pn "\e]0;%~\a"}
 
 
+# used to disable history sharing between splits in tmux
+setopt noincappendhistory
+setopt nosharehistory
 

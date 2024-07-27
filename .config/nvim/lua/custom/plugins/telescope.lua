@@ -28,6 +28,8 @@ return {
       local dracula = require 'dracula'
       local colors = dracula.colors()
 
+      vim.cmd.hi('TelescopeResultsMethod  guifg= ' .. colors['bright_magenta'])
+      vim.cmd.hi('TelescopeResultsConstructor  guifg= ' .. colors['bright_blue'])
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'TelescopeResults',
         callback = function(ctx)

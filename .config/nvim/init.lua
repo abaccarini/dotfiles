@@ -207,6 +207,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 -- vim.api.nvim_create_autocmd('BufReadPre', {
+
 vim.api.nvim_create_autocmd('VimLeavePre', {
   -- desc = 'Highlight when yanking (copying) text',
   -- group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -322,6 +323,7 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
+        -- enabled = false,
         opts = {
           progress = {
             suppress_on_insert = true, -- Suppress new messages while in insert mode
@@ -374,7 +376,8 @@ require('lazy').setup({
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('<leader>js', function()
-            require('telescope.builtin').lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
+            -- require('telescope.builtin').lsp_document_smbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
+            require('telescope.builtin').lsp_document_symbols { show_line = true }
           end, 'Jump to symbol')
 
           -- Fuzzy find all the symbols in your current workspace.
@@ -547,6 +550,7 @@ require('lazy').setup({
         filetypes = { 'tex', 'md' },
       }
       require('lspconfig').clangd.setup {
+        vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,
         cmd = { 'clangd', '--background-index', '--clang-tidy' },
