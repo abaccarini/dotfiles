@@ -30,6 +30,7 @@ return {
                 \ 'fg+':     ['fg', 'TestGroup', 'CursorColumn', 'Normal'],
                 \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
                 \ 'hl+':     ['fg', 'Statement'],
+                \ 'gutter':     ['bg', 'Normal'],
                 \ 'info':    ['fg', 'PreProc'],
                 \ 'border':  ['fg', 'Ignore'],
                 \ 'prompt':  ['fg', 'Conditional'],
