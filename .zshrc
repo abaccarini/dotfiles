@@ -107,7 +107,7 @@ alias nvc='cd ~/dotfiles/.config/nvim'
 alias dfl='cd ~/dotfiles' 
 alias est='cd ~/Dropbox/estimators' 
 alias diss='cd ~/Dropbox/dissertation/' 
-alias pc='cd ~/picco' 
+alias pc='cd ~/picco/compute' 
 alias res='cd ~/Dropbox/resume/' 
 alias rg3='./scripts/rigel_login.sh' 
 

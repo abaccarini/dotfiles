@@ -7,7 +7,7 @@ return {
   },
   init = function()
     local osys = require 'cmake-tools.osys'
-    vim.keymap.set('n', '<C-B>', ':CMakeBuild<CR>')
+    vim.keymap.set('n', '<C-B>', '<Cmd>CMakeBuild<CR>')
 
     require('cmake-tools').setup {
       cmake_virtual_text_support = false, -- Show the target related to current file using virtual text (at right corner)
@@ -21,18 +21,19 @@ return {
           --   singleton = true, -- single instance, autocloses the opened one, if present
           -- },
 
-          new_task_opts = {
-            strategy = {
-              'toggleterm',
-              direction = 'horizontal',
-              quit_on_exit = 'never',
-              auto_scroll = true,
-              close_on_exit = false, -- whether close the terminal when exit
-              -- quit_on_exit = 'success',
-            },
-          }, -- options to pass into the `overseer.new_task` command
+          -- new_task_opts = {
+            -- strategy = {
+            --   'toggleterm',
+            --   direction = 'horizontal',
+            --   quit_on_exit = 'never',
+            --   open_on_start = true,
+            --   auto_scroll = true,
+            --   close_on_exit = true, -- whether close the terminal when exit
+            --   -- quit_on_exit = 'success',
+            -- },
+          -- }, -- options to pass into the `overseer.new_task` command
           on_new_task = function(task)
-            require('overseer').open { enter = false, direction = 'right' }
+            require('overseer').open { enter = false, direction = 'bottom' }
           end,
         },
         -- name = 'toggleterm',

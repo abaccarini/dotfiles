@@ -12,7 +12,7 @@ return {
     { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
     { '<leader>bl', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
     { '<leader>bh', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
-    { '<leader>bd', '<Cmd>bd<CR>', desc = 'Delete current buffer' },
+    { '<leader>bd', '<Cmd>BufferLinePickClose<CR>', desc = 'Delete current buffer' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
   },
@@ -20,9 +20,9 @@ return {
   config = function()
     -- vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
     vim.keymap.set('n', '<leader>w', function()
-      vim.cmd'silent only'
+      vim.cmd 'silent only'
       vim.cmd.bd()
-    end, {silent=true, desc = 'Delete Buffer' })
+    end, { silent = true, desc = 'Delete Buffer' })
 
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
@@ -41,7 +41,6 @@ return {
         -- },
         buffer_selected = {
           bold = true,
-          -- italic = false,
           -- sp = colors['red'],
 
           -- fg = colors['orange'],
@@ -97,14 +96,12 @@ return {
           bg = colors['menu'],
           fg = colors['red'],
           bold = true,
-          italic = true,
         },
         pick = {
           bg = colors['menu'],
           fg = colors['red'],
           -- fg = colors['red'],
           bold = true,
-          italic = true,
         },
         diagnostic = {
           bg = colors['menu'],
@@ -259,6 +256,7 @@ return {
             end)
           end,
         }),
+        style_preset = require('bufferline').style_preset.no_italic,
         separator_style = 'slant',
         indicator = {
           icon = '▎',

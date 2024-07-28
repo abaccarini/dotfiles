@@ -2,10 +2,12 @@ return {
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope-frecency.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
+  -- 'nvim-telescope/telescope-frecency.nvim',
         'nvim-telescope/telescope-fzf-native.nvim',
 
         -- `build` is used to run some command when the plugin is installed/updated.
@@ -40,23 +42,6 @@ return {
         end,
       })
 
-      local function filenameFirst(_, path)
-        local tail = vim.fs.basename(path)
-        local parent = vim.fs.dirname(path)
-        if parent == '.' then
-          return tail
-        end
-        return string.format('%s\t\t%s', tail, parent)
-      end
-
-      -- Two important keymaps to use while in Telescope are:
-      --  - Insert mode: <c-/>
-      --  - Normal mode: ?
-      --
-      -- This opens a window that shows you all of the keymaps for the current
-      -- Telescope picker. This is really useful to discover what Telescope can
-      -- do as well as how to actually do it!
-
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -65,6 +50,7 @@ return {
         --
 
         defaults = {
+          -- sorting_strategy = "ascending",
           file_ignore_patterns = { 'add.spl', 'pdf', 'png', 'csv', 'final', 'eps', 'pgf', 'bbl', 'bbx', 'ipe', 'bst', 'bcf', 'snm', 'nav', 'run.xml' },
           -- makes the telescope prompt slightly transparent
           -- winblend = 10,
@@ -79,11 +65,15 @@ return {
           mappings = {
             i = { ['<c-s-n>'] = require('telescope.actions').move_selection_previous },
           },
-          path_display = filenameFirst,
+          path_display = { filename_first = {
+            reverse_directories = false,
+          } },
         },
         pickers = {
           find_files = {
-            path_display = filenameFirst,
+            path_display = { filename_first = {
+              reverse_directories = false,
+            } },
             -- theme = 'ivy',
             -- theme = 'dropdown',
             -- hidden = true,
@@ -107,11 +97,13 @@ return {
             vim.keymap.set('n', '<space>pv', ':Telescope file_browser<CR>'),
           },
           project = {},
-          -- frecency = {
-          --   default_workspace = "CWD",
-          --   db_safe_mode = false,
-          --   path_display = filenameFirst,
-          -- },
+          frecency = {
+            --   default_workspace = "CWD",
+            --   db_safe_mode = false,
+            path_display = { filename_first = {
+              reverse_directories = false,
+            } },
+          },
         },
       }
 
@@ -123,7 +115,7 @@ return {
       pcall(require('telescope').load_extension, 'file_browser')
       pcall(require('telescope').load_extension, 'project')
       -- pcall(require('telescope').load_extension, 'live_grep_args')
-      -- pcall(require('telescope').load_extension, 'frecency')
+      pcall(require('telescope').load_extension, 'frecency')
       -- require'telescope.builtin'.grep_string{ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' }
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -138,11 +130,15 @@ return {
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch in existing [B]uffers' })
       vim.keymap.set('n', '<leader>pl', require('telescope').extensions.project.project, { desc = 'Switch [P]roject' })
       -- vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch [F]iles' })
       -- vim.keymap.set('n', '<leader><leader>', '<cmd>Telescope frecency<CR>', { desc = '[S]earch [F]iles' })
 
+      -- vim.keymap.set('n', '<leader><leader>', function()
+      --   require('telescope').extensions.frecency.frecency { workspace = 'CWD' }
+      -- end)
+
       vim.keymap.set('n', '<leader>sw', function()
-        builtin.grep_string {  word_match = '-w', only_sort_text = false, search = '' }
+        builtin.grep_string { word_match = '-w', only_sort_text = false, search = '' }
       end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- Slightly advanced example of overriding default behavior and theme

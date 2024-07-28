@@ -231,6 +231,9 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
       --   vim.api.nvim_buf_delete(i, {})
       -- end
 
+      if string.find(buf_name, 'term://') then
+        vim.api.nvim_buf_delete(i, {})
+      end
       if string.find(buf_name, '/tmp/nvim.alessandro/') then
         vim.api.nvim_buf_delete(i, {})
       end
@@ -376,7 +379,7 @@ require('lazy').setup({
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('<leader>js', function()
-            -- require('telescope.builtin').lsp_document_smbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
+            -- require('telescope.builtin').lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
             require('telescope.builtin').lsp_document_symbols { show_line = true }
           end, 'Jump to symbol')
 
@@ -571,21 +574,24 @@ require('lazy').setup({
         -- transparent_bg = true, -- default false
         overrides = {
           BufferLineBufferSelected = {
-            -- italic = false,
+            italic = false,
             -- bold = false,
             -- fg = colors['red'],
             -- bg = colors['red'],
           },
           BufferLineIndicatorSelected = {
+          italic = false,
             -- fg = colors['green'],
             -- bg = colors['red'],
           },
           BufferLineSeparator = {
+          italic = false,
             fg = colors['black'],
             -- fg = colors['green'],
             bg = colors['menu'],
           },
           BufferLineFill = {
+          italic = false,
             fg = colors['red'],
             bg = colors['black'],
           },
@@ -641,6 +647,36 @@ require('lazy').setup({
         indent = { enable = true, disable = { 'ruby' } },
 
         textobjects = {
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              [']m'] = '@function.outer',
+              [']]'] = { query = '@class.outer', desc = 'Next class start' },
+              --
+              -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+              [']o'] = '@loop.*',
+              -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+              --
+              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+              [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
+              [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
+            },
+            goto_next_end = {
+              [']M'] = '@function.outer',
+              [']['] = '@class.outer',
+            },
+            goto_previous_start = {
+              ['[m'] = '@function.outer',
+              ['[['] = '@class.outer',
+            },
+            goto_previous_end = {
+              ['[M'] = '@function.outer',
+              ['[]'] = '@class.outer',
+            },
+          },
+
           select = {
             enable = true,
 
