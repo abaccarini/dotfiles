@@ -378,7 +378,7 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>js', function()
+          map('<leader>ds', function()
             -- require('telescope.builtin').lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
             require('telescope.builtin').lsp_document_symbols { show_line = true }
           end, 'Jump to symbol')
@@ -544,7 +544,7 @@ require('lazy').setup({
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = { 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
+            disabledRules = { ['en-US'] = {'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
           },
         },
       }

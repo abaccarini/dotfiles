@@ -62,7 +62,8 @@ return {
           \'No file OMScmtt.fd.',
           \'balance=false',
           \'A possible image without description',
-          \'(Class acmart)'
+          \'(Class acmart)',
+          \'No file TUzi4.fd.'
           \]
       ]]
 

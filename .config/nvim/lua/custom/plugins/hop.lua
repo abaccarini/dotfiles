@@ -1,7 +1,7 @@
 return {
   'smoka7/hop.nvim',
 
-  -- enabled = false,
+  enabled = false,
   dependencies = { 'Mofiqul/dracula.nvim' },
   version = '*',
   opts = {
