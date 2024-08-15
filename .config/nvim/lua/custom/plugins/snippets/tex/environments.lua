@@ -19,6 +19,10 @@ local get_visual = function(args, parent)
 end
 
 return {
+
+  s({ trig = 'ii', snippetType = 'autosnippet',  wordTrig = false  }, {
+    t '\\item',
+  }, {  }),
   s(
     { trig = 'env;', snippetType = 'autosnippet' },
     fmta(
@@ -70,9 +74,7 @@ return {
     fmta(
       [[
         \begin{itemize}
-
             \item <>
-
         \end{itemize}
       ]],
       {
@@ -86,9 +88,7 @@ return {
     fmta(
       [[
         \begin{enumerate}
-
             \item <>
-
         \end{enumerate}
       ]],
       {

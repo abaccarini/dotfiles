@@ -5,13 +5,6 @@ return {
   -- enabled = false,
   -- tag = "v2.15", -- uncomment to pin to a specific release
   init = function()
-    local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'tex' },
-      command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
-      group = my_augroup,
-    })
-
     -- vim.o.conceallevel = 2
     -- vim.g.tex_conceal = ''
     -- vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'

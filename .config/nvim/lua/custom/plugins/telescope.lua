@@ -5,7 +5,7 @@ return {
     -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-  'nvim-telescope/telescope-frecency.nvim',
+  -- 'nvim-telescope/telescope-frecency.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
   -- 'nvim-telescope/telescope-frecency.nvim',
         'nvim-telescope/telescope-fzf-native.nvim',
@@ -97,13 +97,13 @@ return {
             vim.keymap.set('n', '<space>pv', ':Telescope file_browser<CR>'),
           },
           project = {},
-          frecency = {
-            --   default_workspace = "CWD",
-            --   db_safe_mode = false,
-            path_display = { filename_first = {
-              reverse_directories = false,
-            } },
-          },
+          -- frecency = {
+          --   --   default_workspace = "CWD",
+          --   --   db_safe_mode = false,
+          --   path_display = { filename_first = {
+          --     reverse_directories = false,
+          --   } },
+          -- },
         },
       }
 
@@ -115,7 +115,7 @@ return {
       pcall(require('telescope').load_extension, 'file_browser')
       pcall(require('telescope').load_extension, 'project')
       -- pcall(require('telescope').load_extension, 'live_grep_args')
-      pcall(require('telescope').load_extension, 'frecency')
+      -- pcall(require('telescope').load_extension, 'frecency')
       -- require'telescope.builtin'.grep_string{ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' }
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
