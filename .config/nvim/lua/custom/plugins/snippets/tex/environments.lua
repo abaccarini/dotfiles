@@ -24,6 +24,64 @@ return {
     t '\\item',
   }, {  }),
   s(
+    { trig = 'exp;', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{experiment}[label={exp:<>}]{}{}
+          <>
+      \end{experiment}
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    { trig = 'thm;', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{theorem}[label={thm:<>}]{}{}
+          <>
+      \end{theorem}
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    { trig = 'def;', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{definition}[label={def:<>}]{}{}
+          <>
+      \end{definition}
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
+    { trig = 'tcb;', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{<>}[label={<>}]{}{}
+          <>
+      \end{<>}
+    ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        rep(1), -- this node repeats insert node i(1)
+      }
+    )
+  ),
+  s(
     { trig = 'env;', snippetType = 'autosnippet' },
     fmta(
       [[

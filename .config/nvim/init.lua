@@ -1,6 +1,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
+
+
 -- vim.opt.wrap = false
 
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
@@ -18,6 +20,13 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.formatoptions:remove { 'r', 'o' }
   end,
 })
+    local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'tex' , 'markdown'},
+      command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
+      group = my_augroup,
+    })
+
 
 -- enabling cursor blinking
 vim.opt.guicursor = table.concat({
@@ -393,11 +402,11 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
-          map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
+          -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
@@ -541,6 +550,7 @@ require('lazy').setup({
 
       require('lspconfig').ltex.setup {
         capabilities = capabilities,
+        filetypes = { 'tex', 'md' },
         settings = {
           ltex = {
             language = 'en-US',
@@ -549,9 +559,9 @@ require('lazy').setup({
         },
       }
 
-      require('lspconfig').grammarly.setup {
-        filetypes = { 'tex', 'md' },
-      }
+      -- require('lspconfig').grammarly.setup {
+      --   filetypes = { 'tex', 'md' },
+      -- }
       require('lspconfig').clangd.setup {
         vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
@@ -650,31 +660,31 @@ require('lazy').setup({
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = { query = '@class.outer', desc = 'Next class start' },
-              --
-              -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-              [']o'] = '@loop.*',
-              -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-              --
-              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-              [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
-              [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
-            },
+            -- goto_next_start = {
+            --   [']m'] = '@function.outer',
+            --   [']]'] = { query = '@class.outer', desc = 'Next class start' },
+            --   --
+            --   -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+            --   [']o'] = '@loop.*',
+            --   -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+            --   --
+            --   -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+            --   -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+            --   [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
+            --   [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
+            -- },
+            -- goto_next_end = {
+            --   [']M'] = '@function.outer',
+            --   [']['] = '@class.outer',
+            -- },
+            -- goto_previous_start = {
+            --   ['[m'] = '@function.outer',
+            --   ['[['] = '@class.outer',
+            -- },
+            -- goto_previous_end = {
+            --   ['[M'] = '@function.outer',
+            --   ['[]'] = '@class.outer',
+            -- },
           },
 
           select = {

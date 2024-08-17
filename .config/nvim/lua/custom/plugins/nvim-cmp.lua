@@ -77,8 +77,8 @@ return { -- Autocompletion
     require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/custom/plugins/snippets/' }
     require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/custom/plugins/snipmate/' }
     require('luasnip.loaders.from_vscode').lazy_load {
-      exclude = {"tex"}
-    } 
+      exclude = { 'tex' },
+    }
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
@@ -264,7 +264,7 @@ return { -- Autocompletion
       sources = cmp.config.sources {
         { name = 'luasnip' },
         -- { name = "omni" },
-        { name = 'vimtex' },
+        -- { name = 'vimtex' },
         { name = 'buffer' },
         { name = 'path', option = { trailing_slash = true } },
         { name = 'calc' },
