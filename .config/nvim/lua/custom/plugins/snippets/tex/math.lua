@@ -186,6 +186,16 @@ return {
   ),
   -- norm
   s(
+    { trig = '([^%a])Nor', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
+    fmta('<>\\Norm{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
     { trig = '([^%a])nor', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
     fmta('<>\\norm{<>}', {
       f(function(_, snip)
