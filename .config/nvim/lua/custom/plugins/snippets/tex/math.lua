@@ -26,6 +26,12 @@ tex.in_text = function()
 end
 
 return {
+  s(
+    { trig = 'bm', snippetType = 'autosnippet' },
+    fmta('\\bm{<>}', {
+      d(1, get_visual),
+    })
+  ),
   autosnippet({ trig = 'sr', wordTrig = false }, { t '^2' }, {
     condition = tex.in_mathzone,
   }),
@@ -121,7 +127,7 @@ return {
   -- ),
   s(
     { trig = '([^%a])pd', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-    fmta('<>\\prod{<>}', {
+    fmta('<>\\prod_{<>}', {
       f(function(_, snip)
         return snip.captures[1]
       end),
@@ -313,12 +319,17 @@ return {
     t '\\implies ',
   }, { condition = tex.in_mathzone }),
   -- DOT PRODUCT, i.e. \cdot
-  s({ trig = ';.', snippetType = 'autosnippet' }, {
+  s({ trig = ';.', snippetType = 'autosnippet' , wordTrig = false }, {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
-  -- CROSS PRODUCT, i.e. \times
+  s({ trig = 'to', snippetType = 'autosnippet', wordTrig = false }, {
+    t '\\to ',
+  }, { condition = tex.in_mathzone }),
   s({ trig = 'gets', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\gets ',
+  }, { condition = tex.in_mathzone }),
+  s({ trig = 'in', snippetType = 'autosnippet', wordTrig = false }, {
+    t '\\in ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'leq', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\leq ',

@@ -2,8 +2,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 
-
--- vim.opt.wrap = false
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
 
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
@@ -20,13 +21,12 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.formatoptions:remove { 'r', 'o' }
   end,
 })
-    local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'tex' , 'markdown'},
-      command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
-      group = my_augroup,
-    })
-
+local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'tex', 'markdown' },
+  command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
+  group = my_augroup,
+})
 
 -- enabling cursor blinking
 vim.opt.guicursor = table.concat({
@@ -373,7 +373,7 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
-          -- Find references for the word under your cursor.
+          -- -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
@@ -407,7 +407,7 @@ require('lazy').setup({
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
           -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -554,7 +554,7 @@ require('lazy').setup({
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = {'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
+            disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
           },
         },
       }
@@ -590,18 +590,18 @@ require('lazy').setup({
             -- bg = colors['red'],
           },
           BufferLineIndicatorSelected = {
-          italic = false,
+            italic = false,
             -- fg = colors['green'],
             -- bg = colors['red'],
           },
           BufferLineSeparator = {
-          italic = false,
+            italic = false,
             fg = colors['black'],
             -- fg = colors['green'],
             bg = colors['menu'],
           },
           BufferLineFill = {
-          italic = false,
+            italic = false,
             fg = colors['red'],
             bg = colors['black'],
           },

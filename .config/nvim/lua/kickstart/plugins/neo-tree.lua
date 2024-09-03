@@ -11,6 +11,7 @@ return {
     { '<leader>\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
+    sort_case_insensitive = true,
     close_if_last_window = true,
     filesystem = {
       follow_current_file = {
