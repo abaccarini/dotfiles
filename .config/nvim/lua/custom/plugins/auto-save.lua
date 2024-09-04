@@ -1,6 +1,7 @@
 return {
 
   'Pocco81/auto-save.nvim',
+  enabled = false,
   config = function()
     require('auto-save').setup {
       trigger_events = { 'InsertLeave', 'TextChanged' }, -- vim events that trigger auto-save. See :h events

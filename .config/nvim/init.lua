@@ -1,7 +1,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
--- vim.opt.wrap = false
+
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
 
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
@@ -17,6 +20,12 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.opt_local.formatoptions:remove { 'r', 'o' }
   end,
+})
+local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'tex', 'markdown' },
+  command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
+  group = my_augroup,
 })
 
 -- enabling cursor blinking
@@ -364,7 +373,7 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
-          -- Find references for the word under your cursor.
+          -- -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
@@ -393,12 +402,12 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
-          map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -541,17 +550,18 @@ require('lazy').setup({
 
       require('lspconfig').ltex.setup {
         capabilities = capabilities,
+        filetypes = { 'tex', 'md' },
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = {'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
+            disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
           },
         },
       }
 
-      require('lspconfig').grammarly.setup {
-        filetypes = { 'tex', 'md' },
-      }
+      -- require('lspconfig').grammarly.setup {
+      --   filetypes = { 'tex', 'md' },
+      -- }
       require('lspconfig').clangd.setup {
         vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
@@ -580,18 +590,18 @@ require('lazy').setup({
             -- bg = colors['red'],
           },
           BufferLineIndicatorSelected = {
-          italic = false,
+            italic = false,
             -- fg = colors['green'],
             -- bg = colors['red'],
           },
           BufferLineSeparator = {
-          italic = false,
+            italic = false,
             fg = colors['black'],
             -- fg = colors['green'],
             bg = colors['menu'],
           },
           BufferLineFill = {
-          italic = false,
+            italic = false,
             fg = colors['red'],
             bg = colors['black'],
           },
@@ -650,31 +660,31 @@ require('lazy').setup({
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = { query = '@class.outer', desc = 'Next class start' },
-              --
-              -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-              [']o'] = '@loop.*',
-              -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-              --
-              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-              [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
-              [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
-            },
+            -- goto_next_start = {
+            --   [']m'] = '@function.outer',
+            --   [']]'] = { query = '@class.outer', desc = 'Next class start' },
+            --   --
+            --   -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+            --   [']o'] = '@loop.*',
+            --   -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+            --   --
+            --   -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+            --   -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+            --   [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
+            --   [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
+            -- },
+            -- goto_next_end = {
+            --   [']M'] = '@function.outer',
+            --   [']['] = '@class.outer',
+            -- },
+            -- goto_previous_start = {
+            --   ['[m'] = '@function.outer',
+            --   ['[['] = '@class.outer',
+            -- },
+            -- goto_previous_end = {
+            --   ['[M'] = '@function.outer',
+            --   ['[]'] = '@class.outer',
+            -- },
           },
 
           select = {

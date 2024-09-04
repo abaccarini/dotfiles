@@ -1,10 +1,12 @@
 return {
   'lervag/vimtex',
   dependencies = { 'Mofiqul/dracula.nvim' },
-  lazy = false, -- we don't want to lazy load VimTeX
+  -- lazy = false, -- we don't want to lazy load VimTeX
+
+  ft = 'tex',
   -- enabled = false,
   -- tag = "v2.15", -- uncomment to pin to a specific release
-  init = function()
+  config = function()
     -- vim.o.conceallevel = 2
     -- vim.g.tex_conceal = ''
     -- vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'
@@ -87,6 +89,9 @@ return {
     --     \ 'i': [' ]],
     --     \}
     -- ]]
+
+    vim.g.vimtex_indent_enabled = 0
+    vim.g.tex_indent_items = 0
 
     vim.g.vimtex_quickfix_enabled = 1
     vim.g.vimtex_matchparen_enabled = 0
