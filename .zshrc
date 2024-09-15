@@ -95,6 +95,8 @@ unalias ls 2>/dev/null
 unalias la 2>/dev/null
 unalias ll 2>/dev/null
 # ls and ll are functions aliased to use exa by the ls plugin
+alias ls='lsd'
+alias ll='ls -la'
 alias llt='ll --tree'
 alias llti='ll --tree --git-ignore'
 alias lla='ll -a' 

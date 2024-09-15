@@ -1,9 +1,8 @@
 return {
   'akinsho/bufferline.nvim',
+  -- enabled = false,
   version = '*',
   dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim' },
-
-  -- enabled = false,
   event = 'VimEnter',
   keys = {
     { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Jump to buffer' },

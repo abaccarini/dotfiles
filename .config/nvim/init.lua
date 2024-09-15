@@ -85,6 +85,7 @@ vim.opt.breakindentopt = 'list:-1'
 vim.opt.smartindent = true
 
 -- Save undo history
+vim.opt.autoread = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
@@ -307,10 +308,10 @@ require('lazy').setup({
   --    require('gitsigns').setup({ ... })
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {},
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {},
+  -- },
   {
     'rachartier/tiny-devicons-auto-colors.nvim',
     dependencies = {
@@ -566,7 +567,7 @@ require('lazy').setup({
         vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,
-        cmd = { 'clangd', '--background-index', '--clang-tidy' },
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
       }
     end,
   },
@@ -615,6 +616,7 @@ require('lazy').setup({
 
       vim.cmd.hi('TabLineSel  guibg=' .. colors['comment']) -- control the underline for the bufferline tab
       vim.cmd.hi('StatusLine  guibg=' .. colors['selection'])
+      -- vim.cmd.hi('Terminal  guifg=none guibg=none')
       vim.cmd.hi('FloatBorder  guifg= ' .. colors['comment'])
       vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors['selection'])
       vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors['selection'])

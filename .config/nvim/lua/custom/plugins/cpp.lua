@@ -26,6 +26,16 @@ return {
       cmake_virtual_text_support = false, -- Show the target related to current file using virtual text (at right corner)
   -- cmake_soft_link_compile_commands = false, -- this will automatically make a soft link from compile commands file to project root dir
   -- cmake_compile_commands_from_lsp = true, --
+      -- cmake_executor = {
+      --   name = "toggleterm",
+      --   opts = {
+      --     direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+      --   close_on_exit = false, -- whether close the terminal when exit
+      --   auto_scroll = true, -- whether auto scroll to the bottom
+
+      --   }
+
+    -- }
       cmake_executor = {
         name = 'overseer',
         opts = {

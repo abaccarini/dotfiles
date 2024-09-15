@@ -8,11 +8,8 @@ return {
     local colors = dracula.colors()
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
-      {
-        -- fzf_colors = {
-        -- ['fg+'] = { 'fg', { 'Comment', 'Normal' }, 'bold', 'underline' },
-        -- ['fg+'] = { 'fg', { 'Comment', 'Normal' }, 'bold', 'underline' },
-        -- },
+      winopts = {
+        backdrop = 100,
       },
     }
     vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>')
@@ -21,7 +18,7 @@ return {
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', "none" }}
 
     -- vim.api.nvim_set_hl(0, 'CursorColumn', { fg = colors['fg'], bg = colors['menu'] })
-    vim.api.nvim_set_hl(0, 'TestGroup', { bg = 'none' })
+    -- vim.api.nvim_set_hl(0, 'FzfLuaBackdrop', { fg = 'none', bg = 'none' })
     vim.cmd [[
     let g:fzf_colors =
                 \ { 'fg':      ['fg', 'Normal'],
