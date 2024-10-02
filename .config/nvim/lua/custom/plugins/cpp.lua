@@ -19,7 +19,8 @@ return {
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'cpp',
       callback = function(event)
-        vim.keymap.set('n', '<C-B>', '<Cmd>CMakeBuild<CR>')
+        vim.keymap.set('n', '<C-b>', '<Cmd>CMakeBuild<CR>')
+        vim.keymap.set('n', '<C-c>', '<Cmd>CMakeSelectBuildType<CR>')
       end,
     })
     require('cmake-tools').setup {

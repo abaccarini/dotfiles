@@ -8,9 +8,11 @@ return {
     local colors = dracula.colors()
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
+      file_ignore_patterns = { '%.idx$' },
       winopts = {
         backdrop = 100,
       },
+      
     }
     vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>')
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', { 'ErrorMsg' }, 'bold', 'underline' } }

@@ -28,6 +28,15 @@ vim.api.nvim_create_autocmd('FileType', {
   group = my_augroup,
 })
 
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'qf',
+--   callback = function(event)
+--     local opts = { buffer = event.buf, silent = true }
+--     vim.keymap.set('n', '<C-n>', '<cmd>cn | wincmd p<CR>', opts)
+--     vim.keymap.set('n', '<C-S-n>', '<cmd>cN | wincmd p<CR>', opts)
+--   end,
+-- })
+
 -- enabling cursor blinking
 vim.opt.guicursor = table.concat({
   'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
@@ -131,6 +140,8 @@ vim.opt.scrolloff = 10
 -- used to keep visual selection while indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+vim.keymap.set({'n','t'}, '<C-S-N>', '<C-p>')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps

@@ -111,11 +111,17 @@ return {
   ),
   s(
     { trig = 'mm', snippetType = 'autosnippet' },
-    fmta('$<> $', {
-      i(0),
-    }),
-    { condition = line_begin }
+    fmta('$<>$', {
+      d(1, get_visual),
+    })
   ),
+  -- s(
+  --   { trig = 'mm', snippetType = 'autosnippet' },
+  --   fmta('$<> $', {
+  --     i(0),
+  --   }),
+  --   { condition = line_begin }
+  -- ),
   s(
     { trig = 'bal', dscr = 'Align*' },
     fmt( -- The snippet code actually looks like the equation environment it produces.
@@ -138,12 +144,14 @@ return {
         \begin{itemize}
             \item <>
         \end{itemize}
+        <>
       ]],
       {
-        i(0),
+        i(1),
+        i(2),
       }
-    ),
-    { condition = line_begin }
+    )
+    -- { condition = line_begin }
   ),
   s(
     { trig = 'enn', snippetType = 'autosnippet' },
@@ -152,9 +160,11 @@ return {
         \begin{enumerate}
             \item <>
         \end{enumerate}
+      <>
       ]],
       {
-        i(0),
+        i(1),
+        i(2),
       }
     )
   ),

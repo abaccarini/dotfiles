@@ -114,8 +114,10 @@ alias diss='cd ~/Dropbox/dissertation/'
 alias pc='cd ~/picco/compute' 
 alias res='cd ~/Dropbox/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
+alias fb='cd ~/Dropbox/fb_worktest/' 
 alias rg3='./scripts/rigel_login.sh' 
 alias ipev='$HOME/scripts/ipev.sh' 
+alias proj='cd ~/Dropbox/projects' 
 
 fpath=( ~/.zsh_functions "${fpath[@]}" )
 autoload -Uz $fpath[1]/*(.:t)
