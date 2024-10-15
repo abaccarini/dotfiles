@@ -20,11 +20,26 @@ end
 
 return {
 
-  s({ trig = 'ii', snippetType = 'autosnippet',  wordTrig = false  }, {
-    t '\\item ',
-  }, {  }),
   s(
-    { trig = 'exp;', snippetType = 'autosnippet' },
+    { trig = ';ft', wordTrig = false,snippetType = 'autosnippet' },
+    fmta('\\footnote{<>}', {
+      d(1, get_visual),
+    })
+  ),
+  s(
+    { trig = '([^%a])ii', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\item <>', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    })
+  ),
+-- s({ trig = 'ii', snippetType = 'autosnippet',  wordTrig = false  }, {
+  --   t '\\item ',
+  -- }, {  }),
+  s(
+    { trig = ';exp', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{experiment}[label={exp:<>}]{<>}{}
@@ -39,7 +54,7 @@ return {
     )
   ),
   s(
-    { trig = 'thm;', snippetType = 'autosnippet' },
+    { trig = ';thm', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{theorem}[label={thm:<>}]{<>}{}
@@ -54,7 +69,7 @@ return {
     )
   ),
   s(
-    { trig = 'def;', snippetType = 'autosnippet' },
+    { trig = ';def', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{definition}[label={def:<>}]{<>}{}
@@ -69,7 +84,7 @@ return {
     )
   ),
   s(
-    { trig = 'tcb;', snippetType = 'autosnippet' },
+    { trig = ';tcb', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{<>}[label={<>}]{<>}{}
@@ -86,7 +101,7 @@ return {
     )
   ),
   s(
-    { trig = 'env;', snippetType = 'autosnippet' },
+    { trig = ';env', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{<>}
@@ -111,9 +126,11 @@ return {
   ),
   s(
     { trig = 'mm', snippetType = 'autosnippet' },
-    fmta('$<>$', {
-      d(1, get_visual),
-    })
+fmta(
+    [[$<>$]],
+    { i(1) }
+  ), 
+    { condition = line_begin }
   ),
   -- s(
   --   { trig = 'mm', snippetType = 'autosnippet' },

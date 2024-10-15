@@ -37,7 +37,7 @@ return {
     { condition = tex.in_text }
   ),
   s(
-    { trig = 'sc', snippetType = 'autosnippet' },
+    { trig = ';sc', snippetType = 'autosnippet' },
     fmta('\\textsc{<>}', {
       d(1, get_visual),
     })
@@ -54,8 +54,9 @@ return {
       d(1, get_visual),
     })
   ),
+
   s(
-    { trig = 'sf', snippetType = 'autosnippet' },
+    { trig = ';sf', snippetType = 'autosnippet' },
     fmta('\\textsf{<>}', {
       d(1, get_visual),
     })

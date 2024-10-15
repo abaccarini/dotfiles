@@ -51,11 +51,17 @@ return { -- Autocompletion
     'hrsh7th/cmp-path',
     'onsails/lspkind.nvim',
     'hrsh7th/cmp-omni',
-    'f3fora/cmp-spell',
+    {'f3fora/cmp-spell',
+      config = function()
+        -- vim.opt.spell = true
+        -- vim.opt.spelllang:append "en_us"
+      end
+    },
     {
       'micangl/cmp-vimtex',
 
       config = function()
+        -- vim.keymap.set('n', '<leader>S', 'z=')
         -- require('cmp_vimtex').setup {
         --   additional_information = {
         --     info_in_menu = true,
@@ -264,10 +270,11 @@ return { -- Autocompletion
       sources = cmp.config.sources {
         { name = 'luasnip' },
         -- { name = "omni" },
-        -- { name = 'vimtex' },
+        { name = 'vimtex' },
         { name = 'buffer' },
         { name = 'path', option = { trailing_slash = true } },
         { name = 'calc' },
+        { name = 'spell' },
       },
     })
 

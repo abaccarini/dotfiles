@@ -3,7 +3,7 @@ return {
   dependencies = { 'Mofiqul/dracula.nvim' },
   -- lazy = false, -- we don't want to lazy load VimTeX
 
-  ft = 'tex',
+  -- ft = 'tex',
   -- enabled = false,
   -- tag = "v2.15", -- uncomment to pin to a specific release
   config = function()
@@ -107,6 +107,8 @@ return {
       -- vim.g.vimtex_view_skim_sync = 1
       -- vim.g.vimtex_view_skim_activate = 1
     else
+      -- vim.g.vimtex_view_method = 'sioyek'
+      vim.g.vimtex_callback_progpath = '/usr/bin/nvim'
       vim.g.vimtex_view_method = 'zathura'
     end
 
@@ -133,7 +135,5 @@ return {
     vim.cmd.hi('texArgNew   guifg=' .. colors['bright_cyan'])
     -- vim.cmd.hi('texDefParm   guifg=' .. colors['bright_cyan'])
     -- hi! def link Conceal guifg=color ctermfg=color
-    -- vim.g.vimtex_view_general_viewer = 'zathura'
-    -- vim.g.vimtex_view_zathura_options = '-reuse-instance'
   end,
 }

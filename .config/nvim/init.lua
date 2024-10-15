@@ -532,33 +532,33 @@ require('lazy').setup({
         },
       }
 
-      require('lspconfig').texlab.setup {
-        -- on_attach = on_attach,
-        settings = {
-          texlab = {
-            diagnostics = {
-              allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
-              -- ignoredPatterns = {
-              --   'Unused label',
-              --   'Unused entry',
-              --   'Undefined reference',
-              --   'Underfull',
-              --   'Overfull',
-              --   'Missing character',
-              --   '(LaTeX Font)',
-              --   '(Package caption)',
-              --   'Token not allowed in a PDF string',
-              --   'Float too large',
-              --   'No file OMScmtt.fd.',
-              -- },
-            },
-          },
-        },
+      -- require('lspconfig').texlab.setup {
+      --   -- on_attach = on_attach,
+      --   settings = {
+      --     texlab = {
+      --       diagnostics = {
+      --         allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
+      --         -- ignoredPatterns = {
+      --         --   'Unused label',
+      --         --   'Unused entry',
+      --         --   'Undefined reference',
+      --         --   'Underfull',
+      --         --   'Overfull',
+      --         --   'Missing character',
+      --         --   '(LaTeX Font)',
+      --         --   '(Package caption)',
+      --         --   'Token not allowed in a PDF string',
+      --         --   'Float too large',
+      --         --   'No file OMScmtt.fd.',
+      --         -- },
+      --       },
+      --     },
+      --   },
 
         -- diagnostics = {
         --   ignoredPatterns = { 'Unused label' },
         -- },
-      }
+      -- }
 
       require('lspconfig').ltex.setup {
         capabilities = capabilities,

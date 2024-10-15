@@ -26,6 +26,20 @@ tex.in_text = function()
 end
 
 return {
+
+  s(
+    { trig = 'sf', snippetType = 'autosnippet' },
+    fmta('\\textsf{<>}', {
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = 'fk', snippetType = 'autosnippet' },
+    fmta('\\mathfrak{<>}', {
+      d(1, get_visual),
+    })
+  ),
   s(
     { trig = 'bm', snippetType = 'autosnippet' },
     fmta('\\bm{<>}', {
@@ -221,6 +235,14 @@ return {
       d(1, get_visual),
     }),
     { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = 'bin', snippetType = 'autosnippet' },
+    fmta('\\binom{<>}{<>}', {
+      i(1),
+      i(2),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
   s(
     { trig = 'ht', snippetType = 'autosnippet' },
