@@ -19,13 +19,24 @@ return {
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'cpp',
       callback = function(event)
-        vim.keymap.set('n', '<C-B>', '<Cmd>CMakeBuild<CR>')
+        vim.keymap.set({'n','i'}, '<C-b>', '<Cmd>CMakeBuild -j24<CR>')
+        vim.keymap.set('n', '<C-c>', '<Cmd>CMakeSelectBuildType<CR>')
       end,
     })
     require('cmake-tools').setup {
       cmake_virtual_text_support = false, -- Show the target related to current file using virtual text (at right corner)
   -- cmake_soft_link_compile_commands = false, -- this will automatically make a soft link from compile commands file to project root dir
   -- cmake_compile_commands_from_lsp = true, --
+      -- cmake_executor = {
+      --   name = "toggleterm",
+      --   opts = {
+      --     direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+      --   close_on_exit = false, -- whether close the terminal when exit
+      --   auto_scroll = true, -- whether auto scroll to the bottom
+
+      --   }
+
+    -- }
       cmake_executor = {
         name = 'overseer',
         opts = {

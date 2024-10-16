@@ -3,6 +3,9 @@ return { -- Useful plugin to show you pending keybinds.
   'folke/which-key.nvim',
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   config = function() -- This is the function that runs, AFTER loading
+    -- vim.keymap.set('n', '<leader>S', 'z=', {remap = true})
+    -- vim.keymap.set('n', '<leader>Sa', 'zg', {remap = true})
+    -- vim.keymap.set('n', '<leader>su', 'zug', {remap = true})
     require('which-key').setup()
 
     -- Document existing key chains

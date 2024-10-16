@@ -28,6 +28,15 @@ vim.api.nvim_create_autocmd('FileType', {
   group = my_augroup,
 })
 
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'qf',
+--   callback = function(event)
+--     local opts = { buffer = event.buf, silent = true }
+--     vim.keymap.set('n', '<C-n>', '<cmd>cn | wincmd p<CR>', opts)
+--     vim.keymap.set('n', '<C-S-n>', '<cmd>cN | wincmd p<CR>', opts)
+--   end,
+-- })
+
 -- enabling cursor blinking
 vim.opt.guicursor = table.concat({
   'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
@@ -85,6 +94,7 @@ vim.opt.breakindentopt = 'list:-1'
 vim.opt.smartindent = true
 
 -- Save undo history
+vim.opt.autoread = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
@@ -130,6 +140,8 @@ vim.opt.scrolloff = 10
 -- used to keep visual selection while indenting
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+vim.keymap.set({'n','t'}, '<C-S-N>', '<C-p>')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps
@@ -307,10 +319,10 @@ require('lazy').setup({
   --    require('gitsigns').setup({ ... })
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {},
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {},
+  -- },
   {
     'rachartier/tiny-devicons-auto-colors.nvim',
     dependencies = {
@@ -520,33 +532,33 @@ require('lazy').setup({
         },
       }
 
-      require('lspconfig').texlab.setup {
-        -- on_attach = on_attach,
-        settings = {
-          texlab = {
-            diagnostics = {
-              allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
-              -- ignoredPatterns = {
-              --   'Unused label',
-              --   'Unused entry',
-              --   'Undefined reference',
-              --   'Underfull',
-              --   'Overfull',
-              --   'Missing character',
-              --   '(LaTeX Font)',
-              --   '(Package caption)',
-              --   'Token not allowed in a PDF string',
-              --   'Float too large',
-              --   'No file OMScmtt.fd.',
-              -- },
-            },
-          },
-        },
+      -- require('lspconfig').texlab.setup {
+      --   -- on_attach = on_attach,
+      --   settings = {
+      --     texlab = {
+      --       diagnostics = {
+      --         allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
+      --         -- ignoredPatterns = {
+      --         --   'Unused label',
+      --         --   'Unused entry',
+      --         --   'Undefined reference',
+      --         --   'Underfull',
+      --         --   'Overfull',
+      --         --   'Missing character',
+      --         --   '(LaTeX Font)',
+      --         --   '(Package caption)',
+      --         --   'Token not allowed in a PDF string',
+      --         --   'Float too large',
+      --         --   'No file OMScmtt.fd.',
+      --         -- },
+      --       },
+      --     },
+      --   },
 
         -- diagnostics = {
         --   ignoredPatterns = { 'Unused label' },
         -- },
-      }
+      -- }
 
       require('lspconfig').ltex.setup {
         capabilities = capabilities,
@@ -566,7 +578,7 @@ require('lazy').setup({
         vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
         capabilities = capabilities,
-        cmd = { 'clangd', '--background-index', '--clang-tidy' },
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
       }
     end,
   },
@@ -615,6 +627,7 @@ require('lazy').setup({
 
       vim.cmd.hi('TabLineSel  guibg=' .. colors['comment']) -- control the underline for the bufferline tab
       vim.cmd.hi('StatusLine  guibg=' .. colors['selection'])
+      -- vim.cmd.hi('Terminal  guifg=none guibg=none')
       vim.cmd.hi('FloatBorder  guifg= ' .. colors['comment'])
       vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors['selection'])
       vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors['selection'])

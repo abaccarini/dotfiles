@@ -12,9 +12,8 @@ return {
       format = '{kind_icon}{symbol.name:Normal}',
       -- The following line is needed to fix the background color
       -- Set it to the lualine section you want to use
-      -- hl_group = 'Comment',
-      hl_group = 'lualine_c_normal',
-      -- hl_group = 'lualine_b_normal',
+      -- hl_group = 'None',
+      -- hl_group = 'lualine_c_normal',
     }
 
     vim.o.shortmess = vim.o.shortmess .. 'S'
@@ -36,7 +35,7 @@ return {
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = {
           'filename',
-          { symbols.get, cond = symbols.has },
+          -- { symbols.get, cond = symbols.has },
         },
         lualine_x = {
           { 'searchcount', draw_empty = true },

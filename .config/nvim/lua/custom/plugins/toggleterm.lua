@@ -6,11 +6,11 @@ return {
   init = function()
     require('toggleterm').setup {
       shade_terminals = false,
-      highlights = {
-        Normal = {
-          -- guibg = "none",
-        },
-      },
+      -- highlights = {
+      --   Normal = {
+      --     -- guibg = "none",
+      --   },
+      -- },
     }
   end,
 }

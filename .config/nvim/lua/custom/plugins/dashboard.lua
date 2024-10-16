@@ -25,6 +25,7 @@ return {
       -- end,
     },
     {
+  'ibhagwan/fzf-lua',
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope.nvim',
       'nvim-telescope/telescope-project.nvim',
@@ -73,7 +74,7 @@ return {
       -- end, { desc = '[S]earch [N]eovim files' })
         center = {
           { action = "Telescope project",                                        desc = " Open Project",    icon = " ", key = "p" },
-          { action = "Telescope find_files cwd=",                                desc = " Find File",       icon = "󱀶 ", key = "f" },
+          { action = "FzfLua files",                                desc = " Find File",       icon = "󱀶 ", key = "f" },
           { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
           { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
           { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },

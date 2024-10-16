@@ -95,6 +95,8 @@ unalias ls 2>/dev/null
 unalias la 2>/dev/null
 unalias ll 2>/dev/null
 # ls and ll are functions aliased to use exa by the ls plugin
+alias ls='lsd'
+alias ll='ls -la'
 alias llt='ll --tree'
 alias llti='ll --tree --git-ignore'
 alias lla='ll -a' 
@@ -112,8 +114,10 @@ alias diss='cd ~/Dropbox/dissertation/'
 alias pc='cd ~/picco/compute' 
 alias res='cd ~/Dropbox/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
+alias fb='cd ~/Dropbox/fb_worktest/' 
 alias rg3='./scripts/rigel_login.sh' 
 alias ipev='$HOME/scripts/ipev.sh' 
+alias proj='cd ~/Dropbox/projects' 
 
 fpath=( ~/.zsh_functions "${fpath[@]}" )
 autoload -Uz $fpath[1]/*(.:t)
