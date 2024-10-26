@@ -21,6 +21,15 @@ end
 return {
 
   s(
+    { trig = ';co', wordTrig = false,snippetType = 'autosnippet' },
+    fmta('{\\color{<>}<>}', {
+      d(1, get_visual),
+      d(2, get_visual),
+        -- i(1),
+        -- i(2),
+    })
+  ),
+  s(
     { trig = ';ft', wordTrig = false,snippetType = 'autosnippet' },
     fmta('\\footnote{<>}', {
       d(1, get_visual),

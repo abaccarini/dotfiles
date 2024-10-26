@@ -51,11 +51,12 @@ return { -- Autocompletion
     'hrsh7th/cmp-path',
     'onsails/lspkind.nvim',
     'hrsh7th/cmp-omni',
-    {'f3fora/cmp-spell',
+    {
+      'f3fora/cmp-spell',
       config = function()
         -- vim.opt.spell = true
         -- vim.opt.spelllang:append "en_us"
-      end
+      end,
     },
     {
       'micangl/cmp-vimtex',
