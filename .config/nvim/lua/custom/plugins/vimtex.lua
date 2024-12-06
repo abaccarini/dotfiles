@@ -19,24 +19,25 @@ return {
     --   continuous = false,
     -- }
 
-    -- vim.cmd [[
-    --   let g:vimtex_compiler_latexmk = {
-    --               \ 'backend' : 'jobs',
-    --               \ 'background' : 1,
-    --               \ 'build_dir' : '',
-    --               \ 'callback' : 1,
-    --               \ 'continuous' : 1,
-    --               \ 'executable' : 'latexmk',
-    --               \ 'options' : [
-    --               \   '-pdf',
-    --               \   '-bibtex',
-    --               \   '-verbose',
-    --               \   '-file-line-error',
-    --               \   '-synctex=1',
-    --               \   '-interaction=nonstopmode',
-    --               \ ],
-    --               \}
-    --   ]]
+    vim.cmd [[
+      let g:vimtex_compiler_latexmk = {
+                  \ 'backend' : 'jobs',
+                  \ 'background' : 1,
+                  \ 'build_dir' : '',
+                  \ 'callback' : 1,
+                  \ 'continuous' : 1,
+                  \ 'executable' : 'latexmk',
+                  \ 'options' : [
+                  \   '-pdf',
+                  \   '-bibtex',
+          \   '-shell-escape',
+                  \   '-verbose',
+                  \   '-file-line-error',
+                  \   '-synctex=1',
+                  \   '-interaction=nonstopmode',
+                  \ ],
+                  \}
+      ]]
 
     vim.cmd [[
         let g:vimtex_quickfix_ignore_filters = [
@@ -50,6 +51,7 @@ return {
           \'(Package caption)',
           \'(Package fancyhdr)',
           \'Token not allowed in a PDF string',
+          \'contains only floats',
           \'(Package hyperref)  removing',
           \'Float too large',
           \'Class acmart Warning:',

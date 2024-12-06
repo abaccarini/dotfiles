@@ -27,6 +27,11 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
   group = my_augroup,
 })
+vim.cmd [[
+augroup filetypedetect
+  au! BufRead,BufNewFile *.mpc                setfiletype python
+augroup END
+]]
 
 -- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = 'qf',

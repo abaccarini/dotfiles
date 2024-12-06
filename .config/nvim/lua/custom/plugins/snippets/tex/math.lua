@@ -28,6 +28,14 @@ end
 return {
 
   s(
+    { trig = 'pro', snippetType = 'autosnippet' },
+    fmta('\\pro{<>}', {
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+
+  s(
     { trig = 'sf', snippetType = 'autosnippet' },
     fmta('\\textsf{<>}', {
       d(1, get_visual),
@@ -41,11 +49,22 @@ return {
     })
   ),
   s(
-    { trig = 'bm', snippetType = 'autosnippet' },
-    fmta('\\bm{<>}', {
+    { trig = '([^%\\])bm', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\bm{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
       d(1, get_visual),
-    })
+    }),
+    { condition = tex.in_mathzone }
   ),
+
+  -- s(
+  --   { trig = 'bm', snippetType = 'autosnippet' },
+  --   fmta('\\bm{<>}', {
+  --     d(1, get_visual),
+  --   })
+  -- ),
   autosnippet({ trig = 'sr', wordTrig = false }, { t '^2' }, {
     condition = tex.in_mathzone,
   }),
@@ -341,7 +360,7 @@ return {
     t '\\implies ',
   }, { condition = tex.in_mathzone }),
   -- DOT PRODUCT, i.e. \cdot
-  s({ trig = ';.', snippetType = 'autosnippet' , wordTrig = false }, {
+  s({ trig = ';.', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'to', snippetType = 'autosnippet', wordTrig = false }, {
@@ -356,7 +375,7 @@ return {
   s({ trig = 'leq', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\leq ',
   }, { condition = tex.in_mathzone }),
-  s({ trig = 'geq', snippetType = 'autosnippet' ,wordTrig = false}, {
+  s({ trig = 'geq', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\geq ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'xx', snippetType = 'autosnippet' }, {

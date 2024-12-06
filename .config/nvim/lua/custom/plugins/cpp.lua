@@ -1,5 +1,6 @@
 return {
   'Civitasv/cmake-tools.nvim',
+  commit = 'e169948',
   -- lazy = 'VeryLazy',
   ft = 'cpp',
   dependencies = {

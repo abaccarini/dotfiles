@@ -275,7 +275,7 @@ return { -- Autocompletion
         { name = 'buffer' },
         { name = 'path', option = { trailing_slash = true } },
         { name = 'calc' },
-        { name = 'spell' },
+        -- { name = 'spell' },
       },
     })
 
