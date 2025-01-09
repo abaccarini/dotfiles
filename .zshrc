@@ -16,6 +16,8 @@ export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+DISABLE_UPDATE_PROMPT=true
+
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -118,6 +120,7 @@ alias rg3='./scripts/rigel_login.sh'
 alias ipev='$HOME/scripts/ipev.sh' 
 alias proj='cd ~/Dropbox/projects' 
 alias lc='cd ~/Dropbox/leet' 
+alias mpt='cd ~/Dropbox/mpc_talks/pres' 
 
 
 alias bib='nvim ~/Dropbox/bib/refs.bib' 
