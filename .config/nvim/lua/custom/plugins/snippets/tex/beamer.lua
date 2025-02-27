@@ -20,6 +20,20 @@ end
 
 return {
   s(
+    { trig = ';bl', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{block}<<1->>{<>}
+          <>
+      \end{block}
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+  s(
     { trig = ';fr', snippetType = 'autosnippet' },
     fmta(
       [[
@@ -27,6 +41,25 @@ return {
           \frametitle{<>}
           <>
       \end{frame}
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+s(
+    { trig = ';col', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{columns}[t]
+          \begin{column}{.49\linewidth}
+          <>
+          \end{column}
+          \begin{column}{.49\linewidth}
+          <>
+          \end{column}
+      \end{columns}
     ]],
       {
         i(1),

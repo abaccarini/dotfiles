@@ -8,7 +8,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<leader>\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    { '<C-\\>', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
     sort_case_insensitive = true,
@@ -21,7 +21,7 @@ return {
 
       window = {
         mappings = {
-          ['<leader>\\'] = 'close_window',
+          ['<C-\\>'] = 'close_window',
         },
       },
     },

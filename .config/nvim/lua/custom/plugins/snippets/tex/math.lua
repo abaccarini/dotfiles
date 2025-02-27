@@ -369,7 +369,7 @@ return {
   s({ trig = 'gets', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\gets ',
   }, { condition = tex.in_mathzone }),
-  s({ trig = 'in', snippetType = 'autosnippet', wordTrig = false }, {
+  s({ trig = 'inn', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\in ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'leq', snippetType = 'autosnippet', wordTrig = false }, {
@@ -385,4 +385,19 @@ return {
   s({ trig = 'inf', snippetType = 'autosnippet' }, {
     t '\\infty ',
   }, { condition = tex.in_mathzone }),
+  s(
+    { trig = 'cas', snippetType = 'autosnippet' },
+    fmta(
+      [[
+        \begin{cases}
+          <> & <> \\
+        \end{cases}
+      ]],
+      {
+        i(1),
+        i(2),
+      }
+    ),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
 }

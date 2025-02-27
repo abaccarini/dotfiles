@@ -8,13 +8,19 @@ return {
     local colors = dracula.colors()
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
-      file_ignore_patterns = { '%.idx$' },
+      files = {
+        formatter = 'path.filename_first',
+        -- hidden = false,
+        find_opts = [[-type f -not -path '*/\.git/*']],
+        -- fd_opts = [[--color=never --hidden --type f --type l --exclude .git -E (*.pdf|*.idx)]],
+      },
+      -- file_ignore_patterns = { '%.idx$','%.pdf$', '%.bbl-SAVE-ERROR$' },
       winopts = {
         backdrop = 100,
       },
-      
     }
     vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>')
+      vim.keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<CR>', { desc = '[S]earch by [G]rep' })
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', { 'ErrorMsg' }, 'bold', 'underline' } }
     -- vim.g.fzf_colors = { ['fg+'] = { 'fg', { 'Comment' } } }
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', "none" }}

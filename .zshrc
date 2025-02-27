@@ -5,7 +5,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH="/home/alessandro/libraries/vcpkg:$PATH"
-
+ulimit -S -n 65536
 
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 export IPELATEXPATH="/usr/local/texlive/2024/bin/x86_64-linux"
@@ -117,10 +117,12 @@ alias pc='cd ~/picco/compute'
 alias res='cd ~/Dropbox/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
 alias rg3='./scripts/rigel_login.sh' 
-alias ipev='$HOME/scripts/ipev.sh' 
+# alias ipev='$HOME/scripts/ipev.sh' 
+alias ipev='$HOME/scripts/ipevp.sh' 
 alias proj='cd ~/Dropbox/projects' 
 alias lc='cd ~/Dropbox/leet' 
 alias mpt='cd ~/Dropbox/mpc_talks/pres' 
+alias qd='cd ~/Dropbox/private-streaming-statistics/' 
 
 
 alias bib='nvim ~/Dropbox/bib/refs.bib' 

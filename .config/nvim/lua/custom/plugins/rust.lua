@@ -43,4 +43,12 @@ return {
       }
     end,
   },
+  {
+    'cordx56/rustowl',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function()
+      -- require('lspconfig').rustowlsp.setup {
+      -- }
+    end,
+  },
 }

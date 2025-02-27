@@ -10,9 +10,7 @@ vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
-
 vim.opt.iskeyword:remove ':'
--- vim.opt.iskeyword:append(":")
 
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
 vim.api.nvim_create_autocmd('FileType', {
@@ -27,6 +25,15 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
   group = my_augroup,
 })
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'tex', 'markdown' },
+--   callback = function()
+--     vim.opt.iskeyword:append '\\'
+--   end,
+--   group = my_augroup,
+-- })
+
 vim.cmd [[
 augroup filetypedetect
   au! BufRead,BufNewFile *.mpc                setfiletype python
@@ -146,16 +153,24 @@ vim.opt.scrolloff = 10
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
-vim.keymap.set({'n','t'}, '<C-S-N>', '<C-p>')
+vim.keymap.set({ 'n', 't' }, '<C-S-N>', '<C-p>')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps
 vim.keymap.set('c', 'qq', 'qa')
 
+vim.keymap.set('n', '<C-S-J>', ':m .+1<CR>==')
+vim.keymap.set('n', '<C-S-K>', ':m .-2<CR>==')
+
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+-- vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv")
+vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv")
+
+
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
@@ -328,16 +343,16 @@ require('lazy').setup({
   --   'lewis6991/gitsigns.nvim',
   --   opts = {},
   -- },
-  {
-    'rachartier/tiny-devicons-auto-colors.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    event = 'VeryLazy',
-    config = function()
-      require('tiny-devicons-auto-colors').setup()
-    end,
-  },
+  -- {
+  --   'rachartier/tiny-devicons-auto-colors.nvim',
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('tiny-devicons-auto-colors').setup()
+  --   end,
+  -- },
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -486,6 +501,12 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
+        ltex = {
+          filetypes = { 'tex', 'md' },
+
+          language = 'en-US',
+          disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
+        },
         -- gopls = {},
         -- pyright = {},
         black = {},
@@ -537,33 +558,35 @@ require('lazy').setup({
         },
       }
 
-      -- require('lspconfig').texlab.setup {
-      --   -- on_attach = on_attach,
-      --   settings = {
-      --     texlab = {
-      --       diagnostics = {
-      --         allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
-      --         -- ignoredPatterns = {
-      --         --   'Unused label',
-      --         --   'Unused entry',
-      --         --   'Undefined reference',
-      --         --   'Underfull',
-      --         --   'Overfull',
-      --         --   'Missing character',
-      --         --   '(LaTeX Font)',
-      --         --   '(Package caption)',
-      --         --   'Token not allowed in a PDF string',
-      --         --   'Float too large',
-      --         --   'No file OMScmtt.fd.',
-      --         -- },
-      --       },
-      --     },
-      --   },
+      require('lspconfig').texlab.setup {
+        -- on_attach = on_attach,
+        settings = {
+          texlab = {
+            diagnostics = {
+              allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
+              -- ignoredPatterns = {
+              --   'Unused label',
+              --   'Unused entry',
+              --   'Undefined reference',
+              --   'Underfull',
+              --   'Overfull',
+              --   'Missing character',
+              --   '(LaTeX Font)',
+              --   '(Package caption)',
+              --   'Token not allowed in a PDF string',
+              --   'Float too large',
+              --   'No file OMScmtt.fd.',
+              -- },
+            },
+          },
+        },
+      }
 
-        -- diagnostics = {
-        --   ignoredPatterns = { 'Unused label' },
-        -- },
+      -- diagnostics = {
+      --   ignoredPatterns = { 'Unused label' },
+      -- },
       -- }
+      -- require('lspconfig').rustowl.setup {}
 
       require('lspconfig').ltex.setup {
         capabilities = capabilities,
@@ -571,7 +594,7 @@ require('lazy').setup({
         settings = {
           ltex = {
             language = 'en-US',
-            disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US' } },
+            disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
           },
         },
       }
@@ -653,6 +676,7 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    -- enabled=false,
     build = ':TSUpdate',
     -- opts = {
     -- },
