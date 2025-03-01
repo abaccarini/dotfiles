@@ -30,7 +30,7 @@ return {
                   \ 'options' : [
                   \   '-pdf',
                   \   '-bibtex',
-          \   '--shell-escape',
+          \   '-shell-escape',
                   \   '-verbose',
                   \   '-file-line-error',
                   \   '-synctex=1',

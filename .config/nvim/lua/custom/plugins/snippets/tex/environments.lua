@@ -59,6 +59,19 @@ return {
   --   t '\\item ',
   -- }, {  }),
   s(
+    { trig = ';exa', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{experiment}[]{}{}
+          <>
+      \end{experiment}
+    ]],
+      {
+        i(1),
+      }
+    )
+  ),
+  s(
     { trig = ';exp', snippetType = 'autosnippet' },
     fmta(
       [[
@@ -107,7 +120,7 @@ return {
     { trig = ';tcb', snippetType = 'autosnippet' },
     fmta(
       [[
-      \begin{<>}[label={<>}]{<>}{}
+      \begin{<>}[]{<>}{}
           <>
       \end{<>}
     ]],
@@ -115,7 +128,6 @@ return {
         i(1),
         i(2),
         i(3),
-        i(4),
         rep(1), -- this node repeats insert node i(1)
       }
     )
@@ -167,9 +179,7 @@ fmta(
           <>
       \end{align*}
     ]],
-      -- The insert node is placed in the <> angle brackets
       { i(1) },
-      -- This is where I specify that angle brackets are used as node positions.
       { delimiters = '<>' }
     )
   ),
@@ -197,6 +207,22 @@ fmta(
         \begin{enumerate}
             \item <>
         \end{enumerate}
+      <>
+      ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+
+  s(
+    { trig = 'pf', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{proof}
+          <>
+      \end{proof}
       <>
       ]],
       {

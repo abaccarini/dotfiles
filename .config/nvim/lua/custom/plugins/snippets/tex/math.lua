@@ -178,7 +178,34 @@ return {
     }),
     { condition = tex.in_mathzone }
   ),
-  -- SUM with upper and lower limit
+  s({ trig = 'dc', snippetType = 'autosnippet' }, {
+    t '\\dec ',
+  }, { condition = tex.in_mathzone }),
+  s({ trig = 'ec', snippetType = 'autosnippet' }, {
+    t '\\enc ',
+  }, { condition = tex.in_mathzone }),
+  s(
+    { trig = '([^%a])dC', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\decc{<>}{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      i(1, 'k'),
+      i(2, 'c'),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = '([^%a])eC', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\encc{<>}{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      i(1, 'k'),
+      i(2, 'm'),
+    }),
+    { condition = tex.in_mathzone }
+  ),
   s(
     { trig = '([^%a])smm', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
     fmta('<>\\sum_{<>}^{<>}', {
@@ -292,6 +319,13 @@ return {
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
   s(
+    { trig = 'pr', snippetType = 'autosnippet' },
+    fmta('\\pr{<>}', {
+      i(1),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
+  s(
     { trig = 'cl', snippetType = 'autosnippet' },
     fmta('\\mathcal{<>}', {
       i(1),
@@ -365,6 +399,9 @@ return {
   }, { condition = tex.in_mathzone }),
   s({ trig = 'to', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\to ',
+  }, { condition = tex.in_mathzone }),
+  s({ trig = 'gr', snippetType = 'autosnippet', wordTrig = false }, {
+    t '\\gr ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'gets', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\gets ',
