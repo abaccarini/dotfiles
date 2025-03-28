@@ -178,7 +178,7 @@ fmta(
       \begin{align*}
           <>
       \end{align*}
-    ]],
+      ]],
       { i(1) },
       { delimiters = '<>' }
     )
@@ -188,10 +188,10 @@ fmta(
     { trig = 'itt', snippetType = 'autosnippet' },
     fmta(
       [[
-        \begin{itemize}
-            \item <>
-        \end{itemize}
-        <>
+      \begin{itemize}
+          \item <>
+      \end{itemize}
+      <>
       ]],
       {
         i(1),
@@ -204,9 +204,9 @@ fmta(
     { trig = 'enn', snippetType = 'autosnippet' },
     fmta(
       [[
-        \begin{enumerate}
-            \item <>
-        \end{enumerate}
+      \begin{enumerate}
+          \item <>
+      \end{enumerate}
       <>
       ]],
       {

@@ -112,7 +112,8 @@ alias dfl='cd ~/dotfiles'
 alias est='cd ~/Dropbox/estimators' 
 alias cn='cd ~/Dropbox/crypto-notes/' 
 alias diss='cd ~/Dropbox/dissertation/' 
-alias pc='cd ~/picco/compute' 
+alias pcc='cd ~/picco/compute' 
+alias pc='cd ~/Dropbox/practical-crypto/' 
 alias res='cd ~/Dropbox/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
 alias rg3='./scripts/rigel_login.sh' 
@@ -142,3 +143,4 @@ export EDITOR="$VISUAL"
 setopt noincappendhistory
 setopt nosharehistory
 
+. "/home/alessandro/.deno/env"

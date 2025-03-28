@@ -58,6 +58,46 @@ return {
     }),
     { condition = tex.in_mathzone }
   ),
+  s(
+    { trig = '([^%\\])lng', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\lng{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = '([^%\\])lbb', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\lb{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = '([^%\\])lbr', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\lbr{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  s(
+    { trig = '([^%\\])lp', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\lp{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_mathzone }
+  ),
 
   -- s(
   --   { trig = 'bm', snippetType = 'autosnippet' },
@@ -80,34 +120,34 @@ return {
   autosnippet({ trig = 'inv', wordTrig = false }, { t '^{-1}' }, {
     condition = tex.in_mathzone,
   }),
-  s(
-    { trig = 'lbb', snippetType = 'autosnippet' },
-    fmta('\\lb{<>}', {
-      i(1),
-    }),
-    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
-  ),
-  s(
-    { trig = 'lng', snippetType = 'autosnippet' },
-    fmta('\\lng{<>}', {
-      i(1),
-    }),
-    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
-  ),
-  s(
-    { trig = 'lbr', snippetType = 'autosnippet' },
-    fmta('\\lbr{<>}', {
-      i(1),
-    }),
-    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
-  ),
-  s(
-    { trig = 'lp', snippetType = 'autosnippet' },
-    fmta('\\lp{<>}', {
-      i(1),
-    }),
-    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
-  ),
+  -- s(
+  --   { trig = 'lbb', snippetType = 'autosnippet' },
+  --   fmta('\\lb{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
+  -- s(
+  --   { trig = 'lng', snippetType = 'autosnippet' },
+  --   fmta('\\lng{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
+  -- s(
+  --   { trig = 'lbr', snippetType = 'autosnippet' },
+  --   fmta('\\lbr{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
+  -- s(
+  --   { trig = 'lp', snippetType = 'autosnippet' },
+  --   fmta('\\lp{<>}', {
+  --     i(1),
+  --   }),
+  --   { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  -- ),
   s(
     { trig = 'ff', snippetType = 'autosnippet' },
     fmta('\\frac{<>}{<>}', {
@@ -400,7 +440,7 @@ return {
   s({ trig = 'to', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\to ',
   }, { condition = tex.in_mathzone }),
-  s({ trig = 'gr', snippetType = 'autosnippet', wordTrig = false }, {
+  s({ trig = 'gr', snippetType = 'autosnippet' }, {
     t '\\gr ',
   }, { condition = tex.in_mathzone }),
   s({ trig = 'gets', snippetType = 'autosnippet', wordTrig = false }, {
