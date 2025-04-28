@@ -2,6 +2,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 
+-- suppressing deprecation warning (delete in future for debugging)
+vim.deprecate = function() end
+
 -- vim.keymap.del('n', 'grn')
 -- vim.keymap.del('n', 'gra')
 -- vim.keymap.del('n', 'grr')
@@ -451,7 +454,7 @@ require('lazy').setup({
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             -- if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -475,7 +478,7 @@ require('lazy').setup({
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
@@ -501,12 +504,18 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        ltex = {
-          filetypes = { 'tex', 'md' },
+        -- ltex = {
+        --   filetypes = { 'tex', 'md' },
 
-          language = 'en-US',
-          disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
-        },
+        --   language = 'en-US',
+        --   disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
+        -- },
+        -- ltex_plus = {
+        --   filetypes = { 'tex', 'md' },
+
+        --   language = 'en-US',
+        --   disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
+        -- },
         -- gopls = {},
         -- pyright = {},
         black = {},
@@ -588,7 +597,7 @@ require('lazy').setup({
       -- }
       -- require('lspconfig').rustowl.setup {}
 
-      require('lspconfig').ltex.setup {
+      require('lspconfig').ltex_plus.setup {
         capabilities = capabilities,
         filetypes = { 'tex', 'md' },
         settings = {
@@ -598,6 +607,17 @@ require('lazy').setup({
           },
         },
       }
+
+      -- require('lspconfig').ltex.setup {
+      --   capabilities = capabilities,
+      --   filetypes = { 'tex', 'md' },
+      --   settings = {
+      --     ltex = {
+      --       language = 'en-US',
+      --       disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
+      --     },
+      --   },
+      -- }
 
       -- require('lspconfig').grammarly.setup {
       --   filetypes = { 'tex', 'md' },

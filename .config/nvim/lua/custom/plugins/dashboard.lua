@@ -77,7 +77,7 @@ return {
           { action = "FzfLua files",                                desc = " Find File",       icon = "󱀶 ", key = "f" },
           { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
           { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
-          { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },
+          { action = "FzfLua live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },
           { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
           { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
           { action = telescope_fn,                                               desc = " Open Config",     icon = " ", key = "c" },

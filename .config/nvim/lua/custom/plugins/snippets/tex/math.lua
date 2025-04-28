@@ -437,9 +437,18 @@ return {
   s({ trig = ';.', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
-  s({ trig = 'to', snippetType = 'autosnippet', wordTrig = false }, {
-    t '\\to ',
-  }, { condition = tex.in_mathzone }),
+s(
+    { trig = '([^%\\])to', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+    fmta('<>\\to ', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end)
+    }),
+    { condition = tex.in_mathzone }
+  ),
+  -- s({ trig = 'to', snippetType = 'autosnippet' }, {
+  --   t '\\to ',
+  -- }, { condition = tex.in_mathzone }),
   s({ trig = 'gr', snippetType = 'autosnippet' }, {
     t '\\gr ',
   }, { condition = tex.in_mathzone }),
@@ -459,7 +468,7 @@ return {
     t '\\times ',
   }, { condition = tex.in_mathzone }),
   -- infinity
-  s({ trig = 'inf', snippetType = 'autosnippet' }, {
+  s({ trig = 'inff', snippetType = 'autosnippet' }, {
     t '\\infty ',
   }, { condition = tex.in_mathzone }),
   s(
