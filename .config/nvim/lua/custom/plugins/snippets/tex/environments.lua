@@ -59,7 +59,7 @@ return {
   --   t '\\item ',
   -- }, {  }),
   s(
-    { trig = ';exa', snippetType = 'autosnippet' },
+    { trig = ';eexa', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{experiment}[]{}{}
@@ -72,7 +72,7 @@ return {
     )
   ),
   s(
-    { trig = ';exp', snippetType = 'autosnippet' },
+    { trig = ';eexp', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{experiment}[label={exp:<>}]{<>}{}
@@ -90,6 +90,55 @@ return {
     { trig = ';thm', snippetType = 'autosnippet' },
     fmta(
       [[
+      \begin{theorem}{<>}
+        \label{thm:<>}
+          <>
+      \end{theorem}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
+  ),
+  s(
+    { trig = ';def', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{definition}{<>}
+        \label{def:<>}
+          <>
+      \end{definition}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
+  ),
+  s(
+    { trig = ';cor', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{corollary}{<>}
+        \label{cor:<>}
+          <>
+      \end{corollary}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';tthm', snippetType = 'autosnippet' },
+    fmta(
+      [[
       \begin{theorem}[label={thm:<>}]{<>}{}
           <>
       \end{theorem}
@@ -102,7 +151,7 @@ return {
     )
   ),
   s(
-    { trig = ';def', snippetType = 'autosnippet' },
+    { trig = ';ddef', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{definition}[label={def:<>}]{<>}{}
@@ -217,7 +266,7 @@ fmta(
   ),
 
   s(
-    { trig = 'pf', snippetType = 'autosnippet' },
+    { trig = ';pf', snippetType = 'autosnippet' },
     fmta(
       [[
       \begin{proof}

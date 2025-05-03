@@ -43,6 +43,7 @@ return {
         let g:vimtex_quickfix_ignore_filters = [
           \ '\(Ov\|Und\)erfull',
           \'Missing character',
+          \'Label(s) may have changed',
           \'Missing "publisher"',
           \'Missing "author"',
           \'Missing "address"',

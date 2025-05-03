@@ -426,6 +426,9 @@ return {
     t '\\propto ',
   }, { condition = tex.in_mathzone }),
   -- COLON, i.e. \colon
+  s({ trig = 'md', snippetType = 'autosnippet' }, {
+    t '\\mid ',
+  }, { condition = tex.in_mathzone }),
   s({ trig = '::', snippetType = 'autosnippet' }, {
     t '\\colon ',
   }, { condition = tex.in_mathzone }),
