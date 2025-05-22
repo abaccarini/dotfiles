@@ -201,10 +201,6 @@ return { -- Autocompletion
         },
       },
 
-      -- For an understanding of why these mappings were
-      -- chosen, you will need to read `:help ins-completion`
-      --
-      -- No, but seriously. Please read `:help ins-completion`, it is really good!
       mapping = cmp.mapping.preset.insert {
         -- Select the [n]ext item
         ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -289,7 +285,32 @@ return { -- Autocompletion
     -- })
 
     -- cmp.setup.cmdline(':', {
-    --   mapping = cmp.mapping.preset.cmdline(),
+    --   mapping = cmp.mapping.preset.cmdline {
+
+    --     ['<C-n>'] = {
+    --       c = function(fallback)
+    --         -- local cmp = require 'cmp'
+    --         if cmp.visible() then
+    --           cmp.select_next_item()
+    --         else
+    --           fallback()
+    --         end
+    --       end,
+    --     },
+    --     -- Select the [p]revious item
+    --     -- ['<CS-N>'] = cmp.mapping.select_prev_item(),
+
+    --     ['<CS-N>'] = {
+    --       c = function(fallback)
+    --         -- local cmp = require 'cmp'
+    --         if cmp.visible() then
+    --           cmp.select_prev_item()
+    --         else
+    --           fallback()
+    --         end
+    --       end,
+    --     },
+    --   },
     --   sources = cmp.config.sources({
     --     { name = 'path' },
     --   }, {
