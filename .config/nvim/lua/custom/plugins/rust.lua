@@ -27,6 +27,7 @@ return {
       -- vim.g.rustfmt_autosave = 1
     end,
   },
+
   {
     'saecki/crates.nvim',
     ft = { 'toml' },

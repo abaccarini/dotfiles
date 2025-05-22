@@ -27,13 +27,13 @@ end
 
 return {
 
-  s(
-    { trig = 'pro', snippetType = 'autosnippet' },
-    fmta('\\pro{<>}', {
-      d(1, get_visual),
-    }),
-    { condition = tex.in_mathzone }
-  ),
+  -- s(
+  --   { trig = 'pro', wordTrig = false,snippetType = 'autosnippet' },
+  --   fmta('\\pro{<>}', {
+  --     d(1, get_visual),
+  --   }),
+  --   { condition = tex.in_mathzone }
+  -- ),
 
   s(
     { trig = 'sf', snippetType = 'autosnippet' },
@@ -358,8 +358,12 @@ return {
     }),
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
+  s({ trig = 'prt', snippetType = 'autosnippet' }, {
+    t '\\propto ',
+  }, { condition = tex.in_mathzone }),
+
   s(
-    { trig = 'pr', snippetType = 'autosnippet' },
+    { trig = 'prb', wordTrig = false,snippetType = 'autosnippet' },
     fmta('\\pr{<>}', {
       i(1),
     }),

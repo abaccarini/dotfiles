@@ -1,6 +1,6 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
+  event = 'VeryLazy',
   -- enabled = false,
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
@@ -49,6 +49,7 @@ return { -- Autocompletion
     --  into multiple repos for maintenance purposes.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'onsails/lspkind.nvim',
     'hrsh7th/cmp-omni',
     {
@@ -218,6 +219,7 @@ return { -- Autocompletion
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<Tab>'] = cmp.mapping.confirm { select = true },
+        ['<Return>'] = cmp.mapping.confirm { select = true },
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display
@@ -278,6 +280,27 @@ return { -- Autocompletion
         -- { name = 'spell' },
       },
     })
+
+    -- cmp.setup.cmdline('/', {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = {
+    --     { name = 'buffer' }
+    --   }
+    -- })
+
+    -- cmp.setup.cmdline(':', {
+    --   mapping = cmp.mapping.preset.cmdline(),
+    --   sources = cmp.config.sources({
+    --     { name = 'path' },
+    --   }, {
+    --     {
+    --       name = 'cmdline',
+    --       option = {
+    --         ignore_cmds = { 'Man', '!' },
+    --       },
+    --     },
+    --   }),
+    -- })
 
     for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/custom/snippets/*.lua', true)) do
       loadfile(ft_path)()

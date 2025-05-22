@@ -140,7 +140,8 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '→ ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -156,7 +157,7 @@ vim.opt.scrolloff = 10
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
-vim.keymap.set({ 'n', 't' }, '<C-S-N>', '<C-p>')
+vim.keymap.set({ 'n', 't', 'c' }, '<C-S-N>', '<C-p>')
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps
@@ -172,7 +173,6 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 -- vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv")
 vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv")
-
 
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -366,25 +366,8 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'nvim-telescope/telescope.nvim',
 
-      -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      {
-        'j-hui/fidget.nvim',
-        -- enabled = false,
-        opts = {
-          progress = {
-            suppress_on_insert = true, -- Suppress new messages while in insert mode
-            display = {
-              render_limit = 2, -- How many LSP messages to show at once
-              done_ttl = 1, -- How long a message should persist after completion
-            },
-          },
-        },
-      },
-
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -528,11 +511,15 @@ require('lazy').setup({
           -- capabilities = {},
           settings = {
             Lua = {
+              diagnostics = {
+                globals = { 'vim' },
+              },
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+
+              --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              --       -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
@@ -566,6 +553,16 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- require('lspconfig').lua_ls.setup {
+      --   settings = {
+      --     Lua = {
+      --       diagnostics = {
+      --         globals = { 'vim' },
+      --       },
+      --     },
+      --   },
+      -- }
 
       require('lspconfig').texlab.setup {
         -- on_attach = on_attach,
@@ -680,8 +677,8 @@ require('lazy').setup({
       vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors['selection'])
       vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors['selection'])
       vim.cmd.hi('LspReferenceText   guifg=none guibg=' .. colors['selection'])
-      vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
-      vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors['selection'])
+      -- vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
+      -- vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors['selection'])
       vim.cmd.hi('MatchParen gui=none guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
@@ -802,6 +799,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-context',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     event = 'VimEnter',
+    -- enable=false,
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('treesitter-context').setup {
