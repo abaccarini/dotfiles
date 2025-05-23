@@ -3,18 +3,18 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   -- opts = function(_, opts) -- This is the function that runs, AFTER loading
   opts = function() -- This is the function that runs, AFTER loading
-    local trouble = require 'trouble'
-    local symbols = trouble.statusline {
-      mode = 'lsp_document_symbols',
-      groups = {},
-      title = false,
-      filter = { range = true },
-      format = '{kind_icon}{symbol.name:Normal}',
-      -- The following line is needed to fix the background color
-      -- Set it to the lualine section you want to use
-      -- hl_group = 'None',
-      -- hl_group = 'lualine_c_normal',
-    }
+    -- local trouble = require 'trouble'
+    -- local symbols = trouble.statusline {
+    --   mode = 'lsp_document_symbols',
+    --   groups = {},
+    --   title = false,
+    --   filter = { range = true },
+    --   format = '{kind_icon}{symbol.name:Normal}',
+    --   -- The following line is needed to fix the background color
+    --   -- Set it to the lualine section you want to use
+    --   -- hl_group = 'None',
+    --   -- hl_group = 'lualine_c_normal',
+    -- }
 
     vim.o.shortmess = vim.o.shortmess .. 'S'
     require('lualine').setup {

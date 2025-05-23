@@ -16,6 +16,7 @@ export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# alias clangd='clangd-18' 
 DISABLE_UPDATE_PROMPT=true
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -107,6 +108,7 @@ alias q='exit'
 alias qq='exit' 
 alias py='python3' 
 alias !!='sudo $(fc -ln -1)'
+alias hxc='cd ~/dotfiles/.config/helix && hx .' 
 alias nvc='cd ~/dotfiles/.config/nvim && vim' 
 alias dfl='cd ~/dotfiles' 
 alias est='cd ~/Dropbox/func_eval/estimators/' 

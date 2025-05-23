@@ -3,12 +3,13 @@ vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 
 -- suppressing deprecation warning (delete in future for debugging)
+---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
 
 -- vim.keymap.del('n', 'grn')
 -- vim.keymap.del('n', 'gra')
 -- vim.keymap.del('n', 'grr')
---
+
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
 vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
@@ -76,6 +77,8 @@ vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
+vim.api.nvim_create_autocmd("InsertEnter", { command = [[set norelativenumber]] })
+vim.api.nvim_create_autocmd("InsertLeave", { command = [[set relativenumber]] })
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -259,9 +262,9 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
     local bufs = vim.api.nvim_list_bufs()
     -- local current_buf = vim.api.nvim_get_current_buf()
     for _, i in ipairs(bufs) do
-      local filetype = vim.bo[i].filetype
+      -- local filetype = vim.bo[i].filetype
       local buf_name = vim.fn.bufname(i)
-      local buf_type = vim.fn.getwininfo(i)
+      -- local buf_type = vim.fn.getwininfo(i)
       -- print(buf_name)
       -- print(buf_type)
       -- print(filetype)
@@ -364,7 +367,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'nvim-telescope/telescope.nvim',
+      -- 'nvim-telescope/telescope.nvim',
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
@@ -486,7 +489,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        -- clangd = {},
         -- ltex = {
         --   filetypes = { 'tex', 'md' },
 
@@ -499,9 +502,9 @@ require('lazy').setup({
         --   language = 'en-US',
         --   disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
         -- },
-        -- gopls = {},
-        -- pyright = {},
         black = {},
+        pyright = {},
+        texlab = {},
         -- markdown = {},
         -- rust_analyzer = {},
 
@@ -683,6 +686,7 @@ require('lazy').setup({
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
 
+
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticVirtualTextError guibg=' .. colors['menu'])
@@ -813,12 +817,12 @@ require('lazy').setup({
   },
 
   -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.lint',
+  require 'plugins.indent_line',
+  require 'plugins.neo-tree',
+  require 'plugins.autopairs',
+  require 'plugins.lint',
 
-  { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   ui = {
     icons = {

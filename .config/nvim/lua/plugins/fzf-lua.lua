@@ -20,7 +20,7 @@ return {
       },
     }
     vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>')
-      vim.keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<CR>', { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<CR>', { desc = '[S]earch by [G]rep' })
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', { 'ErrorMsg' }, 'bold', 'underline' } }
     -- vim.g.fzf_colors = { ['fg+'] = { 'fg', { 'Comment' } } }
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', "none" }}
@@ -29,13 +29,13 @@ return {
     -- vim.api.nvim_set_hl(0, 'FzfLuaBackdrop', { fg = 'none', bg = 'none' })
     vim.cmd [[
     let g:fzf_colors =
-                \ { 'fg':      ['fg', 'Normal'],
+                \ { 'fg':    ['fg', 'Normal'],
                 \ 'bg':      ['bg', 'Normal'],
                 \ 'hl':      ['fg', 'Comment'],
                 \ 'fg+':     ['fg', 'TestGroup', 'CursorColumn', 'Normal'],
                 \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
                 \ 'hl+':     ['fg', 'Statement'],
-                \ 'gutter':     ['bg', 'Normal'],
+                \ 'gutter':  ['bg', 'Normal'],
                 \ 'info':    ['fg', 'PreProc'],
                 \ 'border':  ['fg', 'Ignore'],
                 \ 'prompt':  ['fg', 'Conditional'],
