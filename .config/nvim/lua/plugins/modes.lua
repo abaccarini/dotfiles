@@ -1,5 +1,7 @@
 return {
   'mvllow/modes.nvim',
+  enabled = false,
+      event = 'BufReadPre',
   config = function()
     require('modes').setup {
       colors = {
@@ -14,7 +16,7 @@ return {
       line_opacity = 0.15,
 
       -- Enable cursor highlights
-      set_cursor = true,
+      -- set_cursor = true,
 
       -- Enable cursorline initially, and disable cursorline for inactive windows
       -- or ignored filetypes

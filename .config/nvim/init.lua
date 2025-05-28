@@ -77,8 +77,8 @@ vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
-vim.api.nvim_create_autocmd("InsertEnter", { command = [[set norelativenumber]] })
-vim.api.nvim_create_autocmd("InsertLeave", { command = [[set relativenumber]] })
+vim.api.nvim_create_autocmd('InsertEnter', { command = [[set norelativenumber]] })
+vim.api.nvim_create_autocmd('InsertLeave', { command = [[set relativenumber]] })
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -150,7 +150,7 @@ vim.opt.listchars = { tab = '→ ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
--- vim.opt.cursorline = true
+vim.opt.cursorline = true
 -- vim.opt.cursorlineopt = 'screenline'
 
 -- Minimal number of screen lines to keep above and below the cursor.
@@ -364,9 +364,10 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      'williamboman/mason.nvim',
+      { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'saghen/blink.cmp',
       -- 'nvim-telescope/telescope.nvim',
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -476,8 +477,9 @@ require('lazy').setup({
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -489,24 +491,58 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- ltex = {
-        --   filetypes = { 'tex', 'md' },
+        clangd = {
+          vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
+          capabilities = capabilities,
+          cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
+        },
 
-        --   language = 'en-US',
-        --   disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
-        -- },
-        -- ltex_plus = {
-        --   filetypes = { 'tex', 'md' },
-
-        --   language = 'en-US',
-        --   disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
-        -- },
         black = {},
         pyright = {},
-        texlab = {},
-        -- markdown = {},
-        -- rust_analyzer = {},
+        shfmt = {},
+
+        ltex_plus = {
+          filetypes = { 'tex', 'md', 'bib' },
+          settings = {
+            ltex = {
+              -- enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context", "html", "xhtml", "mail" },     -- filetypes = { 'tex', 'md' },
+              language = 'en-US',
+              disabledRules = {
+                ['en-US'] = {
+                  'ARROWS',
+                  'A_BIT',
+                  'ON_COMPOUNDS',
+                  'MORFOLOGIK_RULE_EN_US',
+                  'WHITESPACE_RULE',
+                  'CONSECUTIVE_SPACES',
+                  'SENTENCE_WHITESPACE',
+                  'COMMA_PARENTHESIS_WHITESPACE',
+                },
+              },
+            },
+          },
+        },
+
+        texlab = {
+          filetypes = { 'tex', 'plaintex', 'bib' },
+          settings = {
+            texlab = {
+              -- bibtexFormatter = 'bibtex-tidy',
+              diagnostics = {
+                -- allowedPatterns = { 'a^', '$-', '-$' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
+                ignoredPatterns = {
+                  'Overfull',
+                  'Underfull',
+                  'Package hyperref Warning',
+                  'Float too large for page',
+                  'contains only floats',
+                  'Unused entry',
+                },
+              },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -534,8 +570,12 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
-
+      -- require('mason').setup()
+      ---@type MasonLspconfigSettings
+      ---@diagnostic disable-next-line: missing-fields
+      require('mason-lspconfig').setup {
+        automatic_enable = vim.tbl_keys(servers or {}),
+      }
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -543,91 +583,9 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
-
-      -- require('lspconfig').lua_ls.setup {
-      --   settings = {
-      --     Lua = {
-      --       diagnostics = {
-      --         globals = { 'vim' },
-      --       },
-      --     },
-      --   },
-      -- }
-
-      require('lspconfig').texlab.setup {
-        -- on_attach = on_attach,
-        settings = {
-          texlab = {
-            diagnostics = {
-              allowedPatterns = { '$-' }, -- Regex that does not match anything as texlab errors are obnoxious and incorrect for my LaTeX files
-              -- ignoredPatterns = {
-              --   'Unused label',
-              --   'Unused entry',
-              --   'Undefined reference',
-              --   'Underfull',
-              --   'Overfull',
-              --   'Missing character',
-              --   '(LaTeX Font)',
-              --   '(Package caption)',
-              --   'Token not allowed in a PDF string',
-              --   'Float too large',
-              --   'No file OMScmtt.fd.',
-              -- },
-            },
-          },
-        },
-      }
-
-      -- diagnostics = {
-      --   ignoredPatterns = { 'Unused label' },
-      -- },
-      -- }
-      -- require('lspconfig').rustowl.setup {}
-
-      require('lspconfig').ltex_plus.setup {
-        capabilities = capabilities,
-        filetypes = { 'tex', 'md' },
-        settings = {
-          ltex = {
-            language = 'en-US',
-            disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
-          },
-        },
-      }
-
-      -- require('lspconfig').ltex.setup {
-      --   capabilities = capabilities,
-      --   filetypes = { 'tex', 'md' },
-      --   settings = {
-      --     ltex = {
-      --       language = 'en-US',
-      --       disabledRules = { ['en-US'] = { 'ARROWS', 'A_BIT', 'ON_COMPOUNDS', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' } },
-      --     },
-      --   },
-      -- }
-
-      -- require('lspconfig').grammarly.setup {
-      --   filetypes = { 'tex', 'md' },
-      -- }
-      require('lspconfig').clangd.setup {
-        vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
-        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
-        capabilities = capabilities,
-        cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
-      }
+      for server_name, config in pairs(servers) do
+        vim.lsp.config(server_name, config)
+      end
     end,
   },
   { -- You can easily change to a different colorscheme.
@@ -685,7 +643,6 @@ require('lazy').setup({
       vim.cmd.hi('MatchParen gui=none guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
-
 
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])

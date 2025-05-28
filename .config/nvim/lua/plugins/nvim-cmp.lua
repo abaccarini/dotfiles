@@ -82,8 +82,8 @@ return { -- Autocompletion
     },
   },
   config = function()
-    require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/custom/plugins/snippets/' }
-    require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/custom/plugins/snipmate/' }
+    require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/plugins/snippets/' }
+    require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/plugins/snipmate/' }
     require('luasnip.loaders.from_vscode').lazy_load {
       exclude = { 'tex' },
     }
@@ -323,7 +323,7 @@ return { -- Autocompletion
     --   }),
     -- })
 
-    for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/custom/snippets/*.lua', true)) do
+    for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/snippets/*.lua', true)) do
       loadfile(ft_path)()
     end
   end,

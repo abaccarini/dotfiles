@@ -16,11 +16,12 @@ return {
       },
       -- file_ignore_patterns = { '%.idx$','%.pdf$', '%.bbl-SAVE-ERROR$' },
       winopts = {
-        backdrop = 100,
+        backdrop = 85,
       },
     }
-    vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>')
+    vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>', { desc = 'Search Files' })
     vim.keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<CR>', { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>sr', '<cmd>FzfLua resume<CR>', { desc = '[S]earch [R]esume' })
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', { 'ErrorMsg' }, 'bold', 'underline' } }
     -- vim.g.fzf_colors = { ['fg+'] = { 'fg', { 'Comment' } } }
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', "none" }}
