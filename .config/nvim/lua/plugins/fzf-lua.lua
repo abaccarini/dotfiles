@@ -18,10 +18,33 @@ return {
       winopts = {
         backdrop = 85,
       },
+      -- actions = {
+      lsp = {
+        code_actions = {
+          previewer = 'codeaction_native',
+          preview_pager = 'delta --side-by-side --width=$FZF_PREVIEW_COLUMNS --file-style=omit',
+        },
+
+        -- symbols = {
+        --   symbol_icons = icons.symbol_kinds,
+        -- },
+        -- },
+      },
     }
-    vim.keymap.set('n', '<leader><leader>', '<cmd>FzfLua files<CR>', { desc = 'Search Files' })
-    vim.keymap.set('n', '<leader>sg', '<cmd>FzfLua live_grep<CR>', { desc = '[S]earch by [G]rep' })
-    vim.keymap.set('n', '<leader>sr', '<cmd>FzfLua resume<CR>', { desc = '[S]earch [R]esume' })
+
+    local fzf = require 'fzf-lua'
+    fzf.register_ui_select() -- making fzf lua the default selection UI
+    vim.keymap.set('n', '<leader><leader>', fzf.files, { desc = 'Search [f]iles' })
+    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Search [g]rep' })
+    vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Search [r]esume' })
+    vim.keymap.set('n', '<leader>/', fzf.lgrep_curbuf, { desc = 'Fuzzy search in current buffer' })
+    vim.keymap.set('n', '<leader>sb', fzf.buffers, { desc = 'Search [b]uffers' })
+    vim.keymap.set('n', '<leader>sD', fzf.diagnostics_document, { desc = 'Search [D]iagnostics' })
+    vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Search [k]eymaps' })
+    vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search [h]elp' })
+
+    -- vim.keymap.set('n', '<leader>s/', '<cmd>FzfLua live_grep<CR>', { desc = 'Search [/] in Open Files' })
+
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', { 'ErrorMsg' }, 'bold', 'underline' } }
     -- vim.g.fzf_colors = { ['fg+'] = { 'fg', { 'Comment' } } }
     -- vim.g.fzf_colors = { ['bg+'] = { 'bg', "none" }}

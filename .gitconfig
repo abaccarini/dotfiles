@@ -1,0 +1,43 @@
+[user]
+	email = anbaccar@buffalo.edu
+	name = Alessandro Baccarini
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK/TKAMHMr8bAnuclUrJqOQoazSDM5bCBWoiPgcZNeIh
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
+[safe]
+	directory = /home/alessandro/rigel-home/picco
+	directory = /home/alessandro/rigel-home/picco
+[url "git@github.com:"]
+	insteadOf = git://github.com/
+	insteadOf = https://github.com/
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    syntax-theme = Dracula
+    plus-style = syntax "#003800"
+    minus-style = syntax "#3f0001"
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+    line-numbers-left-style = cyan
+    line-numbers-right-style = cyan
+    line-numbers-minus-style = 124
+    line-numbers-plus-style = 28
+
+[merge]
+    conflictstyle = zdiff3

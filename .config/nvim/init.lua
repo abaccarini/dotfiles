@@ -7,9 +7,10 @@ vim.opt.showcmd = false
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
 
--- vim.keymap.del('n', 'grn')
--- vim.keymap.del('n', 'gra')
--- vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
 
 vim.opt.tabstop = 4 -- A TAB character looks like 4 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
@@ -342,25 +343,6 @@ require('lazy').setup({
 
   --
   { 'nvim-tree/nvim-web-devicons', opts = { true } },
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {},
-  -- },
-  -- {
-  --   'rachartier/tiny-devicons-auto-colors.nvim',
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  --   event = 'VeryLazy',
-  --   config = function()
-  --     require('tiny-devicons-auto-colors').setup()
-  --   end,
-  -- },
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -370,7 +352,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'saghen/blink.cmp',
-      -- 'nvim-telescope/telescope.nvim',
+      'ibhagwan/fzf-lua',
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
@@ -392,41 +374,55 @@ require('lazy').setup({
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          local fzf = require 'fzf-lua'
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', fzf.lsp_definitions, '[G]oto [D]efinition')
 
           -- -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', fzf.lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gI', fzf.lsp_implementations, '[G]oto [I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>D', fzf.lsp_typedefs, 'Type [D]efinition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('<leader>ds', function()
-            -- require('telescope.builtin').lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
-            require('telescope.builtin').lsp_document_symbols { show_line = true }
+            -- fzf.lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
+            fzf.lsp_document_symbols { show_line = true }
           end, 'Jump to symbol')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ps', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[P]roject [S]ymbols')
+          map('<leader>ps', fzf.lsp_live_workspace_symbols, '[p]roject [s]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<c-.>', function()
+            fzf.lsp_code_actions {
+              winopts = {
+                -- relative = 'cursor',
+                width = 0.8,
+                height = 0.8,
+                wrap = true,
+                -- row = 1,
+                preview = { layout = 'vertical', vertical = 'up:70%' },
+              },
+            }
+          end, '[C]ode [A]ction')
+          -- map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          -- vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
@@ -437,6 +433,13 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          map('<leader>td', function()
+            vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+          end, '[T]oggle [d]iagnostics')
+
+          -- map('n', '<leader>td', function()
+          --   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+          -- end, { silent = true, noremap = true, desc = '[T]oggle [d]iagnostics' })
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -471,6 +474,8 @@ require('lazy').setup({
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
+            -- enabling inlay hints by default
+            vim.lsp.inlay_hint.enable()
           end
         end,
       })
