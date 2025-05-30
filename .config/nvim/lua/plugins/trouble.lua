@@ -20,12 +20,12 @@ return {
     {
       '<leader>cs',
       '<cmd>Trouble symbols toggle focus=false<cr>',
-      desc = 'Symbols (Trouble)',
+      desc = 'Document symbols',
     },
     {
       '<leader>cl',
       '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
-      desc = 'LSP Definitions / references / ... (Trouble)',
+      desc = 'LSP defs / refs / ...',
     },
     {
       '<leader>xL',

@@ -1,6 +1,6 @@
 return { -- Useful plugin to show you pending keybinds.
-  -- enabled = false,
   'folke/which-key.nvim',
+  -- enabled = false,
   -- dependencies = { {'echasnovski/mini.icons', version = false} },
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   keys = {
@@ -9,7 +9,7 @@ return { -- Useful plugin to show you pending keybinds.
       function()
         require('which-key').show { global = false }
       end,
-      desc = 'Buffer Local Keymaps (which-key)',
+      desc = 'Show local keymaps',
     },
   },
   config = function() -- This is the function that runs, AFTER loading
@@ -18,6 +18,7 @@ return { -- Useful plugin to show you pending keybinds.
     -- vim.keymap.set('n', '<leader>su', 'zug', {remap = true})
     require('which-key').setup {
       preset = 'helix',
+      delay = 50,
       icons = {
         colors = true,
       },

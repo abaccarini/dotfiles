@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 
+vim.opt.showcmd = false
 -- suppressing deprecation warning (delete in future for debugging)
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
@@ -180,15 +181,16 @@ vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv")
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
-if vim.loop.os_uname().sysname == 'Darwin' then
-  vim.keymap.set({ 'n', 'v' }, '<leader>y', [["*y]], { desc = 'Yank pattern into system clipboard' })
-  vim.keymap.set('n', '<leader>Y', [["*Y]], { desc = 'Yank line into system clipboard' })
-  vim.keymap.set('n', '<leader>p', [["*p]], { desc = 'Paste from system clipboard' })
-else
-  vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Yank pattern into global clipboard' })
-  vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Yank line into global clipboard' })
-  vim.keymap.set('n', '<leader>p', [["+p]], { desc = 'Paste from system clipboard' })
-end
+-- dont need these since i'm always using a unified clipboard
+-- if vim.loop.os_uname().sysname == 'Darwin' then
+--   vim.keymap.set({ 'n', 'v' }, '<leader>y', [["*y]], { desc = 'Yank pattern into system clipboard' })
+--   vim.keymap.set('n', '<leader>Y', [["*Y]], { desc = 'Yank line into system clipboard' })
+--   vim.keymap.set('n', '<leader>p', [["*p]], { desc = 'Paste from system clipboard' })
+-- else
+--   vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Yank pattern into global clipboard' })
+--   vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Yank line into global clipboard' })
+--   vim.keymap.set('n', '<leader>p', [["+p]], { desc = 'Paste from system clipboard' })
+-- end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -214,8 +216,8 @@ end)
 vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump { count = 1, float = true }
 end)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Debug: Show [E]rrors' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open [q]uickfix' })
 -- vim.keymap.set('n', '<leader>Q', vim.cmd.cclose)
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -631,18 +633,22 @@ require('lazy').setup({
       -- vim.cmd.hi('NormalFloat  guifg=none guibg=' .. colors['menu'])
       -- vim.cmd.hi 'StatusLine  guibg=none'
 
-      vim.cmd.hi('TabLineSel  guibg=' .. colors['comment']) -- control the underline for the bufferline tab
-      vim.cmd.hi('StatusLine  guibg=' .. colors['selection'])
+      vim.cmd.hi('TabLineSel  guibg=' .. colors.comment) -- control the underline for the bufferline tab
+      vim.cmd.hi('StatusLine  guibg=' .. colors.selection)
       -- vim.cmd.hi('Terminal  guifg=none guibg=none')
-      vim.cmd.hi('FloatBorder  guifg= ' .. colors['comment'])
-      vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors['selection'])
-      vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors['selection'])
-      vim.cmd.hi('LspReferenceText   guifg=none guibg=' .. colors['selection'])
+      vim.cmd.hi('FloatBorder  guifg= ' .. colors.comment)
+      vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors.selection)
+      vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors.selection)
+      vim.cmd.hi('LspReferenceText   guifg=none guibg=' .. colors.selection)
       -- vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
       -- vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors['selection'])
-      vim.cmd.hi('MatchParen gui=none guibg=' .. colors['selection'] .. ' guifg=none')
-      vim.cmd.hi('CurSearch gui=underline guibg=' .. colors['selection'] .. ' guifg=none')
-      vim.cmd.hi('Search guibg=' .. colors['selection'] .. ' guifg=none')
+      vim.cmd.hi('MatchParen gui=none guibg=' .. colors.selection .. ' guifg=none')
+      vim.cmd.hi('CurSearch gui=underline guibg=' .. colors.selection .. ' guifg=none')
+      vim.cmd.hi('Search guibg=' .. colors.selection .. ' guifg=none')
+      -- vim.cmd.hi('WhichKeyBorder  guifg='..colors.red)
+      vim.cmd.hi('WhichKey guifg=' .. colors.bright_blue)
+      vim.cmd.hi('WhichKeyDesc guifg=' .. colors.fg)
+      vim.cmd.hi('WhichKeyGroup guifg=' .. colors.fg)
 
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])

@@ -1,3 +1,29 @@
+local colors = {
+  bg = '#282A36',
+  fg = '#F8F8F2',
+  selection = '#44475A',
+  comment = '#6272A4',
+  red = '#FF5555',
+  orange = '#FFB86C',
+  yellow = '#F1FA8C',
+  green = '#50fa7b',
+  purple = '#BD93F9',
+  cyan = '#8BE9FD',
+  pink = '#FF79C6',
+  bright_red = '#FF6E6E',
+  bright_green = '#69FF94',
+  bright_yellow = '#FFFFA5',
+  bright_blue = '#D6ACFF',
+  bright_magenta = '#FF92DF',
+  bright_cyan = '#A4FFFF',
+  bright_white = '#FFFFFF',
+  menu = '#21222C',
+  visual = '#3E4452',
+  gutter_fg = '#4B5263',
+  nontext = '#3B4048',
+  white = '#ABB2BF',
+  black = '#191A21',
+}
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -16,62 +42,121 @@ return {
     --   -- hl_group = 'lualine_c_normal',
     -- }
 
+    local function mode()
+      -- Map of modes to their respective shorthand indicators
+      local mode_map = {
+        n = 'N', -- Normal mode
+        i = 'I', -- Insert mode
+        v = 'V', -- Visual mode
+        [''] = 'V', -- Visual block mode
+        V = 'V', -- Visual line mode
+        c = 'C', -- Command-line mode
+        no = 'N', -- NInsert mode
+        s = 'S', -- Select mode
+        S = 'S', -- Select line mode
+        ic = 'I', -- Insert mode (completion)
+        R = 'R', -- Replace mode
+        Rv = 'R', -- Virtual Replace mode
+        cv = 'C', -- Command-line mode
+        ce = 'C', -- Ex mode
+        r = 'R', -- Prompt mode
+        rm = 'M', -- More mode
+        ['r?'] = '?', -- Confirm mode
+        ['!'] = '!', -- Shell mode
+        t = 'T', -- Terminal mode
+      }
+      -- Return the mode shorthand or [UNKNOWN] if no match
+      return mode_map[vim.fn.mode()] or '[UNKNOWN]'
+    end
+    local c_drac = require 'lualine.themes.dracula'
+
+    c_drac.normal.c.bg = colors.menu
+    c_drac.insert.c.bg = colors.menu
+    c_drac.visual.c.bg = colors.menu
+    c_drac.replace.c.bg = colors.menu
+    c_drac.command.c.bg = colors.menu
+    c_drac.inactive.c.bg = colors.menu
+
+    c_drac.normal.a.bg = colors.menu
+    c_drac.insert.a.bg = colors.menu
+    c_drac.visual.a.bg = colors.menu
+    c_drac.replace.a.bg = colors.menu
+    c_drac.command.a.bg = colors.menu
+    c_drac.inactive.a.bg = colors.menu
+
+    c_drac.normal.a.fg = colors.purple
+    c_drac.insert.a.fg = colors.green
+    c_drac.visual.a.fg = colors.yellow
+    c_drac.replace.a.fg = colors.red
+    c_drac.command.a.fg = colors.orange
+    c_drac.inactive.a.fg = colors.fg
+    -- c_drac.normal.c.fg = colors['comment']
+    -- c_drac.insert.c.fg = colors['comment']
+    -- c_drac.visual.c.fg = colors['comment']
+    -- c_drac.replace.c.fg = colors['comment']
+    -- c_drac.command.c.fg = colors['comment']
+    -- c_drac.inactive.c.fg = colors['comment']
+
     vim.o.shortmess = vim.o.shortmess .. 'S'
     require('lualine').setup {
       options = {
         icons_enabled = true,
         globalstatus = true,
-        theme = 'auto',
-        -- theme = custom_drac,
+        theme = c_drac,
         component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        refresh = {
+          statusline = 1,
+          tabline = 1,
+          winbar = 1,
+        },
         -- section_separators = { left = '', right = '' },
       },
       --
       sections = {
-        lualine_a = { 'mode' },
+        lualine_a = { mode },
         -- lualine_b = {
         --   { 'windows', use_mode_colors = true },
         -- },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_b = {},
+        -- lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = {
-          'filename',
-          -- { symbols.get, cond = symbols.has },
-        },
-        lualine_x = {
-          { 'searchcount', draw_empty = true },
-        },
-        lualine_y = {
-          -- { 'searchcount', draw_empty = true },
-          { 'filetype' },
-          -- {
-          --   'fileformat',
-          --   symbols = {
-          --     unix = '', -- e712
-          --     dos = '󰨡', -- e70f
-          --     mac = '', -- e711
-          --   },
-          -- },
-          -- 'encoding',
+          -- { 'branch', icon = '', padding = { left = 0 } },
+          { 'branch', icon = '' },
+
+          {
+            'diff',
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            -- padding = { left = 0 },
+          },
+          'diagnostics',
         },
 
-        lualine_z = {
-          -- 'progress',
-          -- 'location',
-          function()
-            local cur = vim.fn.line '.'
-            local total = vim.fn.line '$'
-            local col = vim.fn.virtcol '.' -- return '  ' .. os.date '%R'
-            return string.format('%2d%%%% ☰ %d/%d  %d', math.floor(cur / total * 100), cur, total, col)
-            -- return string.format('☰ %d/%d  %d', cur, total, col)
-          end,
+        lualine_x = {
+          { 'searchcount', draw_empty = true },
+          { 'filetype', padding = { right = 0 }, colored = false, icon = '' },
+          'progress',
+          { 'location', padding = { right = 1 } },
+          --
+          -- function()
+          --   local cur = vim.fn.line '.'
+          --   local total = vim.fn.line '$'
+          --   local col = vim.fn.virtcol '.' -- return '  ' .. os.date '%R'
+          --   -- return string.format('%2d%%%% ☰ %d/%d  %d', math.floor(cur / total * 100), cur, total, col)
+          --   -- return string.format('%d/%d  %d', cur, total, col)
+          --   return string.format('%2d%%%% %d:%d', math.floor(cur / total * 100), cur, col)
+          --   -- return string.format('☰ %d/%d  %d', cur, total, col)
+          -- end,
         },
-        -- lualine_z = {},
+        lualine_y = {},
+        lualine_z = {},
       },
-      inactive_sections = {
-        -- lualine_c = { 'filename' },
-        -- lualine_x = { 'location' },
-      },
-      extenstions = { 'trouble' },
+      -- inactive_sections = {
+      --   -- lualine_c = { 'filename' },
+      --   lualine_y = { 'progress' },
+      --   lualine_z = {  },
+      -- },
+      -- extenstions = { 'trouble' },
     }
   end,
 }
