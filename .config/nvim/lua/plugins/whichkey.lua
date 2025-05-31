@@ -13,14 +13,14 @@ return { -- Useful plugin to show you pending keybinds.
     },
   },
   config = function() -- This is the function that runs, AFTER loading
-    -- vim.keymap.set('n', '<leader>S', 'z=', {remap = true})
-    -- vim.keymap.set('n', '<leader>Sa', 'zg', {remap = true})
-    -- vim.keymap.set('n', '<leader>su', 'zug', {remap = true})
     require('which-key').setup {
       preset = 'helix',
-      delay = 50,
+      delay = 1,
       icons = {
         colors = true,
+      },
+      triggers = {
+        { '<auto>', mode = 'nso' },
       },
       -- keys = {
       --   scroll_up = '<c-k>', -- binding to scroll up inside the popup

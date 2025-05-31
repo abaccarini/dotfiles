@@ -26,7 +26,6 @@ return { -- Autocompletion
         --    See the README about individual language/framework/plugin snippets:
         --    https://github.com/rafamadriz/friendly-snippets
         {
-          'lervag/vimtex',
           'rafamadriz/friendly-snippets',
           config = function()
             -- require('luasnip.loaders.from_vscode').lazy_load()
@@ -152,6 +151,16 @@ return { -- Autocompletion
 
     vim.opt.pumheight = 12
     cmp.setup {
+
+      -- disables completion in comments
+      enabled = function()
+        local disabled = false
+        disabled = disabled or (vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt')
+        disabled = disabled or (vim.fn.reg_recording() ~= '')
+        disabled = disabled or (vim.fn.reg_executing() ~= '')
+        disabled = disabled or require('cmp.config.context').in_treesitter_capture 'comment'
+        return not disabled
+      end,
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)

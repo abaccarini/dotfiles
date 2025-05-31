@@ -21,22 +21,18 @@ return {
       --     end,
       --     nested = true,
       --   })
-        -- require('persistence').setup()
+      -- require('persistence').setup()
       -- end,
     },
     {
-  'ibhagwan/fzf-lua',
-      'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-telescope/telescope-project.nvim',
+      'ibhagwan/fzf-lua',
     },
   },
   event = 'VimEnter',
   opts = function()
-
     local dracula = require 'dracula'
     local colors = dracula.colors()
-    vim.api.nvim_set_hl(0, 'DashboardHeader', {  fg = colors['comment'] })
+    vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors['comment'] })
     vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Open Dashboard' })
     local logo = {
       [[                                                                       ]],
@@ -53,12 +49,11 @@ return {
       [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
       [[                                                                       ]],
       [[                                                                       ]],
-      [[                                                                       ]],
-      [[                                                                       ]],
+      -- [[                                                                       ]],
+      -- [[                                                                       ]],
     }
-    local telescope_fn = function()
-      require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
-    end
+      vim.cmd.hi('IconColor guifg=' .. colors.bright_blue)
+    local icon_color = 'IconColor'
     local opts = {
       theme = 'doom',
       hide = {
@@ -69,24 +64,21 @@ return {
       config = {
         header = logo,
 
-      -- vim.keymap.set('n', '<leader>sn', function()
-      --   builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      -- end, { desc = '[S]earch [N]eovim files' })
         center = {
-          { action = "Telescope project",                                        desc = " Open Project",    icon = " ", key = "p" },
-          { action = "FzfLua files",                                desc = " Find File",       icon = "󱀶 ", key = "f" },
-          { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n" },
-          { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r" },
-          { action = "FzfLua live_grep",                                      desc = " Find Text",       icon = " ", key = "g" },
-          { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-          { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
-          { action = telescope_fn,                                               desc = " Open Config",     icon = " ", key = "c" },
-          { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
+          -- { action = "Telescope project",                                        desc = " Open Project",    icon = " ", key = "p" },
+          { action = 'FzfLua files', desc = ' Find File', icon = ' ', key = 'f', icon_hl = icon_color },
+          { action = 'ene | startinsert', desc = ' New File', icon = ' ', key = 'n' , icon_hl = icon_color},
+          { action = 'FzfLua oldfiles', desc = ' Recent Files', icon = ' ', key = 'r' , icon_hl = icon_color},
+          { action = 'FzfLua live_grep', desc = ' Find Text', icon = ' ', key = 'g' , icon_hl = icon_color},
+          { action = 'lua require("persistence").load()', desc = ' Restore Session', icon = ' ', key = 's' , icon_hl = icon_color},
+          { action = 'Lazy', desc = ' Lazy', icon = '󰒲 ', key = 'l', icon_hl = icon_color },
+          -- { action = telescope_fn,                                               desc = " Open Config",     icon = " ", key = "c" },
+          { action = 'qa', desc = ' Quit', icon = ' ', key = 'q', icon_hl = icon_color },
         },
         footer = function()
           local stats = require('lazy').stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          return { '⚡ Neovim loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms' }
+          return { '⚡ Loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms' }
         end,
       },
     }

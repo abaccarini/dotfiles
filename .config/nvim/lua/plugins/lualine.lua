@@ -86,7 +86,7 @@ return {
 
     c_drac.normal.a.fg = colors.purple
     c_drac.insert.a.fg = colors.green
-    c_drac.visual.a.fg = colors.yellow
+    c_drac.visual.a.fg = colors.cyan
     c_drac.replace.a.fg = colors.red
     c_drac.command.a.fg = colors.orange
     c_drac.inactive.a.fg = colors.fg

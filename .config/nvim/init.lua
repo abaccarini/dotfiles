@@ -56,11 +56,11 @@ augroup END
 -- })
 
 -- enabling cursor blinking
-vim.opt.guicursor = table.concat({
-  'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
-  'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-  'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-}, ',')
+-- vim.opt.guicursor = table.concat({
+--   'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
+--   'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
+--   'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
+-- }, ',')
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
@@ -152,7 +152,7 @@ vim.opt.listchars = { tab = '→ ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 -- vim.opt.cursorlineopt = 'screenline'
 
 -- Minimal number of screen lines to keep above and below the cursor.
@@ -508,6 +508,7 @@ require('lazy').setup({
         black = {},
         pyright = {},
         shfmt = {},
+        codelldb = {},
 
         ltex_plus = {
           filetypes = { 'tex', 'md', 'bib' },
@@ -655,6 +656,36 @@ require('lazy').setup({
       vim.cmd.hi('WhichKeyDesc guifg=' .. colors.fg)
       vim.cmd.hi('WhichKeyGroup guifg=' .. colors.fg)
 
+      -- mode-specific cursor colors
+      vim.cmd.hi('CursorPurp gui=none guifg=' .. colors.purple .. ' guibg=' .. colors.purple)
+      vim.cmd.hi('CursorFg gui=none guifg=' .. colors.fg .. ' guibg=' .. colors.fg)
+      vim.cmd.hi('CursorCyan gui=none guifg=' .. colors.cyan .. ' guibg=' .. colors.cyan)
+      vim.cmd.hi('CursorOrange gui=none guifg=' .. colors.orange .. ' guibg=' .. colors.orange)
+      vim.cmd.hi('CursorRed gui=none guifg=' .. colors.red .. ' guibg=' .. colors.red)
+
+      vim.opt.guicursor = table.concat({
+        'r:hor50-CursorRed/lCursorRed-blinkwait100-blinkon100-blinkoff100',
+        'n:block-CursorPurp/lCursorPurp-blinkwait1000-blinkon100-blinkoff100',
+        'c:block-CursorOrange/lCursorOrange-blinkwait1000-blinkon100-blinkoff100',
+        'ci:ver25-CursorOrange/lCursorOrange-blinkwait1000-blinkon100-blinkoff100',
+        'v:block-CursorCyan/lCursorCyan-blinkwait1000-blinkon100-blinkoff100',
+        'i:ver25-CursorFg/lCursorFg-blinkwait1000-blinkon100-blinkoff100',
+      }, ',')
+
+      -- vim.opt.guicursor = table.concat({
+      --   'n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20,o:hor50',
+      --   'n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50',
+      --   'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
+      --   'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
+      --   'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
+      -- }, ',')
+
+      -- vim.cmd.hi('Cursor gui=none guibg=' .. colors.purple)
+      --   'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50',
+      --   'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor',
+      --   'sm:block-blinkwait175-blinkoff150-blinkon175'
+      -- }, ',')
+
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticVirtualTextError guibg=' .. colors['menu'])
@@ -784,13 +815,13 @@ require('lazy').setup({
     end,
   },
 
-  -- require 'kickstart.plugins.debug',
   require 'plugins.indent_line',
   require 'plugins.neo-tree',
   require 'plugins.autopairs',
   require 'plugins.lint',
 
   { import = 'plugins' },
+  ---@diagnostic disable-next-line: missing-fields
 }, {
   ui = {
     icons = {
