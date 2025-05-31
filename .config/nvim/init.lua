@@ -638,30 +638,44 @@ require('lazy').setup({
 
       -- vim.cmd.hi('NormalFloat  guifg=none guibg=' .. colors['menu'])
       -- vim.cmd.hi 'StatusLine  guibg=none'
+      -- for dashboard
+      vim.cmd.hi('IconColor guifg=' .. colors.purple)
+      vim.cmd.hi('KeyColor guifg=' .. colors.orange)
 
       vim.cmd.hi('TabLineSel  guibg=' .. colors.comment) -- control the underline for the bufferline tab
       vim.cmd.hi('StatusLine  guibg=' .. colors.selection)
-      -- vim.cmd.hi('Terminal  guifg=none guibg=none')
       vim.cmd.hi('FloatBorder  guifg= ' .. colors.comment)
+
       vim.cmd.hi('LspReferenceWrite  guifg=none guibg=' .. colors.selection)
       vim.cmd.hi('LspReferenceRead   guifg=none guibg=' .. colors.selection)
       vim.cmd.hi('LspReferenceText   guifg=none guibg=' .. colors.selection)
-      -- vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
-      -- vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors['selection'])
+
+      -- vim.cmd.hi 'LspReferenceWrite    gui=underline guifg=none guibg=none'
+      -- vim.cmd.hi 'LspReferenceRead  gui=underline guifg=none guibg=none'
+      -- vim.cmd.hi 'LspReferenceText     gui=underline guifg=none guibg=none'
+
+      vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
+      -- vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors[])
+
       vim.cmd.hi('MatchParen gui=none guibg=' .. colors.selection .. ' guifg=none')
       vim.cmd.hi('CurSearch gui=underline guibg=' .. colors.selection .. ' guifg=none')
       vim.cmd.hi('Search guibg=' .. colors.selection .. ' guifg=none')
+
       -- vim.cmd.hi('WhichKeyBorder  guifg='..colors.red)
       vim.cmd.hi('WhichKey guifg=' .. colors.bright_blue)
       vim.cmd.hi('WhichKeyDesc guifg=' .. colors.fg)
       vim.cmd.hi('WhichKeyGroup guifg=' .. colors.fg)
 
       -- mode-specific cursor colors
-      vim.cmd.hi('CursorPurp gui=none guifg=' .. colors.purple .. ' guibg=' .. colors.purple)
+      vim.cmd.hi('CursorPurp  gui=none guifg=' .. colors.purple .. ' guibg=' .. colors.purple)
       vim.cmd.hi('CursorFg gui=none guifg=' .. colors.fg .. ' guibg=' .. colors.fg)
       vim.cmd.hi('CursorCyan gui=none guifg=' .. colors.cyan .. ' guibg=' .. colors.cyan)
       vim.cmd.hi('CursorOrange gui=none guifg=' .. colors.orange .. ' guibg=' .. colors.orange)
       vim.cmd.hi('CursorRed gui=none guifg=' .. colors.red .. ' guibg=' .. colors.red)
+
+      -- vim.opt.guicursor = table.concat({
+      --   'n:block-CursorPurp/lCursorPurp',
+      -- }, ',')
 
       vim.opt.guicursor = table.concat({
         'r:hor50-CursorRed/lCursorRed-blinkwait100-blinkon100-blinkoff100',
@@ -671,20 +685,6 @@ require('lazy').setup({
         'v:block-CursorCyan/lCursorCyan-blinkwait1000-blinkon100-blinkoff100',
         'i:ver25-CursorFg/lCursorFg-blinkwait1000-blinkon100-blinkoff100',
       }, ',')
-
-      -- vim.opt.guicursor = table.concat({
-      --   'n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20,o:hor50',
-      --   'n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50',
-      --   'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
-      --   'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-      --   'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-      -- }, ',')
-
-      -- vim.cmd.hi('Cursor gui=none guibg=' .. colors.purple)
-      --   'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50',
-      --   'a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor',
-      --   'sm:block-blinkwait175-blinkoff150-blinkon175'
-      -- }, ',')
 
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])
       -- vim.cmd.hi('DiagnosticError guibg=' .. colors['menu'])
@@ -722,31 +722,6 @@ require('lazy').setup({
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
-            -- goto_next_start = {
-            --   [']m'] = '@function.outer',
-            --   [']]'] = { query = '@class.outer', desc = 'Next class start' },
-            --   --
-            --   -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-            --   [']o'] = '@loop.*',
-            --   -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            --   --
-            --   -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-            --   -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-            --   [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
-            --   [']z'] = { query = '@fold', query_group = 'folds', desc = 'Next fold' },
-            -- },
-            -- goto_next_end = {
-            --   [']M'] = '@function.outer',
-            --   [']['] = '@class.outer',
-            -- },
-            -- goto_previous_start = {
-            --   ['[m'] = '@function.outer',
-            --   ['[['] = '@class.outer',
-            -- },
-            -- goto_previous_end = {
-            --   ['[M'] = '@function.outer',
-            --   ['[]'] = '@class.outer',
-            -- },
           },
 
           select = {
@@ -793,7 +768,7 @@ require('lazy').setup({
       }
     end,
   },
-  { 'nvim-treesitter/playground' },
+  -- { 'nvim-treesitter/playground' },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },

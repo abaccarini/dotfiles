@@ -1,7 +1,7 @@
 return {
   'stevearc/overseer.nvim',
   opts = {},
-
+  lazy = true,
   dependencies = {
     'Mofiqul/dracula.nvim',
   },
