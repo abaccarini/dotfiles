@@ -18,6 +18,7 @@ vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 vim.opt.iskeyword:remove ':'
 
+
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
