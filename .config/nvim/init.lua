@@ -18,7 +18,6 @@ vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 vim.opt.iskeyword:remove ':'
 
-
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
@@ -500,7 +499,9 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {
-          vim.keymap.set('n', '<A-o>', ':ClangdSwitchSourceHeader<CR>'),
+          -- keys = {
+          --   { '<A-o>', ':LspClangdSwitchSourceHeader<CR>' },
+          -- },
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
           capabilities = capabilities,
           cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
@@ -572,6 +573,7 @@ require('lazy').setup({
           },
         },
       }
+            vim.keymap.set('n', '<A-o>', ':LspClangdSwitchSourceHeader<CR>')
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -583,8 +585,10 @@ require('lazy').setup({
       ---@type MasonLspconfigSettings
       ---@diagnostic disable-next-line: missing-fields
       require('mason-lspconfig').setup {
+
         automatic_enable = vim.tbl_keys(servers or {}),
       }
+
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
