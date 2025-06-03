@@ -573,7 +573,6 @@ require('lazy').setup({
           },
         },
       }
-            vim.keymap.set('n', '<A-o>', ':LspClangdSwitchSourceHeader<CR>')
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -599,6 +598,12 @@ require('lazy').setup({
       for server_name, config in pairs(servers) do
         vim.lsp.config(server_name, config)
       end
+
+      -- vim.api.nvim_create_autocmd({ 'FileType' }, {
+      --   pattern = { 'cpp', 'c', 'hpp', 'h', 'cuda' },
+      --   callback = function()
+      --   end,
+      -- })
     end,
   },
   { -- You can easily change to a different colorscheme.

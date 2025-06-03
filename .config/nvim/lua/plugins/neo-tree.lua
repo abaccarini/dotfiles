@@ -8,7 +8,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<C-\\>', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    { '<C-\\>', ':Neotree reveal<CR>', silent = true, { desc = 'NeoTree reveal' } },
   },
   opts = {
     sort_case_insensitive = true,

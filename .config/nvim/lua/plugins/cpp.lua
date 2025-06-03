@@ -1,7 +1,7 @@
 return {
   'Civitasv/cmake-tools.nvim',
   -- enabled=false,
-  commit = 'e169948',
+  -- commit = 'e169948',
   -- lazy = 'VeryLazy',
   ft = 'cpp',
   dependencies = {
@@ -19,16 +19,17 @@ return {
     --   end
     -- end, {})
     vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'cpp',
+      pattern = { 'cpp', 'c', 'hpp', 'h', 'cuda' },
       callback = function(event)
-        vim.keymap.set({'n','i'}, '<C-b>', '<Cmd>CMakeBuild -j24<CR>')
+        vim.keymap.set('n', '<A-o>', ':LspClangdSwitchSourceHeader<CR>', { silent = true, desc = '[LSP] Switch header/source' })
+        vim.keymap.set({ 'n', 'i' }, '<C-b>', '<Cmd>CMakeBuild -j24<CR>')
         vim.keymap.set('n', '<C-c>', '<Cmd>CMakeSelectBuildType<CR>')
       end,
     })
     require('cmake-tools').setup {
       cmake_virtual_text_support = false, -- Show the target related to current file using virtual text (at right corner)
-  -- cmake_soft_link_compile_commands = false, -- this will automatically make a soft link from compile commands file to project root dir
-  -- cmake_compile_commands_from_lsp = true, --
+      -- cmake_soft_link_compile_commands = false, -- this will automatically make a soft link from compile commands file to project root dir
+      -- cmake_compile_commands_from_lsp = true, --
       -- cmake_executor = {
       --   name = "toggleterm",
       --   opts = {
@@ -38,7 +39,7 @@ return {
 
       --   }
 
-    -- }
+      -- }
       cmake_executor = {
         name = 'overseer',
         opts = {

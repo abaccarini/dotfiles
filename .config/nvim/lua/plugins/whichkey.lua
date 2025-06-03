@@ -15,7 +15,7 @@ return { -- Useful plugin to show you pending keybinds.
   config = function() -- This is the function that runs, AFTER loading
     require('which-key').setup {
       preset = 'helix',
-      delay = 1,
+      delay = 0,
       icons = {
         colors = true,
       },
