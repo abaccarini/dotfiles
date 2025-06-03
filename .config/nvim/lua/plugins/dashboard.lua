@@ -1,34 +1,11 @@
 return {
   'nvimdev/dashboard-nvim',
   dependencies = {
-    {
-      'folke/persistence.nvim',
-      event = 'BufReadPre',
-
-      opts = {
-        dir = vim.fn.expand '$HOME/nvim_sessions/',
-        options = vim.opt.sessionoptions:get(),
-      },
-
-      -- config = function()
-      --   vim.api.nvim_create_autocmd('VimEnter', {
-
-      --     callback = function()
-      --       if vim.fn.getcwd() ~= vim.env.HOME then
-      --         require('persistence').load()
-      --         vim.cmd [[Neotree filesystem show]]
-      --       end
-      --     end,
-      --     nested = true,
-      --   })
-      -- require('persistence').setup()
-      -- end,
-    },
-    {
-      'ibhagwan/fzf-lua',
-    },
+    'folke/persistence.nvim',
+    'ibhagwan/fzf-lua',
   },
   event = 'VimEnter',
+  -- enabled = false,
   opts = function()
     local dracula = require 'dracula'
     local colors = dracula.colors()
@@ -49,8 +26,6 @@ return {
       [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
       [[                                                                       ]],
       [[                                                                       ]],
-      -- [[                                                                       ]],
-      -- [[                                                                       ]],
     }
     local icon_color = 'IconColor'
     local key_color = 'KeyColor'
@@ -65,7 +40,6 @@ return {
         header = logo,
 
         center = {
-          -- { action = "Telescope project",                                        desc = " Open Project",    icon = " ", key = "p" },
           { action = 'FzfLua files', desc = ' Find File', icon = ' ', key = 'f', icon_hl = icon_color, key_hl = key_color },
           { action = 'ene | startinsert', desc = ' New File', icon = ' ', key = 'n', icon_hl = icon_color, key_hl = key_color },
           { action = 'FzfLua oldfiles', desc = ' Recent Files', icon = ' ', key = 'r', icon_hl = icon_color, key_hl = key_color },
@@ -89,15 +63,16 @@ return {
 
     -- close Lazy and re-open when the dashboard is ready
     if vim.o.filetype == 'lazy' then
-      vim.cmd.close()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'DashboardLoaded',
+      vim.api.nvim_create_autocmd('WinClosed', {
+        pattern = tostring(vim.api.nvim_get_current_win()),
+        once = true,
         callback = function()
-          require('lazy').show()
+          vim.schedule(function()
+            vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
+          end)
         end,
       })
     end
-
     return opts
   end,
 }

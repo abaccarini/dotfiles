@@ -209,6 +209,7 @@ return {
             return false
           end
 
+
           if string.find(vim.fs.basename(buf_name), '0') then
             return false
           end
@@ -230,6 +231,12 @@ return {
           if filetype == 'qf' then
             return false
           end
+
+          local state = vim.uv.fs_stat(buf_name)
+          if state and state.type == "directory" then
+            return false
+          end
+
           return true
         end,
 
@@ -271,8 +278,16 @@ return {
         always_show_bufferline = true,
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local icon = level:match 'error' and ' ' or ' '
+          local icon = level:match 'error' and ' ' or (level:match 'warning' and ' ' or ' ')
+          -- local icon = level:match 'error' and ' '
+          -- -- or (level:match 'warning' and ' ')
           return ' ' .. icon .. count
+          -- local s = ' '
+          -- for e, n in pairs(diagnostics_dict) do
+          --   local sym = e == 'error' and ' ' or (e == 'warning' and ' ' or ' ')
+          --   s = s .. sym
+          -- end
+          -- return s
         end,
       },
     }

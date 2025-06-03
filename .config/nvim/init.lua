@@ -39,7 +39,6 @@ vim.api.nvim_create_autocmd('FileType', {
 --   end,
 --   group = my_augroup,
 -- })
-
 vim.cmd [[
 augroup filetypedetect
   au! BufRead,BufNewFile *.mpc                setfiletype python
@@ -202,12 +201,44 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 
+-- local signs = {
+--   Error = ' ',
+--   Warn = ' ',
+--   Hint = ' ',
+--   Info = ' ',
+-- }
+
+-- for type, icon in pairs(signs) do
+--   local hl = 'DiagnosticSign' .. type
+--   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+-- end
 vim.diagnostic.config {
-  virtual_text = false,
+  virtual_text = true,
   float = {
     header = '',
     border = 'rounded',
     focusable = false,
+  },
+
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = ' ',
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = 'WarningMsg',
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      [vim.diagnostic.severity.INFO] = 'Character',
+      [vim.diagnostic.severity.HINT] = 'MoreMsg',
+    },
+    -- numhl = {
+    --   [vim.diagnostic.severity.ERROR] = '',
+    --   [vim.diagnostic.severity.WARN] = '',
+    --   [vim.diagnostic.severity.HINT] = '',
+    --   [vim.diagnostic.severity.INFO] = '',
+    -- },
   },
 }
 
@@ -817,4 +848,21 @@ require('lazy').setup({
   change_detection = {
     notify = false,
   },
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'PersistenceSavePre',
+  callback = function()
+    vim.cmd ':Neotree close'
+  end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
+  callback = function()
+    if vim.fn.getcwd() ~= vim.env.HOME then
+      require('persistence').load()
+    end
+  end,
+  nested = true,
 })

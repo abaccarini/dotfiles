@@ -129,7 +129,7 @@ return {
             symbols = { added = ' ', modified = ' ', removed = ' ' },
             -- padding = { left = 0 },
           },
-          'diagnostics',
+          { 'diagnostics', symbols = { error = ' ', warn = ' ', info = '', hint = ' ' } },
         },
 
         lualine_x = {
