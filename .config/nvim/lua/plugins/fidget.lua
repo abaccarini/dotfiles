@@ -1,6 +1,6 @@
 return {
   'j-hui/fidget.nvim',
-  enabled = false,
+  -- enabled = false,
   opts = {
     progress = {
       suppress_on_insert = true, -- Suppress new messages while in insert mode

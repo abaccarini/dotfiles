@@ -5,14 +5,14 @@ return {
     'ibhagwan/fzf-lua',
   },
   event = 'VimEnter',
-  -- enabled = false,
+  enabled = false,
   opts = function()
     local dracula = require 'dracula'
     local colors = dracula.colors()
     vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors['comment'] })
     vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Open Dashboard' })
     local logo = {
-      [[                                                                       ]],
+      -- [[                                                                       ]],
       [[                                                                       ]],
       [[                                                                       ]],
       [[                                                                       ]],
@@ -61,18 +61,20 @@ return {
       button.key_format = '  %s'
     end
 
-    -- close Lazy and re-open when the dashboard is ready
-    if vim.o.filetype == 'lazy' then
-      vim.api.nvim_create_autocmd('WinClosed', {
-        pattern = tostring(vim.api.nvim_get_current_win()),
-        once = true,
-        callback = function()
-          vim.schedule(function()
-            vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
-          end)
-        end,
-      })
-    end
+    -- -- close Lazy and re-open when the dashboard is ready
+    -- if vim.o.filetype == 'lazy' then
+    --   vim.api.nvim_create_autocmd('WinClosed', {
+    --     pattern = tostring(vim.api.nvim_get_current_win()),
+    --     once = true,
+    --     callback = function()
+    --       vim.schedule(function()
+    --         vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
+    --       end)
+    --     end,
+    --   })
+    -- end
+
     return opts
+    
   end,
 }
