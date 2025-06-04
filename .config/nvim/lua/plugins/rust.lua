@@ -2,26 +2,41 @@ return {
   {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
-    ft = 'rust',
     config = function()
-        vim.g.rustaceanvim = {
-            tools = {
-                float_win_config = {
-                    border = 'rounded'
-                }
-            },
-            -- server = {
-            --     on_attach = require("lvim.lsp").common_on_attach
-            -- },
-        }
+      vim.g.rustaceanvim = {
+        tools = {
+          float_win_config = {
+            border = 'rounded',
+          },
+        },
+      }
+
+      local bufnr = vim.api.nvim_get_current_buf()
+
+      -- vim.keymap.set(
+      --   'n',
+      --   '<c-,>', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+      --   function()
+      --     vim.cmd.RustLsp { 'hover', 'actions' }
+      --   end,
+      --   { silent = true,desc = 'Rust hover'}
+      -- )
+
+      vim.keymap.set('n', 'J', function()
+        vim.cmd.RustLsp 'joinLines'
+      end, { silent = true, buffer = bufnr })
+
+      vim.keymap.set('n', '<Leader>dt', function()
+        vim.cmd.RustLsp 'testables'
+      end, { desc = 'Debugger testables' })
+      -- map("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
     end,
   },
 
   {
     'rust-lang/rust.vim',
     ft = 'rust',
-    config = function()
-    end
+    config = function() end,
   },
 
   {

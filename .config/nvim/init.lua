@@ -469,11 +469,11 @@ require('lazy').setup({
           -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-          -- vim.keymap.set('n', 'K', function()
-          --   vim.lsp.buf.hover {
-          --     border = 'rounded',
-          --   }
-          -- end, { buffer = event.buf })
+          vim.keymap.set('n', 'K', function()
+            vim.lsp.buf.hover {
+              border = 'rounded',
+            }
+          end, { buffer = event.buf })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
