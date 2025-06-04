@@ -8,7 +8,8 @@ return {
   {
     'rust-lang/rust.vim',
     ft = 'rust',
-    opts = {},
+    config = function()
+    end
   },
 
   {

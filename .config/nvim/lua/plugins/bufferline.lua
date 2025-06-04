@@ -240,13 +240,6 @@ return {
           return true
         end,
 
-        -- custom_filter = function(buf_number, _)
-        --   if vim.bo[buf_number].filetype ~= 'qf' or vim.bo[buf_number].buftype ~= 'fugitive' then
-        --     return true
-        --   else
-        --     return false
-        --   end
-        -- end,
         offsets = {
           {
             filetype = 'neo-tree',
