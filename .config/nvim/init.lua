@@ -232,12 +232,12 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.INFO] = '',
       [vim.diagnostic.severity.HINT] = ' ',
     },
-    numhl = {
-      [vim.diagnostic.severity.WARN] = 'WarningMsg',
-      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
-      [vim.diagnostic.severity.INFO] = 'Character',
-      [vim.diagnostic.severity.HINT] = 'MoreMsg',
-    },
+    -- numhl = {
+    --   [vim.diagnostic.severity.WARN] = 'WarningMsg',
+    --   [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+    --   [vim.diagnostic.severity.INFO] = 'Character',
+    --   [vim.diagnostic.severity.HINT] = 'MoreMsg',
+    -- },
   },
 }
 
@@ -468,6 +468,12 @@ require('lazy').setup({
           --  See `:help K` for why this keymap.
           -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
+
+          -- vim.keymap.set('n', 'K', function()
+          --   vim.lsp.buf.hover {
+          --     border = 'rounded',
+          --   }
+          -- end, { buffer = event.buf })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.

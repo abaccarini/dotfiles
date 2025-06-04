@@ -3,6 +3,18 @@ return {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
     ft = 'rust',
+    config = function()
+        vim.g.rustaceanvim = {
+            tools = {
+                float_win_config = {
+                    border = 'rounded'
+                }
+            },
+            -- server = {
+            --     on_attach = require("lvim.lsp").common_on_attach
+            -- },
+        }
+    end,
   },
 
   {
