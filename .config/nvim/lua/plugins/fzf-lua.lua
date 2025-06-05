@@ -2,10 +2,9 @@ return {
 
   'ibhagwan/fzf-lua',
   -- optional for icon support
-  dependencies = { 'nvim-tree/nvim-web-devicons', { 'Mofiqul/dracula.nvim' } },
+  dependencies = { 'nvim-tree/nvim-web-devicons',},
   config = function()
-    local dracula = require 'dracula'
-    local colors = dracula.colors()
+    -- local colors = require '../colors'
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
       files = {

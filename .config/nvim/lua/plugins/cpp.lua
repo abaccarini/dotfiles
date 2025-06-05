@@ -2,7 +2,7 @@ return {
   'Civitasv/cmake-tools.nvim',
   -- enabled=false,
   -- commit = 'e169948',
-  -- lazy = 'VeryLazy',
+  lazy = 'VeryLazy',
   ft = 'cpp',
   dependencies = {
     'nvim-lua/plenary.nvim',

@@ -122,9 +122,7 @@ return { -- Autocompletion
 
     vim.cmd.hi 'BorderBG guibg=#FFB86C guifg=#FF79C6'
 
-    local dracula = require 'dracula'
-    local colors = dracula.colors()
-
+    local colors = require '../colors'
     -- vim.api.nvim_set_hl(0, 'ClineBG', { fg = 'none', bg = colors['comment'] })
 
     -- vim.cmd 'highlight! BorderBG guibg=NONE guifg=#00ff00'

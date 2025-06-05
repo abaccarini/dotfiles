@@ -1,6 +1,6 @@
 return {
   'ggandor/leap.nvim',
-  dependencies = { 'tpope/vim-repeat', 'Mofiqul/dracula.nvim' },
+  dependencies = { 'tpope/vim-repeat' },
   -- enabled = false,
   -- lazy = false,
   -- event = 'VimEnter',
@@ -20,8 +20,8 @@ return {
     --   bold = true,
     --   nocombine = true,
     -- })
-    local colors = require('dracula').colors()
 
+    local colors = require '../colors'
     -- vim.cmd.hi('LeapLabelPrimary  guifg=' .. colors['red']) -- control the underline for the bufferline tab
     -- vim.api.nvim_create_augroup('LeapHighlights', { clear = false })
     -- vim.api.nvim_set_hl(0, 'LeapMatch', {

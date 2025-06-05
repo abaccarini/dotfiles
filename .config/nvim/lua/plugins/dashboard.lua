@@ -6,8 +6,7 @@ return {
   },
   event = 'VimEnter',
   opts = function()
-    local dracula = require 'dracula'
-    local colors = dracula.colors()
+    local colors = require '../colors'
     vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors['comment'] })
     vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Open Dashboard' })
     local logo = {

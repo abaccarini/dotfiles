@@ -25,8 +25,7 @@ return {
 
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
-    local dracula = require 'dracula'
-    local colors = dracula.colors()
+    local colors = require '../colors'
     require('bufferline').setup {
       highlights = {
         -- modified_visible = {

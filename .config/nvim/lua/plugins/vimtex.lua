@@ -1,6 +1,5 @@
 return {
   'lervag/vimtex',
-  dependencies = { 'Mofiqul/dracula.nvim' },
   -- ft = 'tex',
   -- enabled = false,
   -- tag = "v2.15", -- uncomment to pin to a specific release
@@ -26,13 +25,13 @@ return {
                   \ 'continuous' : 1,
                   \ 'executable' : 'latexmk',
                   \ 'options' : [
-                  \   '-pdf',
-                  \   '-bibtex',
-          \   '-shell-escape',
-                  \   '-verbose',
-                  \   '-file-line-error',
-                  \   '-synctex=1',
-                  \   '-interaction=nonstopmode',
+                  \ '-pdf',
+                  \ '-bibtex',
+                  \ '-shell-escape',
+                  \ '-verbose',
+                  \ '-file-line-error',
+                  \ '-synctex=1',
+                  \ '-interaction=nonstopmode',
                   \ ],
                   \}
       ]]
@@ -113,8 +112,7 @@ return {
       vim.g.vimtex_view_method = 'zathura'
     end
 
-    local colors = require('dracula').colors()
-
+    local colors = require '../colors'
     vim.cmd.hi('texCmdMath  guifg=' .. colors['red'])
     vim.cmd.hi('Conceal  guifg=' .. colors['bright_cyan'])
     vim.cmd.hi('texMathDelim  guifg=' .. colors['pink'])
