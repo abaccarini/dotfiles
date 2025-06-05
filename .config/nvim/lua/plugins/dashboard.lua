@@ -38,11 +38,11 @@ return {
         header = logo,
 
         center = {
+          { action = 'lua require("persistence").load()', desc = ' Restore Session', icon = ' ', key = 's', icon_hl = icon_color, key_hl = key_color },
           { action = 'FzfLua files', desc = ' Find File', icon = ' ', key = 'f', icon_hl = icon_color, key_hl = key_color },
           { action = 'ene | startinsert', desc = ' New File', icon = ' ', key = 'n', icon_hl = icon_color, key_hl = key_color },
           { action = 'FzfLua oldfiles', desc = ' Recent Files', icon = ' ', key = 'r', icon_hl = icon_color, key_hl = key_color },
           { action = 'FzfLua live_grep', desc = ' Find Text', icon = ' ', key = 'g', icon_hl = icon_color, key_hl = key_color },
-          { action = 'lua require("persistence").load()', desc = ' Restore Session', icon = ' ', key = 's', icon_hl = icon_color, key_hl = key_color },
           { action = 'Lazy', desc = ' Lazy', icon = '󰒲 ', key = 'l', icon_hl = icon_color, key_hl = key_color },
           { action = 'qa', desc = ' Quit', icon = ' ', key = 'q', icon_hl = icon_color, key_hl = key_color },
         },

@@ -42,39 +42,13 @@ return {
       -- Return the mode shorthand or [UNKNOWN] if no match
       return mode_map[vim.fn.mode()] or '[UNKNOWN]'
     end
-    local c_drac = require 'lualine.themes.dracula'
-    local colors = require '../colors'
-
-    c_drac.normal.c.bg = colors.menu
-    c_drac.insert.c.bg = colors.menu
-    c_drac.visual.c.bg = colors.menu
-    c_drac.replace.c.bg = colors.menu
-    c_drac.command.c.bg = colors.menu
-    c_drac.inactive.c.bg = colors.menu
-
-    c_drac.normal.a.bg = colors.menu
-    c_drac.insert.a.bg = colors.menu
-    c_drac.visual.a.bg = colors.menu
-    c_drac.replace.a.bg = colors.menu
-    c_drac.command.a.bg = colors.menu
-    c_drac.inactive.a.bg = colors.menu
-
-    c_drac.normal.a.fg = colors.purple
-    c_drac.insert.a.fg = colors.green
-    c_drac.visual.a.fg = colors.cyan
-    c_drac.replace.a.fg = colors.red
-    c_drac.command.a.fg = colors.orange
-    c_drac.inactive.a.fg = colors.fg
-    -- c_drac.normal.c.fg = colors['comment']
-    -- c_drac.insert.c.fg = colors['comment']
-    -- c_drac.visual.c.fg = colors['comment']
-    -- c_drac.replace.c.fg = colors['comment']
-    -- c_drac.command.c.fg = colors['comment']
-    -- c_drac.inactive.c.fg = colors['comment']
+    local c_drac = require '../drac_lualine'
+    -- local colors = require '../colors'
 
     vim.o.shortmess = vim.o.shortmess .. 'S'
     require('lualine').setup {
       options = {
+        disabled_filetypes = { 'dashboard' },
         icons_enabled = true,
         globalstatus = true,
         theme = c_drac,

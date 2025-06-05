@@ -80,8 +80,11 @@ vim.opt.spelllang = 'en_us'
 -- vim.opt.spell = true
 -- vim.g.tex_comment_nospell = 1
 
--- vim.opt.pumblend = 30
+-- vim.opt.pumblend = 0
 -- vim.opt.winblend = 0
+-- vim.opt.pumheight = 100 
+
+
 
 -- Make line numbers default
 vim.opt.number = true
@@ -92,8 +95,8 @@ vim.opt.relativenumber = true
 vim.api.nvim_create_autocmd('InsertEnter', {
   callback = function()
     local filetype = vim.bo[0].filetype
-    if filetype ~= 'neo-tree-popup' and filetype ~= 'neo-tree'then
-    -- if not string.find(buf_name, 'neo-tree') then
+    if filetype ~= 'neo-tree-popup' and filetype ~= 'neo-tree' then
+      -- if not string.find(buf_name, 'neo-tree') then
       vim.opt.relativenumber = false
     end
   end,
@@ -318,9 +321,6 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
       if buf_name == '' then
         vim.api.nvim_buf_delete(i, {})
       end
-      -- if buf_name == '/tmp/nvim.alessandro/mwewqH/0' then
-      --   vim.api.nvim_buf_delete(i, {})
-      -- end
 
       if string.find(buf_name, 'term://') then
         vim.api.nvim_buf_delete(i, {})
@@ -459,14 +459,14 @@ require('lazy').setup({
               },
             }
           end, 'Code action')
-          -- map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
-          -- vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           vim.keymap.set('n', 'K', function()
-            vim.lsp.buf.hover {
-              border = 'rounded',
-            }
-          end, { buffer = event.buf })
+            if vim.bo.filetype == 'rust' then
+              vim.cmd.RustLsp { 'hover', 'actions' }
+            else
+              vim.lsp.buf.hover { border = 'rounded' }
+            end
+          end, { buffer = event.buf, silent = true, desc = 'hover info' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -477,7 +477,7 @@ require('lazy').setup({
           end, 'Toggle diagnostics')
 
           map('<leader>dd', function()
-              vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+            vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
             -- vim.diagnostic.enable(not vim.diagnostic.is_enabled())
           end, 'Line diagnostics')
 
@@ -519,7 +519,7 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      -- local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -536,7 +536,7 @@ require('lazy').setup({
           --   { '<A-o>', ':LspClangdSwitchSourceHeader<CR>' },
           -- },
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hpp' },
-          capabilities = capabilities,
+          -- capabilities = capabilities,
           cmd = { 'clangd', '--background-index', '--clang-tidy', '--query-driver=/usr/bin/c++' },
         },
 
@@ -625,7 +625,10 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'bash-language-server',
+        'bibtex-tidy',
+        'markdownlint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
       for server_name, config in pairs(servers) do
@@ -711,14 +714,11 @@ require('lazy').setup({
 
       -- mode-specific cursor colors
       vim.cmd.hi('CursorPurp  gui=none guifg=' .. colors.purple .. ' guibg=' .. colors.purple)
+      vim.cmd.hi('CursorPink  gui=none guifg=' .. colors.pink .. ' guibg=' .. colors.pink)
       vim.cmd.hi('CursorFg gui=none guifg=' .. colors.fg .. ' guibg=' .. colors.fg)
       vim.cmd.hi('CursorCyan gui=none guifg=' .. colors.cyan .. ' guibg=' .. colors.cyan)
       vim.cmd.hi('CursorOrange gui=none guifg=' .. colors.orange .. ' guibg=' .. colors.orange)
       vim.cmd.hi('CursorRed gui=none guifg=' .. colors.red .. ' guibg=' .. colors.red)
-
-      -- vim.opt.guicursor = table.concat({
-      --   'n:block-CursorPurp/lCursorPurp',
-      -- }, ',')
 
       vim.opt.guicursor = table.concat({
         'r:hor50-CursorRed/lCursorRed-blinkwait100-blinkon100-blinkoff100',
@@ -727,6 +727,7 @@ require('lazy').setup({
         'ci:ver25-CursorOrange/lCursorOrange-blinkwait1000-blinkon100-blinkoff100',
         'v:block-CursorCyan/lCursorCyan-blinkwait1000-blinkon100-blinkoff100',
         'i:ver25-CursorFg/lCursorFg-blinkwait1000-blinkon100-blinkoff100',
+        't:block-CursorPink/lCursorPink-blinkwait1000-blinkon100-blinkoff100',
       }, ',')
 
       -- vim.cmd.hi('DiagnosticFloatingError guibg=' .. colors['menu'])

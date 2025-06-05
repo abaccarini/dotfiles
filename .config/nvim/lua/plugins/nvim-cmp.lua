@@ -1,7 +1,7 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   event = 'VeryLazy',
-  -- enabled = false,
+  enabled = false,
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     {
@@ -140,7 +140,6 @@ return { -- Autocompletion
     vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = colors['cyan'], bg = colors['menu'] })
     -- vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { fg = 'None', bg = '#21222C' })
     -- vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = 'None', bg = '#21222C', italic = true })
-    vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = colors['fg'], bg = colors['menu'] })
     vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = colors['fg'], bg = colors['menu'] })
 
     local ELLIPSIS_CHAR = '…'
@@ -335,3 +334,4 @@ return { -- Autocompletion
     end
   end,
 }
+

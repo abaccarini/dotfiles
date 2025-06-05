@@ -11,25 +11,6 @@ return {
           },
         },
       }
-
-      local bufnr = vim.api.nvim_get_current_buf()
-
-      vim.keymap.set(
-        'n',
-        'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-        function()
-          vim.cmd.RustLsp { 'hover', 'actions' }
-        end,
-        { silent = true,desc = 'Rust hover'}
-      )
-
-      vim.keymap.set('n', 'J', function()
-        vim.cmd.RustLsp 'joinLines'
-      end, { silent = true, buffer = bufnr })
-
-      vim.keymap.set('n', '<Leader>dt', function()
-        vim.cmd.RustLsp 'testables'
-      end, { desc = 'Debugger testables' })
       -- map("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
     end,
   },
