@@ -394,19 +394,6 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'saghen/blink.cmp',
       'ibhagwan/fzf-lua',
-      -- {
-      --   'nvimdev/lspsaga.nvim',
-      --   config = function()
-      --     require('lspsaga').setup {}
-      --   end,
-      --   dependencies = {
-      --     'nvim-treesitter/nvim-treesitter', -- optional
-      --     'nvim-tree/nvim-web-devicons', -- optional
-      --   },
-      -- },
-
-      -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
     },
     config = function()
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -429,19 +416,19 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', fzf.lsp_definitions, 'goto definition')
+          map('gd', fzf.lsp_definitions, 'Goto definition')
 
           -- -- Find references for the word under your cursor.
-          map('gr', fzf.lsp_references, 'goto references')
+          map('gr', fzf.lsp_references, 'Goto references')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', fzf.lsp_implementations, 'goto implementation')
+          map('gI', fzf.lsp_implementations, 'Goto implementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', fzf.lsp_typedefs, 'type definition')
+          map('<leader>D', fzf.lsp_typedefs, 'Type definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
@@ -452,11 +439,11 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ps', fzf.lsp_live_workspace_symbols, 'project symbols')
+          map('<leader>ps', fzf.lsp_live_workspace_symbols, 'Project symbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, 'rename')
+          map('<leader>rn', vim.lsp.buf.rename, 'Rename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -475,11 +462,6 @@ require('lazy').setup({
           -- map('<c-.>', vim.lsp.buf.code_action, '[C]ode [A]ction')
           -- vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap.
-          -- map('<c-.>', vim.lsp.buf.hover, 'Hover Documentation')
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
           vim.keymap.set('n', 'K', function()
             vim.lsp.buf.hover {
               border = 'rounded',
@@ -488,19 +470,20 @@ require('lazy').setup({
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, 'goto declaration')
+          map('gD', vim.lsp.buf.declaration, 'Goto declaration')
 
           map('<leader>td', function()
             vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end, '[T]oggle [d]iagnostics')
+          end, 'Toggle diagnostics')
 
-          -- map('n', '<leader>td', function()
-          --   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          -- end, { silent = true, noremap = true, desc = '[T]oggle [d]iagnostics' })
+          map('<leader>dd', function()
+              vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+            -- vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+          end, 'Line diagnostics')
+
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
-          --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -516,13 +499,6 @@ require('lazy').setup({
             })
           end
 
-          -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-          --   group = vim.api.nvim_create_augroup('float_diagnostic_cursor', { clear = true }),
-          --   callback = function()
-          --     vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
-          --   end,
-          -- })
-
           -- The following autocommand is used to enable inlay hints in your
           -- code, if the language server you are using supports them
           --
@@ -530,7 +506,7 @@ require('lazy').setup({
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, 'Toggle inlay hints')
             -- enabling inlay hints by default
             vim.lsp.inlay_hint.enable()
           end

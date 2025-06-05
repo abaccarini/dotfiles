@@ -8,14 +8,15 @@ return {
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
       files = {
-        formatter = 'path.filename_first',
-        -- hidden = false,
-        find_opts = [[-type f -not -path '*/\.git/*']],
-        -- fd_opts = [[--color=never --hidden --type f --type l --exclude .git -E (*.pdf|*.idx)]],
+        -- formatter = 'path.filename_first',
+        -- hidden = true,
+        -- find_opts = [[-type f -not -path '*/\.git/*' --exclude .git]],
+        fd_opts = [[--color=never --hidden --type f --type l --exclude {*.axp,*.isy} ]],
       },
+
       -- file_ignore_patterns = { '%.idx$','%.pdf$', '%.bbl-SAVE-ERROR$' },
       winopts = {
-        backdrop = 85,
+        backdrop = 70,
       },
       -- actions = {
       lsp = {
@@ -33,14 +34,14 @@ return {
 
     local fzf = require 'fzf-lua'
     fzf.register_ui_select() -- making fzf lua the default selection UI
-    vim.keymap.set('n', '<leader><leader>', fzf.files, { desc = 'Search [f]iles' })
-    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Search [g]rep' })
-    vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Search [r]esume' })
-    vim.keymap.set('n', '<leader>/', fzf.lgrep_curbuf, { desc = 'Fuzzy search in current buffer' })
-    vim.keymap.set('n', '<leader>sb', fzf.buffers, { desc = 'Search [b]uffers' })
-    vim.keymap.set('n', '<leader>sD', fzf.diagnostics_document, { desc = 'Search [D]iagnostics' })
-    vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Search [k]eymaps' })
-    vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search [h]elp' })
+    vim.keymap.set('n', '<leader><leader>', fzf.files, { desc = 'Search files' })
+    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Search grep' })
+    vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Search resume' })
+    vim.keymap.set('n', '<leader>/', fzf.lgrep_curbuf, { desc = 'Search current buffer' })
+    vim.keymap.set('n', '<leader>sb', fzf.buffers, { desc = 'Search buffers' })
+    vim.keymap.set('n', '<leader>sD', fzf.diagnostics_document, { desc = 'Search diagnostics' })
+    vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Search keymaps' })
+    vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search help' })
 
     -- vim.keymap.set('n', '<leader>s/', '<cmd>FzfLua live_grep<CR>', { desc = 'Search [/] in Open Files' })
 
