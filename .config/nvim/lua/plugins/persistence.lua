@@ -6,4 +6,12 @@ return {
     need = 1,
     -- options = vim.opt.sessionoptions:get(),
   },
+  init = function()
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'PersistenceSavePre',
+      callback = function()
+        vim.cmd ':Neotree close'
+      end,
+    })
+  end,
 }

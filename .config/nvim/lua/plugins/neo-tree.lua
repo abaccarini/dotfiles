@@ -8,7 +8,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '<C-\\>', ':Neotree reveal<CR>', silent = true, { desc = 'NeoTree reveal' } },
+    { '<C-\\>', ':Neotree toggle<CR>', silent = true, { desc = 'Toggle Neotree' } },
   },
   opts = {
     sort_case_insensitive = true,
@@ -18,13 +18,9 @@ return {
         enabled = true, -- This will find and focus the file in the active buffer every time
         leave_dirs_open = true,
       },
-
-      window = {
-        mappings = {
-          ['<C-\\>'] = 'close_window',
-        },
-      },
+    },
+    window = {
+      width = 30,
     },
   },
-
 }

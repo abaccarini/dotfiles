@@ -32,22 +32,16 @@ vim.api.nvim_create_autocmd('FileType', {
   group = my_augroup,
 })
 
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'PersistenceSavePre',
-  callback = function()
-    vim.cmd ':Neotree close'
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
+--   callback = function()
+--     if vim.fn.getcwd() ~= vim.env.HOME then
+--       require('persistence').load()
+--     end
+--   end,
+--   nested = true,
+-- })
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
-  callback = function()
-    if vim.fn.getcwd() ~= vim.env.HOME then
-      require('persistence').load()
-    end
-  end,
-  nested = true,
-})
 -- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = { 'tex', 'markdown' },
 --   callback = function()
@@ -91,11 +85,28 @@ vim.opt.spelllang = 'en_us'
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
-vim.api.nvim_create_autocmd('InsertEnter', { command = [[set norelativenumber]] })
-vim.api.nvim_create_autocmd('InsertLeave', { command = [[set relativenumber]] })
+-- vim.api.nvim_create_autocmd('InsertEnter', { command = [[set norelativenumber]] })
+-- vim.api.nvim_create_autocmd('InsertLeave', { command = [[set relativenumber]] })
+
+vim.api.nvim_create_autocmd('InsertEnter', {
+  callback = function()
+    local filetype = vim.bo[0].filetype
+    if filetype ~= 'neo-tree-popup' and filetype ~= 'neo-tree'then
+    -- if not string.find(buf_name, 'neo-tree') then
+      vim.opt.relativenumber = false
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('InsertLeave', {
+  callback = function()
+    local filetype = vim.bo[0].filetype
+    if filetype ~= 'neo-tree-popup' and filetype ~= 'neo-tree' then
+      vim.opt.relativenumber = true
+    end
+  end,
+})
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'

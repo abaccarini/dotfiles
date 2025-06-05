@@ -5,7 +5,6 @@ return {
     'ibhagwan/fzf-lua',
   },
   event = 'VimEnter',
-  enabled = false,
   opts = function()
     local dracula = require 'dracula'
     local colors = dracula.colors()
@@ -62,17 +61,18 @@ return {
     end
 
     -- -- close Lazy and re-open when the dashboard is ready
-    -- if vim.o.filetype == 'lazy' then
-    --   vim.api.nvim_create_autocmd('WinClosed', {
-    --     pattern = tostring(vim.api.nvim_get_current_win()),
-    --     once = true,
-    --     callback = function()
-    --       vim.schedule(function()
-    --         vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
-    --       end)
-    --     end,
-    --   })
-    -- end
+
+    if vim.o.filetype == 'lazy' then
+      vim.api.nvim_create_autocmd('WinClosed', {
+        pattern = tostring(vim.api.nvim_get_current_win()),
+        once = true,
+        callback = function()
+          vim.schedule(function()
+            vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
+          end)
+        end,
+      })
+    end
 
     return opts
     
