@@ -143,7 +143,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 50
+vim.opt.updatetime = 0
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
@@ -505,12 +505,12 @@ require('lazy').setup({
             })
           end
 
-          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            group = vim.api.nvim_create_augroup('float_diagnostic_cursor', { clear = true }),
-            callback = function()
-              vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
-            end,
-          })
+          -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          --   group = vim.api.nvim_create_augroup('float_diagnostic_cursor', { clear = true }),
+          --   callback = function()
+          --     vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+          --   end,
+          -- })
 
           -- The following autocommand is used to enable inlay hints in your
           -- code, if the language server you are using supports them

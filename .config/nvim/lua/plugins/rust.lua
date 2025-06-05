@@ -2,6 +2,7 @@ return {
   {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
+    ft = 'rust',
     config = function()
       vim.g.rustaceanvim = {
         tools = {
@@ -13,14 +14,14 @@ return {
 
       local bufnr = vim.api.nvim_get_current_buf()
 
-      -- vim.keymap.set(
-      --   'n',
-      --   '<c-,>', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-      --   function()
-      --     vim.cmd.RustLsp { 'hover', 'actions' }
-      --   end,
-      --   { silent = true,desc = 'Rust hover'}
-      -- )
+      vim.keymap.set(
+        'n',
+        'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+        function()
+          vim.cmd.RustLsp { 'hover', 'actions' }
+        end,
+        { silent = true,desc = 'Rust hover'}
+      )
 
       vim.keymap.set('n', 'J', function()
         vim.cmd.RustLsp 'joinLines'
