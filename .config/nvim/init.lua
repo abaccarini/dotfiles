@@ -211,8 +211,8 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 
 -- vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 -- vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv")
-vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv")
+vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv", {desc = 'Move selection up'})
+vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv",{desc = 'Move selection down'})
 
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -247,7 +247,7 @@ vim.diagnostic.config {
 
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.ERROR] = ' ',
       [vim.diagnostic.severity.WARN] = ' ',
       [vim.diagnostic.severity.INFO] = '',
       [vim.diagnostic.severity.HINT] = ' ',
@@ -267,7 +267,7 @@ end)
 vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump { count = 1, float = true }
 end)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Debug: show errors' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show errors' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open quickfix' })
 -- vim.keymap.set('n', '<leader>Q', vim.cmd.cclose)
 
@@ -416,7 +416,7 @@ require('lazy').setup({
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set('n', keys, func, { buffer = event.buf, desc =  desc })
           end
 
           local fzf = require 'fzf-lua'
@@ -439,10 +439,10 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ds', function()
+          map('<leader>js', function()
             -- fzf.lsp_document_symbols { show_line = true, symbols = { 'function', 'variable', 'class' } }
             fzf.lsp_document_symbols { show_line = true }
-          end, 'Jump to symbol')
+          end, 'Symbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
@@ -450,7 +450,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, 'Rename')
+          map('<leader>R', vim.lsp.buf.rename, 'Rename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -481,12 +481,12 @@ require('lazy').setup({
 
           map('<leader>td', function()
             vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end, 'Toggle diagnostics')
+          end, 'Diagnostics')
 
-          map('<leader>dd', function()
-            vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
-            -- vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end, 'Line diagnostics')
+          -- map('<leader>dd', function()
+          --   vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+          --   -- vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+          -- end, 'Line diagnostics')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -513,7 +513,7 @@ require('lazy').setup({
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, 'Toggle inlay hints')
+            end, 'Inlay hints')
             -- enabling inlay hints by default
             vim.lsp.inlay_hint.enable()
           end

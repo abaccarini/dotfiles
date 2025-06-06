@@ -6,15 +6,15 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim' },
   event = 'BufEnter',
   keys = {
-    { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Jump to buffer' },
+    { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Buffer' },
     -- { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
-    { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
-    { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
-    { '<leader>bl', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
-    { '<leader>bh', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
-    { '<leader>bd', '<Cmd>BufferLinePickClose<CR>', desc = 'Delete current buffer' },
-    { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
-    { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+    -- { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
+    { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete others' },
+    { '<leader>bl', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete right' },
+    { '<leader>bh', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete left' },
+    { '<leader>bd', '<Cmd>BufferLinePickClose<CR>', desc = 'Delete __' },
+    { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+    { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
   },
 
   config = function()
@@ -276,7 +276,7 @@ return {
         -- always_show_bufferline = false,
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local icon = level:match 'error' and ' ' or (level:match 'warning' and ' ' or ' ')
+          local icon = level:match 'error' and ' ' or (level:match 'warning' and ' ' or ' ')
           -- local icon = level:match 'error' and ' '
           -- -- or (level:match 'warning' and ' ')
           return ' ' .. icon .. count

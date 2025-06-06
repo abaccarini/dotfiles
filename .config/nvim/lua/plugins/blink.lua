@@ -153,6 +153,7 @@ return {
       },
       { 'micangl/cmp-vimtex' },
 
+      { 'moyiz/blink-emoji.nvim' },
       { 'onsails/lspkind.nvim', config = lspkind_config },
     },
 
@@ -188,6 +189,11 @@ return {
         ['<C-j>'] = { 'snippet_backward', 'fallback' },
         ['<CR>'] = { 'accept', 'fallback' },
         ['<Tab>'] = { 'accept', 'fallback' },
+        ['<C-space>'] = {
+          function(cmp)
+            cmp.show {}
+          end,
+        },
         -- ['<Return>'] = { 'select_and_accept' },
       },
 
@@ -320,7 +326,7 @@ return {
           elseif vim.bo.filetype == 'lua' then
             return { 'lsp', 'path', 'snippets' }
           else
-            return { 'lsp', 'path', 'snippets', 'buffer' }
+            return { 'lsp', 'path', 'snippets', 'buffer', 'emoji' }
           end
         end,
         per_filetype = {
@@ -353,6 +359,26 @@ return {
             module = 'blink.compat.source',
             score_offset = 10,
             -- fallbacks = { 'buffer' },
+          },
+          emoji = {
+            module = 'blink-emoji',
+            name = 'emoji',
+            score_offset = 10, -- Tune by preference
+            opts = {
+              insert = true, -- Insert emoji (default) or complete its name
+              ---@type string|table|fun():table
+              trigger = function()
+                return { ':' }
+              end,
+            },
+            should_show_items = function()
+              return vim.tbl_contains(
+                -- Enable emoji completion only for git commits and markdown.
+                -- By default, enabled for all file-types.
+                { 'gitcommit', 'markdown' },
+                vim.o.filetype
+              )
+            end,
           },
         },
       },

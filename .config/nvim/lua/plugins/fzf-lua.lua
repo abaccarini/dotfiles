@@ -35,13 +35,13 @@ return {
     local fzf = require 'fzf-lua'
     fzf.register_ui_select() -- making fzf lua the default selection UI
     vim.keymap.set('n', '<leader><leader>', fzf.files, { desc = 'Search files' })
-    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Search grep' })
-    vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Search resume' })
+    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Grep' })
+    vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Resume' })
     vim.keymap.set('n', '<leader>/', fzf.lgrep_curbuf, { desc = 'Search current buffer' })
-    vim.keymap.set('n', '<leader>sb', fzf.buffers, { desc = 'Search buffers' })
-    vim.keymap.set('n', '<leader>sD', fzf.diagnostics_document, { desc = 'Search diagnostics' })
-    vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Search keymaps' })
-    vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search help' })
+    vim.keymap.set('n', '<leader>sb', fzf.buffers, { desc = 'Buffers' })
+    vim.keymap.set('n', '<leader>sD', fzf.diagnostics_document, { desc = 'Diagnostics' })
+    vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Keymaps' })
+    vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Help' })
 
     -- vim.keymap.set('n', '<leader>s/', '<cmd>FzfLua live_grep<CR>', { desc = 'Search [/] in Open Files' })
 

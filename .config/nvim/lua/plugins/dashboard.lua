@@ -8,7 +8,7 @@ return {
   opts = function()
     local colors = require 'colors'
     vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors.menu })
-    vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Open Dashboard' })
+    vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Dashboard' })
     local logo = require '../logo'
     local icon_color = 'IconColor'
     local key_color = 'KeyColor'

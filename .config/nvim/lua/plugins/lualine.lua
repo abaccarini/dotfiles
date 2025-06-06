@@ -77,7 +77,7 @@ return {
             symbols = { added = ' ', modified = ' ', removed = ' ' },
             -- padding = { left = 0 },
           },
-          { 'diagnostics', symbols = { error = ' ', warn = ' ', info = '', hint = ' ' } },
+          { 'diagnostics', symbols = { error = ' ', warn = ' ', info = '', hint = ' ' } },
         },
 
         lualine_x = {
