@@ -8,7 +8,7 @@ return { -- Autoformat
       function()
         require('conform').format { async = true, lsp_fallback = true }
       end,
-      mode = '',
+      mode = 'n',
       desc = 'Format buffer',
     },
   },

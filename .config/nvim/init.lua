@@ -214,8 +214,8 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv", {desc = 'Move selection up'})
 vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv",{desc = 'Move selection down'})
 
-vim.keymap.set('n', 'J', 'mzJ`z')
-vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set('n', 'J', 'mzJ`z',{desc = 'Join line'})
+vim.keymap.set('x', '<leader>p', [["_dP]], {desc = 'Paste'})
 
 -- dont need these since i'm always using a unified clipboard
 -- if vim.loop.os_uname().sysname == 'Darwin' then
