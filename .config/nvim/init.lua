@@ -18,6 +18,14 @@ vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
 vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 vim.opt.iskeyword:remove ':'
 
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    if vim.bo.filetype ~= 'dashboard' then
+      vim.opt.showtabline = 2
+    end
+  end,
+})
+
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
@@ -82,9 +90,7 @@ vim.opt.spelllang = 'en_us'
 
 -- vim.opt.pumblend = 0
 -- vim.opt.winblend = 0
--- vim.opt.pumheight = 100 
-
-
+-- vim.opt.pumheight = 100
 
 -- Make line numbers default
 vim.opt.number = true
@@ -387,6 +393,7 @@ require('lazy').setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = 'VeryLazy',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', opts = {} },
@@ -821,7 +828,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-context',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     event = 'VimEnter',
-    -- enable=false,
+    enabled = false,
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('treesitter-context').setup {
