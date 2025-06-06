@@ -14,7 +14,7 @@ return {
       },
   },
   init = function()
-    local colors = require '../colors'
+    local colors = require 'colors'
 
     vim.api.nvim_set_hl(0, 'OverseerSUCCESS', { fg = colors['green'] })
     vim.api.nvim_set_hl(0, 'OverseerCANCELED', { fg = colors['orange'] })

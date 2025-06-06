@@ -112,7 +112,7 @@ return {
       vim.g.vimtex_view_method = 'zathura'
     end
 
-    local colors = require '../colors'
+    local colors = require 'colors'
     vim.cmd.hi('texCmdMath  guifg=' .. colors['red'])
     vim.cmd.hi('Conceal  guifg=' .. colors['bright_cyan'])
     vim.cmd.hi('texMathDelim  guifg=' .. colors['pink'])

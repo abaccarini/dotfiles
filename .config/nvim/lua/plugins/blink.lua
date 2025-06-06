@@ -41,7 +41,7 @@ end
 --   buffer = 1,
 -- }
 
-local colors = require '../colors'
+local colors = require 'colors'
 local hl = vim.api.nvim_set_hl
 
 hl(0, 'BlinkCmpDoc', { bg = colors.menu })
@@ -70,8 +70,8 @@ local function inside_comment_block()
   if not query then
     return false
   end
----@diagnostic disable-next-line: deprecated
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0)) 
+  ---@diagnostic disable-next-line: deprecated
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   row = row - 1
   for id, node, _ in query:iter_captures(node_under_cursor, 0, row, row + 1) do
     if query.captures[id]:find 'comment' then
@@ -110,6 +110,8 @@ return {
   },
   {
     'saghen/blink.cmp',
+
+    event = 'VeryLazy',
     -- enabled = false,
     -- optional: provides snippets for the snippet source
     -- dependencies = {  },

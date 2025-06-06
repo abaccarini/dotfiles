@@ -6,25 +6,10 @@ return {
   },
   event = 'VimEnter',
   opts = function()
-    local colors = require '../colors'
-    vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors['comment'] })
+    local colors = require 'colors'
+    vim.api.nvim_set_hl(0, 'DashboardHeader', { fg = colors.menu })
     vim.keymap.set('n', '<leader>pd', vim.cmd.Dashboard, { desc = 'Open Dashboard' })
-    local logo = {
-      -- [[                                                                       ]],
-      [[                                                                       ]],
-      [[                                                                       ]],
-      [[                                                                       ]],
-      [[                                                                     ]],
-      [[       ████ ██████           █████      ██                     ]],
-      [[      ███████████             █████                             ]],
-      [[      █████████ ███████████████████ ███   ███████████   ]],
-      [[     █████████  ███    █████████████ █████ ██████████████   ]],
-      [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-      [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-      [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-      [[                                                                       ]],
-      [[                                                                       ]],
-    }
+    local logo = require '../logo'
     local icon_color = 'IconColor'
     local key_color = 'KeyColor'
     local opts = {
@@ -61,19 +46,28 @@ return {
 
     -- -- close Lazy and re-open when the dashboard is ready
 
+    -- if vim.o.filetype == 'lazy' then
+    --   vim.api.nvim_create_autocmd('WinClosed', {
+    --     pattern = tostring(vim.api.nvim_get_current_win()),
+    --     once = true,
+    --     callback = function()
+    --       vim.schedule(function()
+    --         vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
+    --       end)
+    --     end,
+    --   })
+    -- end
+
     if vim.o.filetype == 'lazy' then
-      vim.api.nvim_create_autocmd('WinClosed', {
-        pattern = tostring(vim.api.nvim_get_current_win()),
-        once = true,
+      vim.cmd.close()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'DashboardLoaded',
         callback = function()
-          vim.schedule(function()
-            vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
-          end)
+          require('lazy').show()
         end,
       })
     end
 
     return opts
-    
   end,
 }

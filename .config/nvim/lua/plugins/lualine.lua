@@ -43,7 +43,6 @@ return {
       return mode_map[vim.fn.mode()] or '[UNKNOWN]'
     end
     local c_drac = require '../drac_lualine'
-    -- local colors = require '../colors'
 
     vim.o.shortmess = vim.o.shortmess .. 'S'
     require('lualine').setup {

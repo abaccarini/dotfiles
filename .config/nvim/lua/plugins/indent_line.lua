@@ -4,12 +4,14 @@ return {
   main = 'ibl',
   opts = {
     exclude = { filetypes = { 'dashboard' } },
+    scope = { enabled = true },
   },
-  -- config = function ()
-  --   require("ibl").setup{
-  --   exclude = { filetypes = { 'dashboard' } },
-  --   -- show_current_context = true,
-  --   -- show_current_context_start = true,
-  --   }
-  -- end
+  config = function ()
+    require("ibl").setup{
+    exclude = { filetypes = { 'dashboard' } },
+    scope = { enabled = true },
+    -- show_current_context = true,
+    -- show_current_context_start = true,
+    }
+  end
 }

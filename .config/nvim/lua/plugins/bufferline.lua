@@ -1,9 +1,10 @@
 return {
   'akinsho/bufferline.nvim',
+  -- event='VeryLazy',
   -- enabled = false,
   version = '*',
   dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim' },
-  event = 'VimEnter',
+  event = 'BufEnter',
   keys = {
     { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Jump to buffer' },
     -- { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
@@ -17,6 +18,7 @@ return {
   },
 
   config = function()
+    -- autocmd BufEnter * if &filetype == "telescope-thing" | set showtabline=0 | endif
     -- vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
     vim.keymap.set('n', '<leader>w', function()
       vim.cmd 'silent only'
@@ -25,7 +27,7 @@ return {
 
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
-    local colors = require '../colors'
+    local colors = require 'colors'
     require('bufferline').setup {
       highlights = {
         -- modified_visible = {
@@ -208,7 +210,6 @@ return {
             return false
           end
 
-
           if string.find(vim.fs.basename(buf_name), '0') then
             return false
           end
@@ -223,16 +224,20 @@ return {
             return false
           end
 
-          if filetype == '' and buf_name == '' then
+          if filetype == 'dashboard' then
             return false
           end
+
+          -- if filetype == '' and buf_name == '' then
+          --   return false
+          -- end
 
           if filetype == 'qf' then
             return false
           end
 
           local state = vim.uv.fs_stat(buf_name)
-          if state and state.type == "directory" then
+          if state and state.type == 'directory' then
             return false
           end
 
@@ -267,7 +272,8 @@ return {
           reveal = { 'close' },
         },
         -- show_buffer_icons = false,
-        always_show_bufferline = true,
+        auto_toggle_bufferline = false,
+        -- always_show_bufferline = false,
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
           local icon = level:match 'error' and ' ' or (level:match 'warning' and ' ' or ' ')
@@ -318,5 +324,16 @@ return {
     -- require('bufferline').setup(opts) {
     -- Fix bufferline when restoring a session
     -- }
+
+    -- vim.api.nvim_create_autocmd('BufEnter', {
+    --   -- pattern = '*',
+    --   callback = function()
+    --     if vim.bo.filetype == 'dashboard' then
+    --       vim.opt.showtabline = 2
+    --       -- if &filetype == "telescope-thing" | set showtabline=0 | endif
+    --     end
+    --   end,
+    -- })
+
   end,
 }

@@ -4,14 +4,14 @@ return {
   -- optional for icon support
   dependencies = { 'nvim-tree/nvim-web-devicons',},
   config = function()
-    -- local colors = require '../colors'
+    -- local colors = require 'colors'
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
       files = {
         -- formatter = 'path.filename_first',
         -- hidden = true,
         -- find_opts = [[-type f -not -path '*/\.git/*' --exclude .git]],
-        fd_opts = [[--color=never --hidden --type f --type l --exclude {*.axp,*.isy} ]],
+        fd_opts = [[--color=never --hidden --type f --type l ]],
       },
 
       -- file_ignore_patterns = { '%.idx$','%.pdf$', '%.bbl-SAVE-ERROR$' },

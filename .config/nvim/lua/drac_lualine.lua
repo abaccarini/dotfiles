@@ -1,4 +1,4 @@
-local colors = require '../colors'
+local colors = require 'colors'
 
 return {
   normal = {
