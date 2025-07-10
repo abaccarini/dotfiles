@@ -210,7 +210,8 @@ return {
             return false
           end
 
-          if string.find(vim.fs.basename(buf_name), '0') then
+          -- if string.find(vim.fs.basename(buf_name), '0') then
+          if vim.fs.basename(buf_name) == '0' then
             return false
           end
 
