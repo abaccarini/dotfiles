@@ -117,7 +117,7 @@ alias cn='cd ~/Dropbox/crypto-notes/'
 alias diss='cd ~/Dropbox/dissertation/' 
 alias pc='cd ~/picco/compute' 
 # alias pc='cd ~/Dropbox/practical-crypto/' 
-alias res='cd ~/Dropbox/resume/' 
+alias res='cd ~/Dropbox/cv/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
 alias rg3='./scripts/rigel_login.sh' 
 # alias ipev='$HOME/scripts/ipev.sh' 
@@ -129,6 +129,7 @@ alias mpt='cd ~/Dropbox/mpc_talks/pres'
 alias qd='cd ~/Dropbox/private-streaming-statistics/' 
 
 
+alias vsc='code' 
 alias bib='nvim ~/Dropbox/bib/refs.bib' 
 
 fpath=( ~/.zsh_functions "${fpath[@]}" )
@@ -148,3 +149,5 @@ setopt noincappendhistory
 setopt nosharehistory
 
 . "/home/alessandro/.deno/env"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

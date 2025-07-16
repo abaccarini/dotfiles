@@ -322,7 +322,7 @@ return {
           -- if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
           --   return { 'buffer' }
           if inside_comment_block() then
-            return { 'buffer' }
+            return {}
           elseif vim.bo.filetype == 'lua' then
             return { 'lsp', 'path', 'snippets' }
           else
