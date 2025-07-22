@@ -24,20 +24,26 @@ return {
 
     local wk = require 'which-key'
     wk.add {
-      -- buffer = event.buf,
+      -- -- buffer = event.buf,
       {
         '<localleader>o',
-        group = 'Overseer',
+        '<Cmd>OverseerToggle<CR>',
+        desc = 'Overseer',
         icon = { icon = ' ', color = 'green' },
-        mode = 'nx',
       },
 
-      mode = 'n',
+      -- mode = 'n',
+      -- {
+      --   '<localleader>ot',
+      --   '<Cmd>OverseerToggle<CR>',
+      --   desc = 'Toggle',
+      --   icon = { icon = ' ', color = 'green' },
+      -- },
       {
-        '<localleader>ot',
+        '<localleader>to',
         '<Cmd>OverseerToggle<CR>',
-        desc = 'Toggle',
-        icon = { icon = ' ', color = 'green' },
+        desc = 'Overseer',
+        icon = { icon = ' ', color = 'green' },
       },
     }
   end,

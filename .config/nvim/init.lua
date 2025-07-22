@@ -211,11 +211,11 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 
 -- vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 -- vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv", {desc = 'Move selection up'})
-vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv",{desc = 'Move selection down'})
+vim.keymap.set({ 'v' }, '<C-S-K>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+vim.keymap.set({ 'v' }, '<C-S-J>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 
-vim.keymap.set('n', 'J', 'mzJ`z',{desc = 'Join line'})
-vim.keymap.set('x', '<leader>p', [["_dP]], {desc = 'Paste'})
+vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join line' })
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste' })
 
 -- dont need these since i'm always using a unified clipboard
 -- if vim.loop.os_uname().sysname == 'Darwin' then
@@ -416,7 +416,7 @@ require('lazy').setup({
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc =  desc })
+            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
           end
 
           local fzf = require 'fzf-lua'
@@ -450,7 +450,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>R', vim.lsp.buf.rename, 'Rename')
+          map('<leader>rn', vim.lsp.buf.rename, 'Rename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -707,7 +707,7 @@ require('lazy').setup({
       -- vim.cmd.hi 'LspReferenceRead  gui=underline guifg=none guibg=none'
       -- vim.cmd.hi 'LspReferenceText     gui=underline guifg=none guibg=none'
 
-      vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
+      -- vim.cmd.hi('TreesitterContextBottom gui=underline guisp=' .. colors['selection'])
       -- vim.cmd.hi('TreesitterContextLineNumberBottom gui=underline guisp=' .. colors[])
 
       vim.cmd.hi('MatchParen gui=none guibg=' .. colors.selection .. ' guifg=none')
@@ -824,22 +824,22 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    event = 'VimEnter',
-    enabled = false,
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('treesitter-context').setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        -- separator = '',
-        trim_scope = 'inner', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        max_lines = 1,
-        -- line_numbers = false
-      }
-    end,
-  },
+  -- {
+  --   'nvim-treesitter/nvim-treesitter-context',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  --   event = 'VimEnter',
+  --   enabled = false,
+  --   config = function()
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('treesitter-context').setup {
+  --       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  --       -- separator = '',
+  --       trim_scope = 'inner', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+  --       max_lines = 1,
+  --       -- line_numbers = false
+  --     }
+  --   end,
+  -- },
 
   require 'plugins.indent_line',
   require 'plugins.neo-tree',

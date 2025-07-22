@@ -32,7 +32,7 @@ return { -- Collection of various small independent plugins/modules
       },
     }
 
-    -- ... and there is more!
-    --  Check out: https://github.com/echasnovski/mini.nvim
+    require('mini.bufremove').setup {}
+    vim.keymap.set('n', '<leader>w', '<CMD>lua MiniBufremove.delete()<CR>', { desc = 'Close Buffer' })
   end,
 }

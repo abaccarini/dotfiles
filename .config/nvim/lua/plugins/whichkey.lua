@@ -69,7 +69,8 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>bl', icon = { icon = ' ', color = 'red' } },
       { '<leader>bo', icon = { icon = ' ', color = 'red' } },
 
-      { '<leader>R', group = 'Rename', icon = { icon = ' ' } },
+      { '<leader>r', group = 'Rename', icon = { icon = ' ' } },
+      { '<leader>rn', group = 'Rename', icon = { icon = ' ' } },
 
       { '<leader>x', group = 'Trouble', icon = { icon = ' ' } },
 

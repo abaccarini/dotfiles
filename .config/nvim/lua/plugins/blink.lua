@@ -187,7 +187,7 @@ return {
         ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
         ['<C-k>'] = { 'snippet_forward', 'fallback' },
         ['<C-j>'] = { 'snippet_backward', 'fallback' },
-        ['<CR>'] = { 'accept', 'fallback' },
+        -- ['<CR>'] = { 'accept', 'fallback' }, -- was undesireably inserting snippets while typing markdown -> other langs too?
         ['<Tab>'] = { 'accept', 'fallback' },
         ['<C-space>'] = {
           function(cmp)

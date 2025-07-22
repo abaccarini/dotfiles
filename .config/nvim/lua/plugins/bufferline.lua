@@ -3,7 +3,7 @@ return {
   -- event='VeryLazy',
   -- enabled = false,
   version = '*',
-  dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim' },
+  dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim'  },
   event = 'BufEnter',
   keys = {
     { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Buffer' },
@@ -18,12 +18,10 @@ return {
   },
 
   config = function()
-    -- autocmd BufEnter * if &filetype == "telescope-thing" | set showtabline=0 | endif
-    -- vim.keymap.set('n', '<leader>w', '<Cmd>only<cr><BAR><Cmd>bd<cr>', { desc = 'Delete Buffer' })
-    vim.keymap.set('n', '<leader>w', function()
-      vim.cmd 'silent only'
-      vim.cmd.bd()
-    end, { silent = true, desc = 'Delete Buffer' })
+    -- vim.keymap.set('n', '<leader>w', function()
+    --   vim.cmd 'silent only'
+    --   vim.cmd.bd()
+    -- end, { silent = true, desc = 'Delete Buffer' })
 
     vim.opt.termguicolors = true
     -- vim.cmd.hi('BufferLineFill guifg=none guibg=none')
@@ -290,51 +288,5 @@ return {
         end,
       },
     }
-    -- numbers = function(opts)
-    --   return string.format('%s.', opts.ordinal)
-    -- end,
-
-    -- indicator = {
-    --   icon = '▎',
-    --   style = 'icon',
-    -- },
-    --
-    -- buffer_close_icon = '',
-    -- modified_icon = '●',
-    -- close_icon = '',
-    -- left_trunc_marker = '',
-    -- right_trunc_marker = '',
-    -- max_name_length = 18,
-    -- max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-    -- tab_size = 18,
-    -- diagnostics = 'nvim_lsp',
-    -- diagnostics_update_in_insert = false,
-    --
-    -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
-    --   return '(' .. count .. ')'
-    -- end,
-    --
-    -- offsets = { { filetype = 'NvimTree', text_align = 'left' } },
-    -- show_buffer_icons = true,
-    -- show_buffer_close_icons = false,
-    -- show_close_icon = false,
-    -- show_tab_indicators = true,
-    -- persist_buffer_sort = true,
-    -- enforce_regular_tabs = false,
-    -- sort_by = 'id',
-    -- require('bufferline').setup(opts) {
-    -- Fix bufferline when restoring a session
-    -- }
-
-    -- vim.api.nvim_create_autocmd('BufEnter', {
-    --   -- pattern = '*',
-    --   callback = function()
-    --     if vim.bo.filetype == 'dashboard' then
-    --       vim.opt.showtabline = 2
-    --       -- if &filetype == "telescope-thing" | set showtabline=0 | endif
-    --     end
-    --   end,
-    -- })
-
   end,
 }
