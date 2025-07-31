@@ -7,6 +7,8 @@ vim.opt.showcmd = false
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
 
+-- vim.opt.textwidth = 100
+
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grr')
