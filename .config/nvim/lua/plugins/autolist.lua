@@ -10,8 +10,10 @@ return {
 
   dependencies = { 'altermo/ultimate-autopair.nvim' }, -- forcing ult-autopairs to be loaded BEFORE autolist, so we can delete the insert mode binding
   config = function()
-    -- vim.keymap.del('i', '<CR>') -- This is necessary because it conflicts with ultimate-autopairs
+
+
     require('autolist').setup()
+    vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>', {buffer = true})
 
     vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
     vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')
