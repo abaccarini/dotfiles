@@ -42,13 +42,6 @@ vim.api.nvim_create_autocmd('FileType', {
   group = my_augroup,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'markdown',
-  callback = function()
-    vim.keymap.del('i', '<CR>') -- This is necessary because it conflicts with ultimate-autopairs
-  end,
-})
-
 -- vim.api.nvim_create_autocmd('VimEnter', {
 --   group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
 --   callback = function()

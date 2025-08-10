@@ -12,6 +12,13 @@ return {
   config = function()
 
 
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'markdown',
+--   callback = function()
+--     vim.keymap.del('i', '<CR>') -- This is necessary because it conflicts with ultimate-autopairs
+--   end,
+-- })
+
     require('autolist').setup()
     vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>', {buffer = true})
 
