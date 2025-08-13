@@ -3,7 +3,7 @@ return {
   -- event='VeryLazy',
   -- enabled = false,
   version = '*',
-  dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim'  },
+  dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim', 'echasnovski/mini.nvim' },
   event = 'BufEnter',
   keys = {
     { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Buffer' },
@@ -201,6 +201,8 @@ return {
         },
       },
       options = {
+        -- close_command = 'bdelete %d', -- can be a string | function, | false see "Mouse actions"
+        close_command = 'lua MiniBufremove.delete(%d)', -- can be a string | function, | false see "Mouse actions"
         custom_filter = function(buf_number, buf_numbers)
           local buf_name = vim.fn.bufname(buf_number)
           -- so we can edit the fugitive config file, while preventing the actual fugitive window from being shown
