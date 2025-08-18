@@ -10,6 +10,8 @@ return {
         ['<C-k>'] = false,
         ['<C-j>'] = false,
         ['<C-h>'] = false,
+        -- ['<C-u>'] = 'ScrollOutputUp',
+        -- ['<C-d>'] = 'ScrollOutputDown',
       },
     },
   },
