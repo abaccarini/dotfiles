@@ -13,13 +13,17 @@ snippet uni
 snippet from
 	from ${1:package} import ${0:module}
 
+
+# snippet filename
+# 	`Filename()`
+# File: ${1:`vim_snippets#Filename('$1.py', 'foo.py')`}
 # Module Docstring
 snippet docs
 	"""
-	File: ${1:`vim_snippets#Filename('$1.py', 'foo.py')`}
-	Author: `g:snips_author`
-	Email: `g:snips_email`
-	Github: `g:snips_github`
+	File: `Filename()`
+	Author: Alessandro Baccarini
+	Email: abaccarini@proton.me
+	Github: abaccarini
 	Description: ${0}
 	"""
 
