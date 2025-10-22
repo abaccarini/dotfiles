@@ -1,3 +1,5 @@
+set font 'monospace normal 24'
+set scroll-step 300
 set selection-notification false
 set sandbox none
 set statusbar-h-padding 0

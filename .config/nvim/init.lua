@@ -35,6 +35,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.formatoptions:remove { 'r', 'o' }
   end,
 })
+
 local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'tex', 'markdown' },
@@ -759,27 +760,27 @@ require('lazy').setup({
           alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' }, -- a set of other keywords that all map to this FIX keywords
           -- signs = false, -- configure signs for some keywords individually
         },
-        TODO = { icon = ' ', color = 'info' },
-        HACK = { icon = ' ', color = 'warning' },
-        WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
-        PERF = { icon = ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-        NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
-        TEST = { icon = '⏲ ', color = 'test', alt = { 'TESTING', 'PASSED', 'FAILED' } },
+        -- TODO = { icon = ' ', color = 'info' },
+        -- HACK = { icon = ' ', color = 'warning' },
+        -- WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
+        -- PERF = { icon = ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
+        -- NOTE = { icon = ' ',  alt = { 'INFO' } },
+        -- TEST = { icon = '⏲ ', color = 'test', alt = { 'TESTING', 'PASSED', 'FAILED' } },
       },
-      colors = {
-        error = { 'DiagnosticError', 'ErrorMsg', '#DC2626' },
-        warning = { 'DiagnosticWarn', 'WarningMsg', '#FBBF24' },
-        info = { 'DiagnosticInfo', '#2563EB' },
-        hint = { 'Character', '#10B981' },
-        default = { 'Identifier', '#7C3AED' },
-        test = { 'Identifier', '#FF00FF' },
-      },
+      -- colors = {
+      --   error = { 'DiagnosticError', 'ErrorMsg', '#DC2626' },
+      --   warning = { 'DiagnosticWarn', 'WarningMsg', '#FBBF24' },
+      --   info = { 'DiagnosticInfo', '#2563EB' },
+      --   hint = { 'Character', '#10B981' },
+      --   default = { 'Identifier', '#7C3AED' },
+      --   test = { 'Identifier', '#FF00FF' },
+      -- },
     },
   },
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    -- enabled=false,
+    -- enabled = false,
     build = ':TSUpdate',
     -- opts = {
     -- },
@@ -793,6 +794,7 @@ require('lazy').setup({
           enable = true,
           disable = {
             'latex',
+            -- 'markdown',
           },
           -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
           --  If you are experiencing weird indenting issues, add the language to

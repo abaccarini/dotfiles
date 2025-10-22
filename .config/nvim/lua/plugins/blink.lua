@@ -112,7 +112,6 @@ return {
     'saghen/blink.cmp',
 
     event = 'VeryLazy',
-    -- enabled = false,
     -- optional: provides snippets for the snippet source
     -- dependencies = {  },
     dependencies = {
@@ -137,11 +136,14 @@ return {
         --   store_selection_keys = '<Tab>',
         -- },
         config = function()
+          -- enabling tex snippets from inside markdown, likely need to customize 
+          -- require('luasnip').filetype_extend('markdown', { 'tex' })
           require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/plugins/snippets/' }
           require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/plugins/snipmate/' }
           require('luasnip.loaders.from_vscode').lazy_load {
             exclude = { 'tex' },
           }
+          -- require('luasnip').filetype_extend('tex', { 'markdown' })
           require('luasnip').config.setup {
             history = true,
             -- Enable autotriggered snippets

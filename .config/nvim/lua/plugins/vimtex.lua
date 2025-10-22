@@ -58,7 +58,8 @@ return {
           \'balance=false',
           \'A possible image without description',
           \'(Class acmart)',
-          \'No file TUzi4.fd.'
+          \'No file TUzi4.fd.',
+          \'Empty bibliography'
           \]
       ]]
 

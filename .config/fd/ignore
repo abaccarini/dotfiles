@@ -10,5 +10,18 @@
 *.svg
 *.jpeg
 *.jpg
+*.aux
+*.sty
+*.bcf
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.isy
 *.bbl-SAVE-ERROR
 
