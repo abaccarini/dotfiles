@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.linebreak = true
 
-vim.opt.showcmd = false
+-- vim.opt.showcmd = false
 -- suppressing deprecation warning (delete in future for debugging)
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
