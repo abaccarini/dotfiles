@@ -31,7 +31,7 @@ return { -- Autoformat
         command = 'rustfmt',
         -- A list of strings, or a function that returns a list of strings
         -- Return a single string instead of a list to run the command in a shell
-        args = { '+nightly' },
+        -- args = { '+nightly' },
       },
       latexindent = {
         -- Change where to find the command

@@ -303,6 +303,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Focus right' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Focus below' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Focus above' })
 
+vim.keymap.set('n', '<C-w>s', '<C-w>v', { desc = 'Split vertically' })
+vim.keymap.set('n', '<C-w>S', '<C-w>s', { desc = 'Split horizontally' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
