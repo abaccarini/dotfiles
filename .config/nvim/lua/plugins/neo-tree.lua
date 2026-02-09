@@ -21,6 +21,19 @@ return {
     },
     window = {
       width = 30,
+      mappings = {
+            -- ["/"] = "noop" 
+      },
+      fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
+        -- ["<down>"] = "move_cursor_down",
+        ["<C-n>"] = "move_cursor_down",
+        -- ["<up>"] = "move_cursor_up",
+        ["<C-S-n>"] = "move_cursor_up",
+        -- ["<esc>"] = "close",
+        -- ["<S-CR>"] = "close_keep_filter",
+        -- ["<C-CR>"] = "close_clear_filter",
+        -- ["<C-w>"] = { "<C-S-w>", raw = true },
+    },
     },
   },
 }

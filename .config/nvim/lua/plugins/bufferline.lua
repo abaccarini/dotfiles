@@ -15,6 +15,8 @@ return {
     { '<leader>bd', '<Cmd>BufferLinePickClose<CR>', desc = 'Delete __' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+    { '<C-M-h>', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer left' },
+    { '<C-M-l>', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer right' },
   },
 
   config = function()

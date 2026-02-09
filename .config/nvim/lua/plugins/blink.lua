@@ -117,7 +117,7 @@ return {
     dependencies = {
       {
         'L3MON4D3/LuaSnip',
-        version = 'v2.*',
+        -- version = 'v2.*',
         dependencies = {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
