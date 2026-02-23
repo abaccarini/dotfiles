@@ -115,6 +115,7 @@ alias est='cd ~/Dropbox/func_eval/estimators/'
 alias p8='cd ~/Dropbox/priv8' 
 alias cons='cd ~/Dropbox/consult' 
 alias estc='cd ~/Dropbox/estimators' 
+alias drop='cd ~/Dropbox/' 
 alias cn='cd ~/Dropbox/crypto-notes/' 
 alias diss='cd ~/Dropbox/dissertation/' 
 # alias pc='cd ~/picco/compute' 
@@ -145,8 +146,8 @@ alias dorp='cd ~/Dropbox'
 alias vsc='code' 
 alias bib='nvim ~/Dropbox/bib/refs.bib' 
 
-fpath=( ~/.zsh_functions "${fpath[@]}" )
-autoload -Uz $fpath[1]/*(.:t)
+# fpath=( ~/.zsh_functions "${fpath[@]}" )
+# autoload -Uz $fpath[1]/*(.:t)
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -161,6 +162,10 @@ export EDITOR="$VISUAL"
 setopt noincappendhistory
 setopt nosharehistory
 
-. "/home/alessandro/.deno/env"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    . "/home/alessandrobaccarini/.deno/env"
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+fi
+# Generated for envman. Do not edit.
