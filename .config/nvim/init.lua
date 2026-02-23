@@ -8,7 +8,7 @@ vim.opt.linebreak = true
 vim.deprecate = function() end
 
 -- vim.opt.textwidth = 100
-
+vim.opt.fillchars:append("diff:╱")
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grr')
@@ -732,6 +732,12 @@ require('lazy').setup({
       vim.cmd.hi('CursorCyan gui=none guifg=' .. colors.cyan .. ' guibg=' .. colors.cyan)
       vim.cmd.hi('CursorOrange gui=none guifg=' .. colors.orange .. ' guibg=' .. colors.orange)
       vim.cmd.hi('CursorRed gui=none guifg=' .. colors.red .. ' guibg=' .. colors.red)
+
+
+      vim.api.nvim_set_hl(0, "DiffAdd", {bg = "#20303b"})
+      vim.api.nvim_set_hl(0, "DiffDelete", {bg = "#37222c"})
+      vim.api.nvim_set_hl(0, "DiffChange", {bg = "#1f2231"})
+      vim.api.nvim_set_hl(0, "DiffText", {bg = "#394b70"})
 
       vim.opt.guicursor = table.concat({
         'r:hor50-CursorRed/lCursorRed-blinkwait100-blinkon100-blinkoff100',

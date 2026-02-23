@@ -101,6 +101,7 @@ end
 return {
   {
     'saghen/blink.compat',
+    enabled = false,
     -- use v2.* for blink.cmp v1.*
     version = '2.*',
     -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
@@ -111,6 +112,7 @@ return {
   {
     'saghen/blink.cmp',
 
+    enabled = false,
     event = 'VeryLazy',
     -- optional: provides snippets for the snippet source
     -- dependencies = {  },
@@ -136,7 +138,7 @@ return {
         --   store_selection_keys = '<Tab>',
         -- },
         config = function()
-          -- enabling tex snippets from inside markdown, likely need to customize 
+          -- enabling tex snippets from inside markdown, likely need to customize
           -- require('luasnip').filetype_extend('markdown', { 'tex' })
           require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/plugins/snippets/' }
           require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/plugins/snipmate/' }
