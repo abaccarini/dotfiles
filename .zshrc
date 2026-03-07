@@ -164,7 +164,7 @@ setopt noincappendhistory
 setopt nosharehistory
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    . "/home/alessandrobaccarini/.deno/env"
+    . "/home/alessandro/.deno/env"
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
