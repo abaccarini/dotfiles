@@ -1,6 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  -- enabled = false,
   -- opts = function(_, opts) -- This is the function that runs, AFTER loading
   opts = function() -- This is the function that runs, AFTER loading
     -- local trouble = require 'trouble'

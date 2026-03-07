@@ -15,7 +15,7 @@
 	directory = /home/alessandro/rigel-home/picco
 	directory = /home/alessandro/rigel-home/picco
 [url "git@github.com:"]
-	insteadOf = git://github.com/
+	; insteadOf = git://github.com/
 	insteadOf = https://github.com/
 [core]
     pager = delta
@@ -42,7 +42,22 @@
     line-numbers-minus-style = 124
     line-numbers-plus-style = 28
 
+[diff]
+    tool = nvimdiff
+    guitool = nvimdiff
 [merge]
-    conflictstyle = zdiff3
-[init]
-	defaultBranch = main
+    tool = nvimdiff
+    conflictstyle = diff3
+[mergetool]
+    keepBackup = false
+    trustExitCode = false
+    prompt = true
+[difftool]
+    prompt = false
+[commit]
+    gpgsign = true
+[core]
+    editor = nvim
+    pager = bat
+[mergetool "nvimdiff"]
+    layout = "LOCAL,BASE,REMOTE / MERGED"

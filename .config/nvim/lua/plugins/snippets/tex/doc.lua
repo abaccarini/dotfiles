@@ -24,45 +24,92 @@ end
 tex.in_text = function()
   return not tex.in_mathzone()
 end
+local function to_label(str)
+  return str:lower():gsub('[^%a%d]+', '_'):gsub('^_', ''):gsub('_$', '')
+end
 
 return {
--- s(
---     { trig = '([^%a]);rf', regTrig = true, wordTrig = false, snippetType = 'autosnippet' },
---     fmta('<>~\\ref{<>}', {
---       f(function(_, snip)
---         return snip.captures[1]
---       end),
---       d(1, get_visual),
---     }),
---     {  }
---   ),
+
+  s('cha', {
+    t '\\chapter{',
+    i(1, ''),
+    t { '}', '\\label{cha:' },
+    d(2, function(args)
+      return sn(nil, { i(1, '' .. to_label(args[1][1])) })
+    end, { 1 }),
+    t { '}', '' },
+    i(0),
+  }),
+
+  s('sec', {
+    t '\\section{',
+    i(1, ''),
+    t { '}', '\\label{sec:' },
+    d(2, function(args)
+      return sn(nil, { i(1, '' .. to_label(args[1][1])) })
+    end, { 1 }),
+    t { '}', '' },
+    i(0),
+  }),
+
+  s('sub', {
+    t '\\subsection{',
+    i(1, ''),
+    t { '}', '\\label{sub:' },
+    d(2, function(args)
+      return sn(nil, { i(1, '' .. to_label(args[1][1])) })
+    end, { 1 }),
+    t { '}', '' },
+    i(0),
+  }),
+
+  s('ssub', {
+    t '\\subsubsection{',
+    i(1, ''),
+    t { '}', '\\label{ssub:' },
+    d(2, function(args)
+      return sn(nil, { i(1, '' .. to_label(args[1][1])) })
+    end, { 1 }),
+    t { '}', '' },
+    i(0),
+  }),
+  s('par', {
+    t '\\paragraph{',
+    i(1, ''),
+    t { '}', '\\label{par:' },
+    d(2, function(args)
+      return sn(nil, { i(1, '' .. to_label(args[1][1])) })
+    end, { 1 }),
+    t { '}', '' },
+    i(0),
+  }),
 
   s(
-    { trig = ';ll', snippetType = 'autosnippet',wordTrig =false },
+    { trig = ';ll', snippetType = 'autosnippet', wordTrig = false },
     fmta('\\label{line:<>}', {
       d(1, get_visual),
     })
   ),
   s(
-    { trig = ';ct', snippetType = 'autosnippet',wordTrig =false },
+    { trig = ';ct', snippetType = 'autosnippet', wordTrig = false },
     fmta('~\\cite{<>}', {
       d(1, get_visual),
     })
   ),
 
   s(
-    { trig = ';erf', snippetType = 'autosnippet',wordTrig =false },
+    { trig = ';erf', snippetType = 'autosnippet', wordTrig = false },
     fmta('~\\eqref{<>}', {
       d(1, get_visual),
     })
   ),
   s(
-    { trig = ';rf', snippetType = 'autosnippet',wordTrig =false },
+    { trig = ';rf', snippetType = 'autosnippet', wordTrig = false },
     fmta('~\\ref{<>}', {
       d(1, get_visual),
     })
   ),
-  -- s({ trig = 'sec', dscr = 'section' }, 
+  -- s({ trig = 'sec', dscr = 'section' },
   --   fmta(
   --     [[
   --     \begin{<>}

@@ -99,6 +99,7 @@ unalias la 2>/dev/null
 unalias ll 2>/dev/null
 # ls and ll are functions aliased to use exa by the ls plugin
 alias ls='lsd'
+alias nf='neofetch'
 alias ll='ls -la'
 alias llt='ll --tree'
 alias llti='ll --tree --git-ignore'
@@ -118,7 +119,7 @@ alias estc='cd ~/Dropbox/estimators'
 alias cn='cd ~/Dropbox/crypto-notes/' 
 alias diss='cd ~/Dropbox/dissertation/' 
 # alias pc='cd ~/picco/compute' 
-alias btc='cd ~/work/btc-defi/' 
+alias pdc='cd ~/work/pogun-docs/technical/' 
 alias bvm='cd ~/work/btc-defi-bitvm-prototype/' 
 alias rmpc='cd ~/harm0ny/' 
 # alias pc='cd ~/Dropbox/practical-crypto/' 
@@ -137,7 +138,7 @@ alias ipy='python3 -m IPython --no-confirm-exit'
 alias cls='clear'
 
 alias conf='cd ~/.config' 
-
+# alias nvimdiff='nvim -d'
 
 alias drop='cd ~/Dropbox' 
 alias dorp='cd ~/Dropbox' 

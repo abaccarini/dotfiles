@@ -1,7 +1,7 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   event = 'VeryLazy',
-  enabled = false,
+  -- enabled = false,
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     {
@@ -49,8 +49,10 @@ return { -- Autocompletion
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
-    'onsails/lspkind.nvim',
-    'hrsh7th/cmp-omni',
+    'lukas-reineke/cmp-rg',
+    -- 'onsails/lspkind.nvim',
+    -- 'hrsh7th/cmp-omni',
+    'hrsh7th/cmp-emoji',
     {
       'f3fora/cmp-spell',
       config = function()
@@ -82,69 +84,60 @@ return { -- Autocompletion
   },
   config = function()
     require('luasnip.loaders.from_lua').lazy_load { paths = '~/.config/nvim/lua/plugins/snippets/' }
-    require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/plugins/snipmate/' }
+    -- require('luasnip.loaders.from_snipmate').lazy_load { paths = '~/.config/nvim/lua/plugins/snipmate/' }
     require('luasnip.loaders.from_vscode').lazy_load {
       exclude = { 'tex' },
     }
+
+    local kind_icons = {
+      Text = ' ',
+      Method = '󰆧 ',
+      Function = '󰊕 ',
+      Constructor = ' ',
+      Field = '󰇽 ',
+      Variable = '󰀫 ',
+      Class = '󰠱 ',
+      Interface = ' ',
+      Module = ' ',
+      Property = '󰜢 ',
+      Unit = ' ',
+      Value = '󰎠 ',
+      Enum = ' ',
+      Keyword = '󰌋 ',
+      Snippet = ' ',
+      Color = '󰏘 ',
+      File = '󰈙 ',
+      Reference = ' ',
+      Folder = '󰉋 ',
+      EnumMember = ' ',
+      Constant = '󰏿 ',
+      Struct = ' ',
+      Event = ' ',
+      Operator = '󰆕 ',
+      TypeParameter = '󰅲 ',
+      Version = ' ',
+    }
+
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
-    local lspkind = require 'lspkind'
-    lspkind.init {
-      symbol_map = {
-        Text = ' ',
-        Method = '󰆧 ',
-        Function = '󰊕 ',
-        Constructor = ' ',
-        Field = '󰇽 ',
-        Variable = '󰀫 ',
-        Class = '󰠱 ',
-        Interface = ' ',
-        Module = ' ',
-        Property = '󰜢 ',
-        Unit = ' ',
-        Value = '󰎠 ',
-        Enum = ' ',
-        Keyword = '󰌋 ',
-        Snippet = ' ',
-        Color = '󰏘 ',
-        File = '󰈙 ',
-        Reference = ' ',
-        Folder = '󰉋 ',
-        EnumMember = ' ',
-        Constant = '󰏿 ',
-        Struct = ' ',
-        Event = ' ',
-        Operator = '󰆕 ',
-        TypeParameter = '󰅲 ',
-      },
-    }
-
-    vim.cmd.hi 'BorderBG guibg=#FFB86C guifg=#FF79C6'
+    -- vim.cmd.hi 'BorderBG guibg=#FFB86C guifg=#FF79C6'
 
     local colors = require 'colors'
-    -- vim.api.nvim_set_hl(0, 'ClineBG', { fg = 'none', bg = colors['comment'] })
 
-    -- vim.cmd 'highlight! BorderBG guibg=NONE guifg=#00ff00'
     vim.api.nvim_set_hl(0, 'CmpNormal', { fg = 'none', bg = colors['comment'] })
-    vim.api.nvim_set_hl(0, 'PmenuSel', { bold = true, fg = 'none', bg = colors['selection'] })
-
-    -- vim.api.nvim_set_hl(0, 'ClineBG', { fg = 'none', bg = colors['comment'] })
-
-    -- vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#282C34', fg = 'none' })
-
-    -- vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = 'None', bg = colors['menu'] })
-    -- for
-    vim.api.nvim_set_hl(0, 'CmpItemAbbr', { fg = colors['fg'], bg = colors['menu'] })
+    vim.api.nvim_set_hl(0, 'CmpItemAbbr', { fg = colors['fg'], bg = 'none' })
     vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { bg = colors['menu'] })
-    vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = colors['cyan'], bg = colors['menu'] })
-    -- vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { fg = 'None', bg = '#21222C' })
-    -- vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = 'None', bg = '#21222C', italic = true })
+    vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = colors['cyan'], bg = 'none' })
     vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = colors['fg'], bg = colors['menu'] })
 
-    local ELLIPSIS_CHAR = '…'
-    local MAX_LABEL_WIDTH = 30
-    local MIN_LABEL_WIDTH = 30
+    -- vim.api.nvim_set_hl(0, 'PmenuSel', { bold = false, fg = 'none', bg = colors['selection'] })
+    vim.api.nvim_set_hl(0, 'PmenuSel', { fg = 'none', bg = colors['selection'] })
+    vim.api.nvim_set_hl(0, 'Pmenu', { fg = 'none', bg = colors['menu'] })
+
+    -- local ELLIPSIS_CHAR = '…'
+    -- local MAX_LABEL_WIDTH = 30
+    -- local MIN_LABEL_WIDTH = 30
 
     vim.opt.pumheight = 12
     cmp.setup {
@@ -179,32 +172,47 @@ return { -- Autocompletion
 
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
+        -- fields = { 'kind', 'abbr', 'menu' },
         -- fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, cmp.ItemField.Menu },
         -- fields = {},
         expandable_indicator = true,
-        format = lspkind.cmp_format {
-          mode = 'symbol', -- show only symbol annotations
-          -- maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-          -- can also be a function to dynamically calculate max width such as
-          -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-          -- ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-          show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+        format = function(entry, vim_item)
+          -- Kind icons
+          vim_item.kind = string.format('%s', kind_icons[vim_item.kind], vim_item.kind)
+          -- vim_item.kind = string.format('%s',  vim_item.kind) -- to debug
+          -- Source
+          -- vim_item.menu = ({
+          --   buffer = '[Buffer]',
+          --   nvim_lsp = '[LSP]',
+          --   luasnip = '[LuaSnip]',
+          --   nvim_lua = '[Lua]',
+          --   latex_symbols = '[LaTeX]',
+          -- })[entry.source.name]
+          return vim_item
+        end,
+        -- format = lspkind.cmp_format {
+        --   mode = 'symbol', -- show only symbol annotations
+        --   -- maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        --   -- can also be a function to dynamically calculate max width such as
+        --   -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+        --   -- ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+        --   show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
-          -- The function below will be called before any actual modifications from lspkind
-          -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-          --
-          before = function(entry, vim_item)
-            local label = vim_item.abbr
-            local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
-            if truncated_label ~= label then
-              vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
-            elseif string.len(label) < MIN_LABEL_WIDTH then
-              local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
-              vim_item.abbr = label .. padding
-            end
-            return vim_item
-          end,
-        },
+        --   -- The function below will be called before any actual modifications from lspkind
+        --   -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+        --   --
+        --   before = function(entry, vim_item)
+        --     local label = vim_item.abbr
+        --     local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+        --     if truncated_label ~= label then
+        --       vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+        --     elseif string.len(label) < MIN_LABEL_WIDTH then
+        --       local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
+        --       vim_item.abbr = label .. padding
+        --     end
+        --     return vim_item
+        --   end,
+        -- },
       },
 
       mapping = cmp.mapping.preset.insert {
@@ -221,7 +229,7 @@ return { -- Autocompletion
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<Tab>'] = cmp.mapping.confirm { select = true },
-        ['<Return>'] = cmp.mapping.confirm { select = true },
+        -- ['<Return>'] = cmp.mapping.confirm { select = true },
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display
@@ -238,8 +246,8 @@ return { -- Autocompletion
         -- <c-l> will move you to the right of each of the expansion locations.
         -- <c-h> is similar, except moving you backwards.
         ['<C-k>'] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
+          if luasnip.locally_jumpable(1) then
+            luasnip.jump(1)
           end
         end, { 'i', 's' }),
         ['<C-j>'] = cmp.mapping(function()
@@ -255,6 +263,9 @@ return { -- Autocompletion
         { name = 'nvim_lsp', max_item_count = 12 },
         { name = 'luasnip' },
         { name = 'path' },
+        { name = 'rg' },
+        -- { name = 'emoji', option = { insert = true } },
+
         {
           name = 'spell',
           option = {
@@ -274,15 +285,24 @@ return { -- Autocompletion
     cmp.setup.filetype({ 'tex', 'wiki' }, {
       sources = cmp.config.sources {
         { name = 'luasnip' },
-        -- { name = "omni" },
+        -- { name = 'omni' },
         { name = 'vimtex' },
         { name = 'buffer' },
         { name = 'path', option = { trailing_slash = true } },
         { name = 'calc' },
-        -- { name = 'spell' },
       },
     })
 
+    cmp.setup.filetype({ 'markdown' }, {
+      sources = cmp.config.sources {
+        { name = 'luasnip' },
+        -- { name = 'omni' },
+        { name = 'buffer' },
+        { name = 'path', option = { trailing_slash = true } },
+        { name = 'calc' },
+        { name = 'emoji', option = { insert = true } },
+      },
+    })
     -- cmp.setup.cmdline('/', {
     --   mapping = cmp.mapping.preset.cmdline(),
     --   sources = {
@@ -329,9 +349,8 @@ return { -- Autocompletion
     --   }),
     -- })
 
-    for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/snippets/*.lua', true)) do
-      loadfile(ft_path)()
-    end
+    -- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/snippets/*.lua', true)) do
+    --   loadfile(ft_path)()
+    -- end
   end,
 }
-

@@ -43,6 +43,12 @@ return {
     })
   ),
   s(
+    { trig = ';ul', snippetType = 'autosnippet' },
+    fmta('\\underline{<>}', {
+      d(1, get_visual),
+    })
+  ),
+  s(
     { trig = 'bf', snippetType = 'autosnippet' },
     fmta('\\textbf{<>}', {
       d(1, get_visual),

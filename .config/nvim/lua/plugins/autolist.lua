@@ -1,6 +1,6 @@
 return {
   'gaoDean/autolist.nvim',
-  enabled=false,
+  -- enabled=false,
   ft = {
     'markdown',
     'text',
@@ -11,17 +11,15 @@ return {
 
   dependencies = { 'altermo/ultimate-autopair.nvim' }, -- forcing ult-autopairs to be loaded BEFORE autolist, so we can delete the insert mode binding
   config = function()
-
-
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = 'markdown',
---   callback = function()
---     vim.keymap.del('i', '<CR>') -- This is necessary because it conflicts with ultimate-autopairs
---   end,
--- })
+    -- vim.api.nvim_create_autocmd('FileType', {
+    --   pattern = 'markdown',
+    --   callback = function()
+    --     vim.keymap.del('i', '<CR>') -- This is necessary because it conflicts with ultimate-autopairs
+    --   end,
+    -- })
 
     require('autolist').setup()
-    vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>', {buffer = true})
+    vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>', { buffer = true })
 
     vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')
     vim.keymap.set('i', '<s-tab>', '<cmd>AutolistShiftTab<cr>')

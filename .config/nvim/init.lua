@@ -8,7 +8,7 @@ vim.opt.linebreak = true
 vim.deprecate = function() end
 
 -- vim.opt.textwidth = 100
-vim.opt.fillchars:append("diff:╱")
+vim.opt.fillchars:append 'diff:╱'
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'grr')
@@ -35,6 +35,20 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.formatoptions:remove { 'r', 'o' }
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ 'TermEnter' }, {
+--   callback = function()
+--     for _, buffers in ipairs(vim.fn.getbufinfo()) do
+--       local filetype = vim.api.nvim_buf_get_option(buffers.bufnr, 'filetype')
+--       if filetype == 'toggleterm' then
+--         vim.api.nvim_create_autocmd({ 'BufWriteCmd', 'FileWriteCmd', 'FileAppendCmd' }, {
+--           buffer = buffers.bufnr,
+--           command = 'q!',
+--         })
+--       end
+--     end
+--   end,
+-- })
 
 local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
@@ -205,6 +219,7 @@ vim.keymap.set({ 'n', 't', 'c' }, '<C-S-N>', '<C-p>')
 --  See `:help vim.keymap.set()`
 -- primeagen's keymaps
 vim.keymap.set('c', 'qq', 'qa')
+-- vim.keymap.set('c', 'q', 'qa')
 
 -- vim.keymap.set('n', '<C-S-J>', ':m .+1<CR>==')
 -- vim.keymap.set('n', '<C-S-K>', ':m .-2<CR>==')
@@ -280,7 +295,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open quick
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- fuck this macro key
 vim.api.nvim_set_keymap('n', 'Q', 'q', { noremap = true })
@@ -334,9 +349,10 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
         vim.api.nvim_buf_delete(i, {})
       end
 
-      if string.find(buf_name, 'term://') then
-        vim.api.nvim_buf_delete(i, {})
-      end
+      -- this was triggering a strange message when exiting after opening a toggleterm window
+      -- if string.find(buf_name, 'term://') then
+      --   vim.api.nvim_buf_delete(i, { slent = true })
+      -- end
       if string.find(buf_name, '/tmp/nvim.alessandro/') then
         vim.api.nvim_buf_delete(i, {})
       end
@@ -532,7 +548,6 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      -- local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -721,9 +736,9 @@ require('lazy').setup({
       vim.cmd.hi('Search guibg=' .. colors.selection .. ' guifg=none')
 
       -- vim.cmd.hi('WhichKeyBorder  guifg='..colors.red)
-      vim.cmd.hi('WhichKey guifg=' .. colors.bright_blue)
-      vim.cmd.hi('WhichKeyDesc guifg=' .. colors.fg)
-      vim.cmd.hi('WhichKeyGroup guifg=' .. colors.fg)
+      -- vim.cmd.hi('WhichKey guifg=' .. colors.bright_blue)
+      -- vim.cmd.hi('WhichKeyDesc guifg=' .. colors.fg)
+      -- vim.cmd.hi('WhichKeyGroup guifg=' .. colors.fg)
 
       -- mode-specific cursor colors
       vim.cmd.hi('CursorPurp  gui=none guifg=' .. colors.purple .. ' guibg=' .. colors.purple)
@@ -733,11 +748,10 @@ require('lazy').setup({
       vim.cmd.hi('CursorOrange gui=none guifg=' .. colors.orange .. ' guibg=' .. colors.orange)
       vim.cmd.hi('CursorRed gui=none guifg=' .. colors.red .. ' guibg=' .. colors.red)
 
-
-      vim.api.nvim_set_hl(0, "DiffAdd", {bg = "#20303b"})
-      vim.api.nvim_set_hl(0, "DiffDelete", {bg = "#37222c"})
-      vim.api.nvim_set_hl(0, "DiffChange", {bg = "#1f2231"})
-      vim.api.nvim_set_hl(0, "DiffText", {bg = "#394b70"})
+      vim.api.nvim_set_hl(0, 'DiffAdd', { bg = '#20303b' })
+      vim.api.nvim_set_hl(0, 'DiffDelete', { bg = '#37222c' })
+      vim.api.nvim_set_hl(0, 'DiffChange', { bg = '#1f2231' })
+      vim.api.nvim_set_hl(0, 'DiffText', { bg = '#394b70' })
 
       vim.opt.guicursor = table.concat({
         'r:hor50-CursorRed/lCursorRed-blinkwait100-blinkon100-blinkoff100',

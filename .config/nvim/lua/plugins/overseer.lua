@@ -1,6 +1,7 @@
 return {
   'stevearc/overseer.nvim',
   event = 'VeryLazy',
+  enabled = false,
   lazy = true,
   opts = {
     task_list = {
@@ -24,29 +25,29 @@ return {
 
     -- vim.keymap.set('n', '<leader>ot', '<Cmd>OverseerToggle<CR>', {})
 
-    local wk = require 'which-key'
-    wk.add {
-      -- -- buffer = event.buf,
-      {
-        '<localleader>o',
-        '<Cmd>OverseerToggle<CR>',
-        desc = 'Overseer',
-        icon = { icon = ' ', color = 'green' },
-      },
+    --   local wk = require 'which-key'
+    --   wk.add {
+    --     -- -- buffer = event.buf,
+    --     {
+    --       '<localleader>o',
+    --       '<Cmd>OverseerToggle<CR>',
+    --       desc = 'Overseer',
+    --       icon = { icon = ' ', color = 'green' },
+    --     },
 
-      -- mode = 'n',
-      -- {
-      --   '<localleader>ot',
-      --   '<Cmd>OverseerToggle<CR>',
-      --   desc = 'Toggle',
-      --   icon = { icon = ' ', color = 'green' },
-      -- },
-      {
-        '<localleader>to',
-        '<Cmd>OverseerToggle<CR>',
-        desc = 'Overseer',
-        icon = { icon = ' ', color = 'green' },
-      },
-    }
+    --     -- mode = 'n',
+    --     -- {
+    --     --   '<localleader>ot',
+    --     --   '<Cmd>OverseerToggle<CR>',
+    --     --   desc = 'Toggle',
+    --     --   icon = { icon = ' ', color = 'green' },
+    --     -- },
+    --     {
+    --       '<localleader>to',
+    --       '<Cmd>OverseerToggle<CR>',
+    --       desc = 'Overseer',
+    --       icon = { icon = ' ', color = 'green' },
+    --     },
+    --   }
   end,
 }

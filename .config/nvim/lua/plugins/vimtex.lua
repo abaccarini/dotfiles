@@ -94,7 +94,8 @@ return {
     vim.g.vimtex_indent_enabled = 0
     vim.g.tex_indent_items = 0
 
-    vim.g.vimtex_quickfix_enabled = 1
+    -- vim.g.vimtex_quickfix_enabled = 0
+    vim.g.vimtex_quickfix_mode = 0
     vim.g.vimtex_matchparen_enabled = 0
     vim.g.vimtex_mwatchparen_enabled = 0
     -- vim.g.vimtex_format_enabled = 1

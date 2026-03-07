@@ -1,6 +1,6 @@
 return {
   'bullets-vim/bullets.vim',
-  -- enabled=false
+  enabled = false,
   -- name = 'barbecue',
   -- version = '*',
   -- dependencies = {

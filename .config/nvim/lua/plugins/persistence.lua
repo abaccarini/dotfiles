@@ -4,7 +4,6 @@ return {
   opts = {
     dir = vim.fn.expand '$HOME/nvim_sessions/',
     need = 1,
-    -- options = vim.opt.sessionoptions:get(),
   },
   init = function()
     vim.api.nvim_create_autocmd('User', {
