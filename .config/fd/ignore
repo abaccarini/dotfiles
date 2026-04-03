@@ -24,4 +24,6 @@
 *.toc
 *.isy
 *.bbl-SAVE-ERROR
-
+*.bst
+*.bbx
+*.cbx

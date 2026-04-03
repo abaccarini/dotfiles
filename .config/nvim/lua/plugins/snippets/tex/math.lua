@@ -338,6 +338,13 @@ return {
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
   ),
   s(
+    { trig = 'td', snippetType = 'autosnippet' },
+    fmta('\\tilde{<>}', {
+      i(1),
+    }),
+    { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
+  ),
+  s(
     { trig = 'br', snippetType = 'autosnippet' },
     fmta('\\bar{<>}', {
       i(1),
@@ -363,7 +370,7 @@ return {
   }, { condition = tex.in_mathzone }),
 
   s(
-    { trig = 'prb', wordTrig = false,snippetType = 'autosnippet' },
+    { trig = 'prb', wordTrig = false, snippetType = 'autosnippet' },
     fmta('\\pr{<>}', {
       i(1),
     }),
@@ -444,12 +451,12 @@ return {
   s({ trig = ';.', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
-s(
+  s(
     { trig = '([^%\\])to', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
     fmta('<>\\to ', {
       f(function(_, snip)
         return snip.captures[1]
-      end)
+      end),
     }),
     { condition = tex.in_mathzone }
   ),

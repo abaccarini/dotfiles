@@ -36,6 +36,7 @@ return {
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
           return { '⚡ Loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms' }
         end,
+        vertical_center = true,
       },
     }
 

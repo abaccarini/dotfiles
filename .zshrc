@@ -99,6 +99,7 @@ unalias la 2>/dev/null
 unalias ll 2>/dev/null
 # ls and ll are functions aliased to use exa by the ls plugin
 alias ls='lsd'
+alias rr='ranger'
 alias nf='neofetch'
 alias ll='ls -la'
 alias llt='ll --tree'
@@ -127,6 +128,8 @@ alias rmpc='cd ~/harm0ny/'
 alias res='cd ~/Dropbox/cv/resume/' 
 alias cv='cd ~/Dropbox/cv/' 
 alias rg3='./scripts/rigel_login.sh' 
+alias up_disc='./scripts/up_disc.sh' 
+alias mp='./scripts/mp.sh > /dev/null 2>&1 & disown' 
 # alias ipev='$HOME/scripts/ipev.sh' 
 alias ipev='$HOME/scripts/ipevp.sh' 
 alias proj='cd ~/Dropbox/projects' 
@@ -137,7 +140,8 @@ alias qd='cd ~/Dropbox/private-streaming-statistics/'
 alias dl='cd ~/Downloads/'
 alias ipy='python3 -m IPython --no-confirm-exit'
 alias cls='clear'
-
+alias upgrade='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
+alias tmac="tmux new -A -s"
 alias conf='cd ~/.config' 
 # alias nvimdiff='nvim -d'
 
@@ -157,7 +161,8 @@ export EDITOR="$VISUAL"
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
 # precmd () {print -Pn "\e]0;%~\a"}
-
+DISABLE_AUTO_TITLE="true"
+# function stitle() { echo -en "\e]2;$@\a" }
 
 # used to disable history sharing between splits in tmux
 setopt noincappendhistory

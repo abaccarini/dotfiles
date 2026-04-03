@@ -29,12 +29,13 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = '*',
-  callback = function()
-    vim.opt_local.formatoptions:remove { 'r', 'o' }
-  end,
-})
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = '*',
+--   callback = function()
+--     vim.opt_local.formatoptions:remove { 'r', 'o' }
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd({ 'TermEnter' }, {
 --   callback = function()
@@ -171,6 +172,8 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 vim.opt.undofile = true
+
+-- vim.o.timeout = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true

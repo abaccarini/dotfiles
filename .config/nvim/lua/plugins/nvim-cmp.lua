@@ -263,7 +263,7 @@ return { -- Autocompletion
         { name = 'nvim_lsp', max_item_count = 12 },
         { name = 'luasnip' },
         { name = 'path' },
-        { name = 'rg' },
+        -- { name = 'rg' },
         -- { name = 'emoji', option = { insert = true } },
 
         {
@@ -293,7 +293,7 @@ return { -- Autocompletion
       },
     })
 
-    cmp.setup.filetype({ 'markdown' }, {
+    cmp.setup.filetype({ 'markdown', 'text' }, {
       sources = cmp.config.sources {
         { name = 'luasnip' },
         -- { name = 'omni' },

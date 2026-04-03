@@ -20,6 +20,7 @@ return {
       },
     },
     window = {
+      bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
       width = 30,
       mappings = {
         -- ["/"] = "noop"

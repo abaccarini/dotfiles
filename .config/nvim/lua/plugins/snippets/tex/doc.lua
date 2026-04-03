@@ -30,6 +30,12 @@ end
 
 return {
 
+  s(
+    { trig = ';tr', snippetType = 'autosnippet', wordTrig = false },
+    fmta('% !TeX root = ./tex<>', {
+      d(1, get_visual),
+    })
+  ),
   s('cha', {
     t '\\chapter{',
     i(1, ''),
