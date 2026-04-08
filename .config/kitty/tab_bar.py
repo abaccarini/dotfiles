@@ -20,7 +20,8 @@ icon_bg = as_rgb(color_as_int(opts.color8))
 bat_text_color = as_rgb(color_as_int(opts.color15))
 clock_color = as_rgb(color_as_int(opts.color8))
 date_color = as_rgb(color_as_int(opts.color8))
-SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
+# SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
+SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
 # SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("|", "|")
 RIGHT_MARGIN = 1
 REFRESH_TIME = 1
@@ -85,8 +86,8 @@ def _draw_left_status(
     else:
         next_tab_bg = default_bg
         needs_soft_separator = False
-    if screen.cursor.x <= len(ICON):
-        screen.cursor.x = len(ICON)
+    # if screen.cursor.x <= len(ICON):
+    #     screen.cursor.x = len(ICON)
     screen.draw(" ")
     screen.cursor.bg = tab_bg
     draw_title(draw_data, screen, tab, index)
@@ -193,7 +194,7 @@ def draw_tab(
     for cell in cells:
         right_status_length += len(str(cell[1]))
 
-    _draw_icon(screen, index)
+    # _draw_icon(screen, index)
     _draw_left_status(
         draw_data,
         screen,
