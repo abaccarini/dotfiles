@@ -70,15 +70,22 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+ZVM_INIT_MODE=sourcing
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+}
+
 plugins=(
     git
     zsh-autosuggestions
     F-Sy-H
-    # zsh-vi-mode
+    zsh-vi-mode
     zsh-syntax-highlighting
 )
 zle_highlight=('paste:none')
 source $ZSH/oh-my-zsh.sh
+
 
 # unset zle_bracketed_paste
 
@@ -163,15 +170,15 @@ export EDITOR="$VISUAL"
 # precmd () {print -Pn "\e]0;%~\a"}
 DISABLE_AUTO_TITLE="true"
 # function stitle() { echo -en "\e]2;$@\a" }
-
 # used to disable history sharing between splits in tmux
 setopt noincappendhistory
 setopt nosharehistory
-
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     . "/home/alessandro/.deno/env"
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    FZF_CTRL_R_COMMAND= FZF_ALT_C_COMMAND= source <(fzf --zsh)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 fi
 # Generated for envman. Do not edit.
+#

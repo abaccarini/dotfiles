@@ -33,13 +33,12 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false -- open by default, fold manually
 
 -- prevents a comment from being inserted when adding a newline above/below an existing comment
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = '*',
-  callback = function()
-    vim.opt_local.formatoptions:remove { 'r', 'o' }
-  end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = '*',
+--   callback = function()
+--     vim.opt_local.formatoptions:remove { 'r', 'o' }
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd({ 'TermEnter' }, {
 --   callback = function()

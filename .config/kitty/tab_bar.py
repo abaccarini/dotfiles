@@ -194,7 +194,7 @@ def draw_tab(
     for cell in cells:
         right_status_length += len(str(cell[1]))
 
-    # _draw_icon(screen, index)
+    _draw_icon(screen, index)
     _draw_left_status(
         draw_data,
         screen,
