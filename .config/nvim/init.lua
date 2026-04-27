@@ -579,6 +579,15 @@ require('lazy').setup({
         shfmt = {},
         codelldb = {},
 
+        tinymist = {
+          settings = {
+            -- exportPdf = 'onSave',
+            exportPdf = 'Never',
+            formatterMode = 'typstyle',
+            semanticTokens = 'disable',
+          },
+        },
+
         ltex_plus = {
           filetypes = { 'tex', 'md', 'bib' },
           settings = {
@@ -668,6 +677,55 @@ require('lazy').setup({
       for server_name, config in pairs(servers) do
         vim.lsp.config(server_name, config)
       end
+
+      local function tinymist_pin(client, bufnr, path)
+        client.request('workspace/executeCommand', {
+          command = 'tinymist.pinMain',
+          arguments = { path },
+        }, nil, bufnr)
+      end
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('tinymist-pin', { clear = true }),
+        callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if not client or client.name ~= 'tinymist' then
+            return
+          end
+
+          local bufpath = vim.api.nvim_buf_get_name(event.buf)
+          local main = vim.fs.find('main.typ', { upward = true, path = bufpath, type = 'file' })[1]
+          if main then
+            tinymist_pin(client, event.buf, main)
+          end
+
+          vim.keymap.set('n', '<leader>tp', function()
+            tinymist_pin(client, event.buf, vim.api.nvim_buf_get_name(0))
+          end, { buffer = event.buf, desc = '[T]inymist [P]in' })
+          vim.keymap.set('n', '<leader>tu', function()
+            tinymist_pin(client, event.buf, vim.v.null)
+          end, { buffer = event.buf, desc = '[T]inymist [U]npin' })
+        end,
+      })
+
+      -- require('lspconfig')['tinymist'].setup { -- Alternatively, can be used `vim.lsp.config["tinymist"]`
+      --   on_attach = function(client, bufnr)
+      --     vim.keymap.set('n', '<leader>tp', function()
+      --       client:exec_cmd({
+      --         title = 'pin',
+      --         command = 'tinymist.pinMain',
+      --         arguments = { vim.api.nvim_buf_get_name(0) },
+      --       }, { bufnr = bufnr })
+      --     end, { desc = '[T]inymist [P]in', noremap = true })
+      --     vim.keymap.set('n', '<leader>tu', function()
+      --       client:exec_cmd({
+      --         title = 'unpin',
+      --         command = 'tinymist.pinMain',
+      --         arguments = { vim.v.null },
+      --       }, { bufnr = bufnr })
+      --     end, { desc = '[T]inymist [U]npin', noremap = true })
+      --   end,
+      -- }
 
       -- vim.api.nvim_create_autocmd({ 'FileType' }, {
       --   pattern = { 'cpp', 'c', 'hpp', 'h', 'cuda' },
