@@ -18,6 +18,19 @@ return {
         enabled = true, -- This will find and focus the file in the active buffer every time
         leave_dirs_open = false,
       },
+      filtered_items = {
+        visible = false,
+        hide_gitignored = true,
+        hide_dotfiles = false,
+        hide_by_name = {
+          '.github',
+          '.gitignore',
+          'package-lock.json',
+          '.changeset',
+          '.prettierrc.json',
+        },
+        never_show = { '.git' },
+      },
     },
     window = {
       bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root

@@ -43,21 +43,14 @@
     line-numbers-plus-style = 28
 
 [diff]
-    tool = nvimdiff
-    guitool = nvimdiff
-[merge]
-    tool = nvimdiff
-    conflictstyle = diff3
-[mergetool]
-    keepBackup = false
-    trustExitCode = false
-    prompt = true
+    tool = kitty
+    guitool = kitty.gui
 [difftool]
     prompt = false
-[commit]
-    gpgsign = true
-[core]
-    editor = nvim
-    pager = bat
-[mergetool "nvimdiff"]
-    layout = "LOCAL,BASE,REMOTE / MERGED"
+    trustExitCode = true
+[difftool "kitty"]
+    cmd = kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+    cmd = kitten diff $LOCAL $REMOTE
+[init]
+	defaultBranch = main

@@ -39,8 +39,8 @@ return {
     { trig = 'sf', snippetType = 'autosnippet' },
     fmta('\\textsf{<>}', {
       d(1, get_visual),
-    }),
-    { condition = tex.in_mathzone }
+    })
+    -- { condition = tex.in_mathzone }
   ),
   s(
     { trig = 'fk', snippetType = 'autosnippet' },

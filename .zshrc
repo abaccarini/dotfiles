@@ -129,6 +129,7 @@ alias cn='cd ~/Dropbox/crypto-notes/'
 alias diss='cd ~/Dropbox/dissertation/' 
 # alias pc='cd ~/picco/compute' 
 alias pdc='cd ~/work/pogun-docs/technical/' 
+alias pdr='cd ~/work/pogun-docs/research/' 
 alias bvm='cd ~/work/btc-defi-bitvm-prototype/' 
 alias rmpc='cd ~/harm0ny/' 
 # alias pc='cd ~/Dropbox/practical-crypto/' 
@@ -160,6 +161,9 @@ alias bib='nvim ~/Dropbox/bib/refs.bib'
 
 # fpath=( ~/.zsh_functions "${fpath[@]}" )
 # autoload -Uz $fpath[1]/*(.:t)
+
+
+export CLAUDE_CODE_EFFORT_LEVEL=max
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"

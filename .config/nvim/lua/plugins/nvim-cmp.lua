@@ -293,6 +293,17 @@ return { -- Autocompletion
       },
     })
 
+    cmp.setup.filetype({ 'typst' }, {
+      sources = cmp.config.sources {
+        { name = 'luasnip' },
+        -- { name = 'omni' },
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path', option = { trailing_slash = true } },
+        { name = 'calc' },
+        { name = 'emoji', option = { insert = true } },
+      },
+    })
     cmp.setup.filetype({ 'markdown', 'text' }, {
       sources = cmp.config.sources {
         { name = 'luasnip' },

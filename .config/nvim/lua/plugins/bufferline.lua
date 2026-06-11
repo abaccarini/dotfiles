@@ -3,7 +3,11 @@ return {
   -- event='VeryLazy',
   -- enabled = false,
   version = '*',
-  dependencies = { 'nvim-tree/nvim-web-devicons', 'Mofiqul/dracula.nvim', 'echasnovski/mini.nvim' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'Mofiqul/dracula.nvim',
+    'echasnovski/mini.nvim',
+  },
   event = 'BufEnter',
   keys = {
     { '<leader>jb', '<Cmd>BufferLinePick<CR>', desc = 'Buffer' },

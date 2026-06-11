@@ -56,8 +56,8 @@ vim.opt.foldenable = false -- open by default, fold manually
 
 local my_augroup = vim.api.nvim_create_augroup('mygroup', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'tex', 'markdown' },
-  command = 'setlocal spell spelllang=en_us | set spellcapcheck= | syntax spell toplevel ',
+  pattern = { 'tex', 'markdown', 'typst' },
+  command = 'setlocal spell spelllang=en_us | set spellcapcheck=',
   group = my_augroup,
 })
 
@@ -427,7 +427,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'saghen/blink.cmp',
+      -- 'saghen/blink.cmp',
       'ibhagwan/fzf-lua',
     },
     config = function()
@@ -708,25 +708,6 @@ require('lazy').setup({
         end,
       })
 
-      -- require('lspconfig')['tinymist'].setup { -- Alternatively, can be used `vim.lsp.config["tinymist"]`
-      --   on_attach = function(client, bufnr)
-      --     vim.keymap.set('n', '<leader>tp', function()
-      --       client:exec_cmd({
-      --         title = 'pin',
-      --         command = 'tinymist.pinMain',
-      --         arguments = { vim.api.nvim_buf_get_name(0) },
-      --       }, { bufnr = bufnr })
-      --     end, { desc = '[T]inymist [P]in', noremap = true })
-      --     vim.keymap.set('n', '<leader>tu', function()
-      --       client:exec_cmd({
-      --         title = 'unpin',
-      --         command = 'tinymist.pinMain',
-      --         arguments = { vim.v.null },
-      --       }, { bufnr = bufnr })
-      --     end, { desc = '[T]inymist [U]npin', noremap = true })
-      --   end,
-      -- }
-
       -- vim.api.nvim_create_autocmd({ 'FileType' }, {
       --   pattern = { 'cpp', 'c', 'hpp', 'h', 'cuda' },
       --   callback = function()
@@ -881,7 +862,8 @@ require('lazy').setup({
           enable = true,
           disable = {
             'latex',
-            -- 'markdown',
+            'markdown',
+            'typst',
           },
           -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
           --  If you are experiencing weird indenting issues, add the language to

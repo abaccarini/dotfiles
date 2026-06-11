@@ -1,15 +1,15 @@
 return {
   'gaoDean/autolist.nvim',
-  -- enabled=false,
+  -- enabled = false,
   ft = {
     'markdown',
     'text',
-    -- "tex",
+    'typst',
     'plaintex',
     'norg',
   },
 
-  dependencies = { 'altermo/ultimate-autopair.nvim' }, -- forcing ult-autopairs to be loaded BEFORE autolist, so we can delete the insert mode binding
+  -- dependencies = { 'altermo/ultimate-autopair.nvim' }, -- forcing ult-autopairs to be loaded BEFORE autolist, so we can delete the insert mode binding
   config = function()
     -- vim.api.nvim_create_autocmd('FileType', {
     --   pattern = 'markdown',
@@ -18,7 +18,21 @@ return {
     --   end,
     -- })
 
-    require('autolist').setup()
+    require('autolist').setup {
+      -- colon = { -- if a line ends in a colon
+      --   indent = false, -- if in list and line ends in `:` then create list
+      --   indent_raw = false, -- above, but doesn't need to be in a list to work
+      --   -- preferred = "-", -- what the new list starts with (can be `1.` etc)
+      -- },
+      lists = {
+        typst = {
+          '[-+*]', -- unordered: - + *
+          '%+', -- typst numbered: +
+          '%d+%.', -- 1. 2. 3.
+        },
+      },
+    }
+
     vim.keymap.set('i', '<CR>', '<CR><cmd>AutolistNewBullet<cr>', { buffer = true })
 
     vim.keymap.set('i', '<tab>', '<cmd>AutolistTab<cr>')

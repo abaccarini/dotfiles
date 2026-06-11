@@ -2,7 +2,7 @@ return {
 
   'ibhagwan/fzf-lua',
   -- optional for icon support
-  dependencies = { 'nvim-tree/nvim-web-devicons',},
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     -- local colors = require 'colors'
     -- calling `setup` is optional for customization
