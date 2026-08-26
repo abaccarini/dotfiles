@@ -37,10 +37,10 @@ return {
 
   s(
     { trig = 'sf', snippetType = 'autosnippet' },
-    fmta('\\textsf{<>}', {
+    fmta('\\mathsf{<>}', {
       d(1, get_visual),
-    })
-    -- { condition = tex.in_mathzone }
+    }),
+    { condition = tex.in_mathzone }
   ),
   s(
     { trig = 'fk', snippetType = 'autosnippet' },
@@ -346,7 +346,7 @@ return {
   ),
   s(
     { trig = 'br', snippetType = 'autosnippet' },
-    fmta('\\bar{<>}', {
+    fmta('\\overline{<>}', {
       i(1),
     }),
     { condition = tex.in_mathzone } -- `condition` option passed in the snippet `opts` table
@@ -451,18 +451,18 @@ return {
   s({ trig = ';.', snippetType = 'autosnippet', wordTrig = false }, {
     t '\\cdot ',
   }, { condition = tex.in_mathzone }),
-  s(
-    { trig = '([^%\\])to', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
-    fmta('<>\\to ', {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-    }),
-    { condition = tex.in_mathzone }
-  ),
-  -- s({ trig = 'to', snippetType = 'autosnippet' }, {
-  --   t '\\to ',
-  -- }, { condition = tex.in_mathzone }),
+  -- s(
+  --   { trig = '([^%\\])to', wordTrig = false, regTrig = true, snippetType = 'autosnippet' },
+  --   fmta('<>\\to ', {
+  --     f(function(_, snip)
+  --       return snip.captures[1]
+  --     end),
+  --   }),
+  --   { condition = tex.in_mathzone }
+  -- ),
+  s({ trig = 'to', snippetType = 'autosnippet' }, {
+    t '\\to ',
+  }, { condition = tex.in_mathzone }),
   s({ trig = 'gr', snippetType = 'autosnippet' }, {
     t '\\gr ',
   }, { condition = tex.in_mathzone }),

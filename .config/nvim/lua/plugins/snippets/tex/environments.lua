@@ -18,6 +18,14 @@ local get_visual = function(args, parent)
   end
 end
 
+local tex = {}
+tex.in_mathzone = function()
+  return vim.fn['vimtex#syntax#in_mathzone']() == 1
+end
+tex.in_text = function()
+  return not tex.in_mathzone()
+end
+
 return {
 
   s(
@@ -53,7 +61,8 @@ return {
         return snip.captures[1]
       end),
       d(1, get_visual),
-    })
+    }),
+    { condition = tex.in_text }
   ),
 -- s({ trig = 'ii', snippetType = 'autosnippet',  wordTrig = false  }, {
   --   t '\\item ',
@@ -90,7 +99,7 @@ return {
     { trig = ';thm', snippetType = 'autosnippet' },
     fmta(
       [[
-      \begin{theorem}{<>}
+      \begin{theorem}[<>]
         \label{thm:<>}
           <>
       \end{theorem}
@@ -103,10 +112,26 @@ return {
     )
   ),
   s(
+    { trig = ';lem', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{lemma}[<>]
+        \label{lem:<>}
+          <>
+      \end{lemma}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
+  ),
+  s(
     { trig = ';def', snippetType = 'autosnippet' },
     fmta(
       [[
-      \begin{definition}{<>}
+      \begin{definition}[<>]
         \label{def:<>}
           <>
       \end{definition}
@@ -122,7 +147,7 @@ return {
     { trig = ';cor', snippetType = 'autosnippet' },
     fmta(
       [[
-      \begin{corollary}{<>}
+      \begin{corollary}[<>]
         \label{cor:<>}
           <>
       \end{corollary}

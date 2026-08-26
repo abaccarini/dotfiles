@@ -89,6 +89,6 @@ map <C-F> focus_inputbar "?"
 # map <C-S-f> search backward
 # map <C-f> /
 
-# map <C-o> exec "zathura $FILE"
+map <C-O> exec "zathura $FILE"
 map <Button4> jumplist backward
 map <Button5> jumplist forward

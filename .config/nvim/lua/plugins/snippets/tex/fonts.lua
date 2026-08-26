@@ -27,6 +27,16 @@ end
 
 return {
   s(
+    { trig = 'cmt', wordTrig = false, snippetType = 'autosnippet', priority = 2000 },
+    fmta('<>\\cmt{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_text }
+  ),
+  s(
     { trig = '([^%a])tt', regTrig = true, wordTrig = false, snippetType = 'autosnippet', priority = 2000 },
     fmta('<>\\texttt{<>}', {
       f(function(_, snip)
@@ -62,7 +72,7 @@ return {
   ),
 
   s(
-    { trig = ';sf', snippetType = 'autosnippet' },
+    { trig = 'sf', snippetType = 'autosnippet' },
     fmta('\\textsf{<>}', {
       d(1, get_visual),
     })

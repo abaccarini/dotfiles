@@ -16,7 +16,7 @@ return {
     filesystem = {
       follow_current_file = {
         enabled = true, -- This will find and focus the file in the active buffer every time
-        leave_dirs_open = false,
+        leave_dirs_open = true,
       },
       filtered_items = {
         visible = false,
