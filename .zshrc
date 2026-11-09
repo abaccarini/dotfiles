@@ -6,7 +6,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH="/home/alessandro/libraries/vcpkg:$PATH"
 ulimit -S -n 65536
-
+export SSH_AUTH_SOCK=/Users/alessandrobaccarini/.ssh/proton-pass-ssh-agent.sock
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 export IPELATEXPATH="/usr/local/texlive/2024/bin/x86_64-linux"
 
@@ -15,7 +15,7 @@ export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
+DISABLE_MAGIC_FUNCTIONS="true"
 # alias clangd='clangd-18' 
 DISABLE_UPDATE_PROMPT=true
 
@@ -79,13 +79,13 @@ function zvm_config() {
 plugins=(
     git
     zsh-autosuggestions
+    # zsh-vi-mode
+    # F-Sy-H supersedes zsh-syntax-highlighting; run only one highlighter.
+    # Keep it last -- it wraps widgets defined by the plugins above.
     F-Sy-H
-    zsh-vi-mode
-    zsh-syntax-highlighting
 )
 zle_highlight=('paste:none')
 source $ZSH/oh-my-zsh.sh
-
 
 # unset zle_bracketed_paste
 
@@ -105,6 +105,8 @@ unalias ls 2>/dev/null
 unalias la 2>/dev/null
 unalias ll 2>/dev/null
 # ls and ll are functions aliased to use exa by the ls plugin
+alias cl='claude'
+alias clr='claude -r'
 alias ls='lsd'
 alias rr='ranger'
 alias nf='neofetch'
@@ -118,6 +120,7 @@ alias qq='exit'
 alias py='python3' 
 alias !!='sudo $(fc -ln -1)'
 alias hxc='cd ~/dotfiles/.config/helix && hx .' 
+alias zc='vim ~/.zshrc'
 alias nvc='cd ~/dotfiles/.config/nvim && vim' 
 alias dfl='cd ~/dotfiles' 
 alias est='cd ~/Dropbox/func_eval/estimators/' 
@@ -162,9 +165,32 @@ alias bib='nvim ~/Dropbox/bib/refs.bib'
 # fpath=( ~/.zsh_functions "${fpath[@]}" )
 # autoload -Uz $fpath[1]/*(.:t)
 
+function gwt {
+  local target
+  target=$(git worktree list | fzf --height 40% --reverse | awk '{print $1}')
+  if [ -n "$target" ]; then
+    cd "$target"
+  fi
+}
 
-export CLAUDE_CODE_EFFORT_LEVEL=max
+# Ctrl+Delete deletes the previous word. kitty sends it as ^H (the same as
+# Ctrl+H), which zsh's emacs keymap treats as a plain backspace.
+bindkey '^H' backward-kill-word
 
+# export CLAUDE_CODE_EFFORT_LEVEL=max
+# While claude runs, set kitty user var in_claude so kitty.conf can remap keys
+# just for Claude Code (Ctrl+Delete -> Alt+D).
+if [[ $TERM == xterm-kitty ]]; then
+    autoload -Uz add-zsh-hook
+    _kitty_claude_start() {
+        local -a words=(${(z)3})
+        [[ $words[1] == claude || $words[1] == */claude ]] && printf '\e]1337;SetUserVar=in_claude=MQ==\a'
+    }
+    _kitty_claude_end() { printf '\e]1337;SetUserVar=in_claude\a' }
+    add-zsh-hook preexec _kitty_claude_start
+    add-zsh-hook precmd _kitty_claude_end
+fi
+export FZF_DEFAULT_OPTS="--extended"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 #
@@ -183,6 +209,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     FZF_CTRL_R_COMMAND= FZF_ALT_C_COMMAND= source <(fzf --zsh)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+    FZF_CTRL_R_COMMAND= source <(fzf --zsh)
 fi
 # Generated for envman. Do not edit.
 #
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(zoxide init zsh)"
+
+# Machine-local settings and aliases (untracked).
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

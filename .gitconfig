@@ -6,10 +6,6 @@
 	format = ssh
 [gpg "ssh"]
 	program = /opt/1Password/op-ssh-sign
-[commit]
-	gpgsign = true
-[includeIf "gitdir:~/work/"]
-  path = ~/work/.gitconfig
 
 [safe]
 	directory = /home/alessandro/rigel-home/picco
@@ -54,3 +50,25 @@
     cmd = kitten diff $LOCAL $REMOTE
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[push]
+	autoSetupRemote = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+
+# Keep these last: machine-local overrides (untracked: email, signing key and
+# program), then per-directory work identity.
+[include]
+	path = ~/.gitconfig.local
+[includeIf "gitdir:~/work/"]
+	path = ~/work/.gitconfig

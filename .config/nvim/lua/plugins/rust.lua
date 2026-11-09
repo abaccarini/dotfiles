@@ -5,6 +5,38 @@ return {
     ft = 'rust',
     config = function()
       vim.g.rustaceanvim = {
+        server = {
+          -- Some workspaces keep most of their code behind non-default cargo
+          -- features. rust-analyzer only enables default features, so those
+          -- files belong to no crate and every request returns nothing --
+          -- goto-definition reports "No definitions found".
+          -- Scoped per project: --all-features breaks repos whose features are
+          -- mutually exclusive, so only opt in the ones known to need it.
+          settings = function(project_root, default_settings)
+            local settings = vim.deepcopy(
+              require('rustaceanvim.config.server').load_rust_analyzer_settings(
+                project_root,
+                { default_settings = default_settings }
+              )
+            )
+            -- Keyed by workspace folder name *prefix*, so `git worktree`
+            -- checkouts (my-repo-pr1-..., etc.) match too. The value is
+            -- rust-analyzer's cargo.features: 'all' or a list of features.
+            -- The table is machine-local, in lua/local/rust_features.lua
+            -- (gitignored), e.g. `return { ['my-repo'] = 'all' }`.
+            local local_file = vim.fn.stdpath('config') .. '/lua/local/rust_features.lua'
+            local project_features = vim.uv.fs_stat(local_file) and dofile(local_file) or {}
+            local name = project_root and vim.fs.basename(project_root) or ''
+            for prefix, features in pairs(project_features) do
+              if vim.startswith(name, prefix) then
+                settings['rust-analyzer'] = settings['rust-analyzer'] or {}
+                settings['rust-analyzer'].cargo = settings['rust-analyzer'].cargo or {}
+                settings['rust-analyzer'].cargo.features = features
+              end
+            end
+            return settings
+          end,
+        },
         tools = {
           float_win_config = {
             border = 'rounded',

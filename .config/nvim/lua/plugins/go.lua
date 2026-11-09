@@ -6,7 +6,10 @@ return {
     -- { "nvim-treesitter/nvim-treesitter", branch = 'main' } -- optional for master version
   },
   opts = function()
-    require('go').setup()
+    -- go.nvim's textobjects call nvim-treesitter's configs.setup() again, which wipes
+    -- init.lua's ignore_install (bringing back the latex auto-install error). init.lua
+    -- configures textobjects itself, including the ]] [[ jumps this used to add.
+    require('go').setup { textobjects = false }
     local format_sync_grp = vim.api.nvim_create_augroup('GoFormat', {})
     vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = '*.go',

@@ -34,11 +34,18 @@ return { -- Autoformat
         -- args = { '+nightly' },
       },
       latexindent = {
-        -- Change where to find the command
-        prepend_args = { '-l' },
+        -- Settings from ~/.config/latexindent/settings.yaml, then from a .latexindent.yaml above
+        -- the file, if any; the log goes nowhere instead of indent.log in the working directory.
+        prepend_args = function(_, ctx)
+          local settings = { vim.fn.expand '~/.config/latexindent/settings.yaml' }
+          local project = vim.fs.find({ '.latexindent.yaml', 'latexindent.yaml' }, { upward = true, path = ctx.dirname })[1]
+          table.insert(settings, project)
+          return { '-l=' .. table.concat(settings, ','), '-g=/dev/null' }
+        end,
         command = function()
           if vim.loop.os_uname().sysname == 'Darwin' then
-            return '/Library/TeX/texbin/latexindent'
+            -- Homebrew's, which bundles the Perl modules TeX Live's copy is missing (File::HomeDir)
+            return '/opt/homebrew/bin/latexindent'
           else
             return '/usr/local/texlive/2024/bin/x86_64-linux/latexindent'
           end

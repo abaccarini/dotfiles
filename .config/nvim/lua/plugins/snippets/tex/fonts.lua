@@ -27,8 +27,28 @@ end
 
 return {
   s(
+    { trig = ';st', wordTrig = false, snippetType = 'autosnippet', priority = 2000 },
+    fmta('<>\\sout{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_text }
+  ),
+  s(
+    { trig = 'sg', wordTrig = false, snippetType = 'autosnippet', priority = 2000 },
+    fmta('<>\\ab{<>}', {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = tex.in_text }
+  ),
+  s(
     { trig = 'cmt', wordTrig = false, snippetType = 'autosnippet', priority = 2000 },
-    fmta('<>\\cmt{<>}', {
+    fmta('<>\\ab{<>}', {
       f(function(_, snip)
         return snip.captures[1]
       end),

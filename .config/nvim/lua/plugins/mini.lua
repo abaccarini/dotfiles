@@ -47,6 +47,10 @@ return { -- Collection of various small independent plugins/modules
       },
     }
 
+    -- f/F/t/T search across lines, not just the current one
+    -- Press f/F/t/T again (or ;) to jump to the next/previous match
+    require('mini.jump').setup {}
+
     require('mini.bufremove').setup {}
     vim.keymap.set('n', '<leader>w', '<CMD>lua MiniBufremove.delete()<CR>', { desc = 'Close Buffer' })
   end,

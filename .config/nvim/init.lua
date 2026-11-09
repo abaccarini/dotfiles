@@ -159,6 +159,23 @@ vim.keymap.set('n', '<c-ScrollWheelDown>', '')
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Copy filename only
+vim.keymap.set("n", "<leader>yf", function()
+    vim.fn.setreg("+", vim.fn.expand("%:t"))
+    print("Copied filename: " .. vim.fn.expand("%:t"))
+end, { desc = "Yank filename to clipboard" })
+
+-- Copy relative path
+vim.keymap.set("n", "<leader>yr", function()
+    vim.fn.setreg("+", vim.fn.expand("%"))
+    print("Copied relative path: " .. vim.fn.expand("%"))
+end, { desc = "Yank relative path to clipboard" })
+
+-- Copy absolute path
+vim.keymap.set("n", "<leader>ya", function()
+    vim.fn.setreg("+", vim.fn.expand("%:p"))
+    print("Copied absolute path: " .. vim.fn.expand("%:p"))
+end, { desc = "Yank absolute path to clipboard" })
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -381,12 +398,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+
+---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
@@ -409,6 +436,17 @@ require('lazy').setup({
           block = 'gC', ---Block-comment keymap
         },
       }
+      -- Neovim 0.12's vim.treesitter.get_parser() returns nil instead of erroring when a
+      -- buffer has no parser (e.g. tex, since latex is in ignore_install), and Comment.nvim
+      -- then indexes that nil. Use its filetype table then, like it does when get_parser errors.
+      local ft = require 'Comment.ft'
+      local calculate = ft.calculate
+      ft.calculate = function(ctx)
+        if not vim.treesitter.get_parser() then
+          return ft.get(vim.bo.filetype, ctx.ctype)
+        end
+        return calculate(ctx)
+      end
       vim.keymap.set('n', '<leader>;', function()
         return vim.v.count == 0 and '<Plug>(comment_toggle_linewise_current)' or '<Plug>(comment_toggle_linewise_count)'
       end, { expr = true, desc = 'Toggle comment' })
@@ -607,6 +645,7 @@ require('lazy').setup({
                   'CONSECUTIVE_SPACES',
                   'SENTENCE_WHITESPACE',
                   'COMMA_PARENTHESIS_WHITESPACE',
+                  'UPPERCASE_SENTENCE_START',
                 },
               },
             },
@@ -852,7 +891,16 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     -- enabled = false,
+    -- NOTE: pinned to master; the `main` branch dropped the `nvim-treesitter.configs`
+    -- API (and `nvim_treesitter#foldexpr()`) that this config is written against.
+    branch = 'master',
     build = ':TSUpdate',
+    -- master targets Neovim 0.11's query API; restore the bits 0.12 removed.
+    -- Must be `init`: the plugin registers its query predicates at load time,
+    -- which is earlier than `config`.
+    init = function()
+      require('ts_compat').setup()
+    end,
     -- opts = {
     -- },
     config = function()
@@ -861,6 +909,11 @@ require('lazy').setup({
         -- ensure_installed = 'all',
         -- Autoinstall languages that are not installed
         auto_install = true,
+        -- latex must be generated from grammar.js by the tree-sitter CLI (<= 0.25 for
+        -- master). When that fails, the auto-install error aborts the whole FileType
+        -- event, so :syntax (VimTeX's highlighting) and LSP never attach. VimTeX
+        -- highlights LaTeX anyway (see `disable` below), so skip the parser.
+        ignore_install = { 'latex' },
         highlight = {
           enable = true,
           disable = {
@@ -879,6 +932,11 @@ require('lazy').setup({
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
+            -- previously added by go.nvim's textobjects (disabled in plugins/go.lua)
+            goto_next_start = { [']]'] = '@function.outer' },
+            goto_next_end = { [']['] = '@function.outer' },
+            goto_previous_start = { ['[['] = '@function.outer' },
+            goto_previous_end = { ['[]'] = '@function.outer' },
           },
 
           select = {
@@ -930,6 +988,7 @@ require('lazy').setup({
 
     'nvim-treesitter/nvim-treesitter-textobjects',
     -- enabled=false,
+    branch = 'master', -- must match nvim-treesitter's branch
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
   -- {

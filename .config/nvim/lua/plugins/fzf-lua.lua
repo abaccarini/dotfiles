@@ -4,6 +4,19 @@ return {
   -- optional for icon support
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
+    -- macOS: stdpath('run') lives under the long $TMPDIR path, and nvim appends
+    -- `.<pid>.<seq>` to a *relative* server name -- which overflows sun_path's
+    -- 104-byte limit, so fzf-lua's own serverstart() dies with EINVAL. Pre-start
+    -- the RPC server on a short absolute path so fzf-lua's guard short-circuits.
+    if not vim.g.fzf_lua_server then
+      local dir = ('/tmp/nvim-%s'):format(vim.env.USER or 'nvim')
+      pcall(vim.fn.mkdir, dir, 'p', tonumber('700', 8))
+      local ok, srv = pcall(vim.fn.serverstart, ('%s/fzf-lua.%d'):format(dir, vim.fn.getpid()))
+      if ok then
+        vim.g.fzf_lua_server = srv
+      end
+    end
+
     -- local colors = require 'colors'
     -- calling `setup` is optional for customization
     require('fzf-lua').setup {
@@ -12,6 +25,11 @@ return {
         -- hidden = true,
         -- find_opts = [[-type f -not -path '*/\.git/*' --exclude .git]],
         fd_opts = [[--color=never --hidden --type f --type l ]],
+      },
+      grep = {
+        -- fzf-lua's default plus a Cargo.lock exclude (at any depth; a buffer's own
+        -- path is still searched). This replaces the default, and `-e` must stay last.
+        rg_opts = [[--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob='!Cargo.lock' -e]],
       },
 
       -- file_ignore_patterns = { '%.idx$','%.pdf$', '%.bbl-SAVE-ERROR$' },

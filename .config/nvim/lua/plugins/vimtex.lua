@@ -113,6 +113,16 @@ return {
       vim.g.vimtex_callback_progpath = '/usr/bin/nvim'
       vim.g.vimtex_view_method = 'zathura'
     end
+    local vimtex_group = vim.api.nvim_create_augroup('VimTeXFocus', { clear = true })
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'VimtexEventViewReverse',
+      group = vimtex_group,
+      callback = function()
+        -- Replace 'iTerm' with 'Terminal', 'Ghostty', 'Alacritty', etc., if needed
+        os.execute 'osascript -e \'tell application "Kitty" to activate\''
+      end,
+    })
 
     local colors = require 'colors'
     vim.cmd.hi('texCmdMath  guifg=' .. colors['red'])
@@ -291,6 +301,21 @@ return {
               '<plug>(vimtex-context-menu)',
               desc = 'Context menu',
               icon = { icon = '󰮫', color = 'purple' },
+            },
+            {
+              '<localleader>lb',
+              function()
+                require('cryptobib').pick()
+              end,
+              desc = 'Cite from CryptoBib',
+            },
+            {
+              '<C-x><C-b>',
+              function()
+                require('cryptobib').pick()
+              end,
+              desc = 'Cite from CryptoBib',
+              mode = 'i',
             },
             {
               'ds',

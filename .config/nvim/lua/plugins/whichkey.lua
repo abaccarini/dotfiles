@@ -60,6 +60,8 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>gb', icon = { icon = ' ', color = 'orange' } },
       { '<leader>gS', icon = { icon = '', color = 'green' } },
       { '<leader>gs', icon = { icon = '󱖫 ', color = 'azure' } },
+      { '<leader>gv', icon = { icon = ' ', color = 'purple' } },
+      { '<leader>gV', icon = { icon = ' ', color = 'purple' } },
 
       { '<leader>d', group = 'Debug', icon = { icon = '󰃤 ', color = 'red' } },
 

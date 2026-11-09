@@ -1,0 +1,83 @@
+# latexindent settings for all .tex files (read through indentconfig.yaml, and passed with -l by
+# conform in nvim).  Indentation only: no -m, so line breaks and wrapping are never changed.
+#
+# The style, as the papers use it:
+#   - two spaces per level;
+#   - prose environments (theorem-like, proof, abstract) are not indented, structural ones
+#     (lists, figures, tables, display math, funcbox, minipage) are;
+#   - text continuing on the next line inside a command's argument (\emph{...}, \ab{...},
+#     \cite[...]) or an \if...\fi block stays at the paragraph's indentation;
+#   - \item continuation lines sit at the \item's indentation;
+#   - & delimiters are not aligned, and TikZ pictures are left as written.
+# A .latexindent.yaml above a file adds project-specific settings on top of these.
+
+defaultIndent: "  "
+
+noAdditionalIndentGlobal:
+  mandatoryArguments: 1
+  optionalArguments: 1
+  ifElseFi: 1
+  items: 1
+  keyEqualsValuesBracesBrackets: 1
+  namedGroupingBracesBrackets: 1
+
+noAdditionalIndent:
+  document: 1
+  abstract: 1
+  IEEEkeywords: 1
+  proof: 1
+  theorem: 1
+  lemma: 1
+  corollary: 1
+  proposition: 1
+  definition: 1
+  remark: 1
+  claim: 1
+  example: 1
+  assumption: 1
+  construction: 1
+  restatethm: 1
+  tqdefinition: 1
+  tqassumption: 1
+  inlineMath: 1
+  item: 1
+
+# Arguments that are definitions or key=value lists, not prose, are indented.  (A per-name
+# noAdditionalIndent of 0 does not override the global setting above; an indentRules entry does.)
+indentRules:
+  item: ""
+  newcommand:
+    mandatoryArguments: "  "
+  renewcommand:
+    mandatoryArguments: "  "
+  providecommand:
+    mandatoryArguments: "  "
+  DeclareRobustCommand:
+    mandatoryArguments: "  "
+  newmdenv:
+    optionalArguments: "  "
+  hypersetup:
+    mandatoryArguments: "  "
+
+verbatimEnvironments:
+  tikzpicture: 1
+
+lookForAlignDelims:
+  tabular: 0
+  tabularx: 0
+  tabular*: 0
+  longtable: 0
+  array: 0
+  matrix: 0
+  align: 0
+  align*: 0
+  alignat: 0
+  alignat*: 0
+  aligned: 0
+  alignedat: 0
+  bmatrix: 0
+  pmatrix: 0
+  cases: 0
+  split: 0
+  flalign: 0
+  flalign*: 0
