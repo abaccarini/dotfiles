@@ -1,4 +1,0 @@
-# Read by every latexindent run (~/.config/latexindent/indentconfig.yaml).  Paths must be
-# absolute: latexindent does not expand ~.
-paths:
-  - /Users/alessandrobaccarini/.config/latexindent/settings.yaml

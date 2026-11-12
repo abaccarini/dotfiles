@@ -6,7 +6,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH="/home/alessandro/libraries/vcpkg:$PATH"
 ulimit -S -n 65536
-export SSH_AUTH_SOCK=/Users/alessandrobaccarini/.ssh/proton-pass-ssh-agent.sock
+
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 export IPELATEXPATH="/usr/local/texlive/2024/bin/x86_64-linux"
 
@@ -209,12 +209,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     FZF_CTRL_R_COMMAND= FZF_ALT_C_COMMAND= source <(fzf --zsh)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-    FZF_CTRL_R_COMMAND= source <(fzf --zsh)
+    (( $+commands[fzf] )) && FZF_CTRL_R_COMMAND= source <(fzf --zsh)
 fi
 # Generated for envman. Do not edit.
 #
 export PATH="$HOME/.local/bin:$PATH"
-eval "$(zoxide init zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
 # Machine-local settings and aliases (untracked).
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

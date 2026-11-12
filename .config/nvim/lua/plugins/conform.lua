@@ -43,12 +43,14 @@ return { -- Autoformat
           return { '-l=' .. table.concat(settings, ','), '-g=/dev/null' }
         end,
         command = function()
-          if vim.loop.os_uname().sysname == 'Darwin' then
-            -- Homebrew's, which bundles the Perl modules TeX Live's copy is missing (File::HomeDir)
-            return '/opt/homebrew/bin/latexindent'
-          else
-            return '/usr/local/texlive/2024/bin/x86_64-linux/latexindent'
+          -- Homebrew's first: it bundles the Perl modules TeX Live's macOS copy is missing
+          -- (File::HomeDir). Then TeX Live's on Linux, then whatever is on $PATH.
+          for _, path in ipairs { '/opt/homebrew/bin/latexindent', '/usr/local/texlive/2024/bin/x86_64-linux/latexindent' } do
+            if vim.fn.executable(path) == 1 then
+              return path
+            end
           end
+          return 'latexindent'
         end,
         -- Adds environment args to the yamlfix formatter
         -- env = {
