@@ -34,7 +34,14 @@ return { -- Autocompletion
       },
       config = function()
         require('luasnip').config.setup {
-          history = true,
+          -- No `history = true`: it keeps every expanded snippet in the buffer as a
+          -- jumpable root, and with autosnippets those pile up.  Once an edit leaves
+          -- one old snippet's extmarks out of range, every later expansion in that
+          -- buffer dies in subtree_set_pos_rgrav ("Invalid 'col': out of range").
+          -- Instead: drop snippets whose text got deleted, and leave a snippet once
+          -- the cursor is outside it.
+          delete_check_events = 'TextChanged,InsertLeave',
+          region_check_events = 'CursorMoved,CursorHold,InsertEnter',
           -- Enable autotriggered snippets
           enable_autosnippets = true,
           store_selection_keys = '<Tab>',
