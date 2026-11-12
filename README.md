@@ -8,6 +8,7 @@ My dotfiles, consisting of config files for the following programs:
 - lazygit
 - latexindent
 - Hammerspoon (macOS)
+- Karabiner-Elements (macOS)
 
 ## Setup
 

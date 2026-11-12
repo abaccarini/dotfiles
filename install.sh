@@ -20,7 +20,8 @@ links=(.zshrc .gitconfig .tmux.conf
   .config/latexindent .config/zathura .config/helix)
 if [[ $(uname -s) == Darwin ]]; then
   # latexindent only looks in ~/Library/Preferences on macOS.
-  links+=(.hammerspoon Library/Preferences/latexindent=.config/latexindent)
+  # Karabiner rewrites karabiner.json in place, so its whole directory is linked, never the file.
+  links+=(.hammerspoon .config/karabiner Library/Preferences/latexindent=.config/latexindent)
 fi
 
 echo "Links"

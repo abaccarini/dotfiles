@@ -1,1 +1,3 @@
 .config/latexindent/indentconfig.yaml
+.config/karabiner/automatic_backups/
+.config/karabiner/karabiner.json.pre-*
