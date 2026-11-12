@@ -86,6 +86,18 @@ else
   done
 fi
 
+echo "Git identity"
+# ~/.gitconfig commits as abaccarini (personal); a work machine sets its email in
+# ~/.gitconfig.local.  Read from / so this repo's own .git/config doesn't count.
+email=$(cd / && git config --get user.email || true)
+echo "  commits as ${email:-(no user.email)}"
+[[ -n $email ]] || warn "user.email is not set"
+# A repo-local email here would author dotfiles commits as someone other than this machine.
+repo_email=$(git -C "$repo" config --local --get user.email || true)
+if [[ -n $repo_email && $repo_email != "$email" ]]; then
+  warn "$repo/.git/config sets user.email = $repo_email, not $email: git -C $repo config --local --unset user.email"
+fi
+
 echo "Git signing"
 # Read from / so this repo's own .git/config doesn't count; includes are followed.
 program=$(cd / && git config --get gpg.ssh.program || true)
