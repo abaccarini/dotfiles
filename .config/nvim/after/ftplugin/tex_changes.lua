@@ -1,16 +1,16 @@
 -- Review suggested edits (\chg, \chgdel, \chgrep, and \abdel, a deletion with a note) and notes
 -- (\ab, \claude, \abon, \claudeon, the second review round's \claudeii and \claudeiion, the
--- third's \claudeiii and \claudeiiion, and the fourth's \claudeiv and \claudeivon); the macros are
--- in the paper's preamble/macros.tex.
+-- third's \claudeiii and \claudeiiion, the fourth's \claudeiv and \claudeivon, and the fifth's
+-- \claudev and \claudevon); the macros are in the paper's preamble/macros.tex.
 --   <leader>ea, <leader>er   accept / reject the edit under the cursor (a note is removed either
---                            way, leaving the text an \abon, \claudeon, \claudeiion, \claudeiiion
---                            or \claudeivon is on); in
+--                            way, leaving the text an \abon, \claudeon, \claudeiion, \claudeiiion,
+--                            \claudeivon or \claudevon is on); in
 --                            visual mode, every edit in the selection
 --   <leader>eA               accept every edit in the file, keeping the notes
 --   ]e, [e                   next / previous edit or note
 -- `:[range]ChgAccept[!]` and `:[range]ChgReject[!]` do the same; with a range, `!` also removes
--- the notes in it.  Each touched paragraph is then reflowed (`:TexReflow`, from tex.lua), and the
--- whole command is one undo step.
+-- the notes in it.  The whole command is one undo step.  Nothing is reflowed: <leader>F (from
+-- tex.lua) does that, and `gv<leader>F` after a visual accept or reject.
 
 local bufnr = vim.api.nvim_get_current_buf()
 
@@ -29,10 +29,12 @@ local macros = {
   claudeiiion = { nargs = 2, accept = 1, reject = 1, note = true },
   claudeiv = { nargs = 1, accept = false, reject = false, note = true },
   claudeivon = { nargs = 2, accept = 1, reject = 1, note = true },
+  claudev = { nargs = 1, accept = false, reject = false, note = true },
+  claudevon = { nargs = 2, accept = 1, reject = 1, note = true },
   abdel = { nargs = 2, accept = false, reject = 1 },
 }
 local search_pattern =
-  [[\\\%(chg\|chgdel\|chgrep\|ab\|claude\|abon\|claudeon\|claudeii\|claudeiion\|claudeiii\|claudeiiion\|claudeiv\|claudeivon\|abdel\){]]
+  [[\\\%(chg\|chgdel\|chgrep\|ab\|claude\|abon\|claudeon\|claudeii\|claudeiion\|claudeiii\|claudeiiion\|claudeiv\|claudeivon\|claudev\|claudevon\|abdel\){]]
 
 local function buf_lines()
   return vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
@@ -223,10 +225,6 @@ local function run(how, opts)
     local pos = vim.api.nvim_buf_get_extmark_by_id(bufnr, ns, id, {})
     local row = math.min(pos[1], vim.api.nvim_buf_line_count(bufnr) - 1)
     vim.api.nvim_win_set_cursor(0, { row + 1, pos[2] })
-  end
-  for _, id in ipairs(marks) do
-    goto_mark(id)
-    pcall(vim.cmd.TexReflow)
   end
   if marks[1] then
     goto_mark(marks[1])

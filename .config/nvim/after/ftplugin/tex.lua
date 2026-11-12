@@ -1,12 +1,12 @@
--- Hard-wrap edits to match the file being edited.  The width (and whether sentences end with two
--- spaces) is inferred from the file's own wrapped lines.  On leaving insert mode, if the line
--- just edited is too long, or short enough to take the next line's first word, the text is
--- reflowed with `gw` from that line to the end of its block of prose.  Lines above are never
--- touched, so a diff shows only the lines that had to move.
+-- Hard-wrap text to match the file being edited, on demand only: nothing wraps or reflows on its
+-- own.  The width (and whether sentences end with two spaces) is inferred from the file's own
+-- wrapped lines and set as 'textwidth'; `:setlocal tw=N` sets one for a file with no width to infer.
 --
--- Auto-reflow is on whenever 'textwidth' > 0: `:setlocal tw=0` turns it off, and `:setlocal tw=N`
--- turns it on for a file with no width to infer.  `u` right after leaving insert undoes the reflow
--- only.  For edits made in normal mode, `:TexReflow` reflows by hand.
+-- <leader>F (`:TexReflow`) reflows the block of prose around the cursor; in visual mode
+-- (`:[range]TexReflow`), every block with a line in the selection.  A block is reflowed with `gw`
+-- from its first line that is too long, or short enough to take the next line's first word, to
+-- its end.  Lines above that one are never touched, so a diff shows only the lines that had to
+-- move.  The cursor stays on the same text, and `u` undoes the whole reflow.
 
 local bufnr = vim.api.nvim_get_current_buf()
 
@@ -78,9 +78,8 @@ local width = infer_width(lines)
 if width > 0 then
   vim.bo[bufnr].textwidth = width
 end
--- No wrapping while typing: it would also break lines the reflow leaves alone (math, tables,
--- standalone \ab comments).
-vim.opt_local.formatoptions:remove 't'
+-- No wrapping while typing, of text ('t') or of % comments ('c'): reflowing is left to <leader>F.
+vim.opt_local.formatoptions:remove { 't', 'c' }
 local text = table.concat(lines, '\n')
 local _, two = text:gsub('[.?!]  %S', '')
 local _, one = text:gsub('%l[.?!] %u', '')
@@ -143,62 +142,95 @@ local function in_skipped_region(lnum, line)
   return false
 end
 
-local function reflow(separate_undo)
-  local tw = vim.bo[bufnr].textwidth
-  local lnum, last = vim.fn.line '.', vim.fn.line '$'
+local function is_item(s)
+  return command(s) == 'item'
+end
+
+-- The block of prose around line `lnum`, as its first and last line numbers: the lines a reflow
+-- may join.  An \item line starts a block.
+local function block_at(lnum)
   local line = vim.fn.getline(lnum)
-  if tw == 0 or not (prose(line) or command(line) == 'item') or in_skipped_region(lnum, line) then
+  if not (prose(line) or is_item(line)) then
     return
   end
+  local first, last, n = lnum, lnum, vim.fn.line '$'
+  while first > 1 and not is_item(vim.fn.getline(first)) do
+    local prev = vim.fn.getline(first - 1)
+    if not (prose(prev) or is_item(prev)) or ends_row(prev) then
+      break
+    end
+    first = first - 1
+  end
+  while last < n and not ends_row(vim.fn.getline(last)) and prose(vim.fn.getline(last + 1)) do
+    last = last + 1
+  end
+  return first, last
+end
 
-  local next_line = lnum < last and vim.fn.getline(lnum + 1) or ''
-  local len = vim.api.nvim_strwidth((line:gsub('%s+$', '')))
-  local takes_next = prose(next_line)
-    and not ends_row(line)
-    and len + 1 + vim.api.nvim_strwidth(next_line:match '^%s*(%S+)') <= tw
-  if len <= tw and not takes_next then
+-- The first line of first..last that is too long, or short enough to take the next line's first
+-- word.
+local function first_unfilled(first, last, tw)
+  for lnum = first, last do
+    local len = vim.api.nvim_strwidth((vim.fn.getline(lnum):gsub('%s+$', '')))
+    local word = lnum < last and vim.fn.getline(lnum + 1):match '^%s*(%S+)'
+    if len > tw or (word and len + 1 + vim.api.nvim_strwidth(word) <= tw) then
+      return lnum
+    end
+  end
+end
+
+local function fill(first, last, tw)
+  local start = first_unfilled(first, last, tw)
+  if not start then
     return
   end
-
-  local stop = lnum
-  while stop < last and not ends_row(vim.fn.getline(stop)) and prose(vim.fn.getline(stop + 1)) do
-    stop = stop + 1
-  end
-  -- A separate undo step lets `u` take back the reflow but not the edit.  `gw` keeps the cursor on
-  -- the same text; a count before `gww` would apply to a `w` motion.
-  if separate_undo then
-    vim.cmd 'let &g:undolevels = &g:undolevels'
+  vim.api.nvim_win_set_cursor(0, { start, 0 })
+  if in_skipped_region(start, vim.fn.getline(start)) then
+    return
   end
   -- A line broken off keeps the indent of the one it is broken from ('autoindent'), rather than
   -- taking the one 'indentexpr' gives: GetTeXIndent() indents the body of every environment,
-  -- which these files leave unindented in abstract, proof and the theorem-like ones.
+  -- which these files leave unindented in abstract, proof and the theorem-like ones.  A count
+  -- before `gww` would apply to a `w` motion, hence `gw{N}G`.
   local indentexpr = vim.bo[bufnr].indentexpr
   vim.bo[bufnr].indentexpr = ''
-  pcall(vim.cmd, 'silent keepjumps normal! gw' .. stop .. 'G')
+  pcall(vim.cmd, 'silent keepjumps normal! gw' .. last .. 'G')
   vim.bo[bufnr].indentexpr = indentexpr
 end
 
--- Also used after accepting or rejecting suggested edits (after/ftplugin/tex_changes.lua).
-vim.api.nvim_buf_create_user_command(bufnr, 'TexReflow', function()
-  reflow(false)
-end, { desc = 'Reflow from the cursor line to the end of its block, if it is not filled' })
+local ns = vim.api.nvim_create_namespace 'tex_reflow'
 
-local tick = vim.b[bufnr].changedtick
-vim.api.nvim_create_autocmd('InsertEnter', {
-  group = group,
-  buffer = bufnr,
-  callback = function()
-    tick = vim.b[bufnr].changedtick
-  end,
-})
--- ModeChanged rather than InsertLeave: it also fires on <C-c>, and the new mode tells a real exit
--- apart from a one-off <C-o> command.
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = group,
-  buffer = bufnr,
-  callback = function()
-    if vim.v.event.old_mode:match '^[iR]' and vim.v.event.new_mode == 'n' and vim.b[bufnr].changedtick ~= tick then
-      reflow(true)
+-- Reflow every block with a line in line1..line2 (without a range, the cursor line).
+local function reflow(line1, line2)
+  local tw = vim.bo[bufnr].textwidth
+  if tw == 0 then
+    vim.notify('No width to reflow to: set one with :setlocal tw=N', vim.log.levels.WARN)
+    return
+  end
+  local blocks, lnum = {}, line1
+  while lnum <= line2 do
+    local first, last = block_at(lnum)
+    if first then
+      blocks[#blocks + 1] = { first, last }
+      lnum = last + 1
+    else
+      lnum = lnum + 1
     end
-  end,
-})
+  end
+  -- Bottom up, so the blocks above keep their line numbers; a mark keeps the cursor's text.
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local mark = vim.api.nvim_buf_set_extmark(bufnr, ns, pos[1] - 1, pos[2], {})
+  for k = #blocks, 1, -1 do
+    fill(blocks[k][1], blocks[k][2], tw)
+  end
+  local row, col = unpack(vim.api.nvim_buf_get_extmark_by_id(bufnr, ns, mark, {}))
+  vim.api.nvim_buf_del_extmark(bufnr, ns, mark)
+  vim.api.nvim_win_set_cursor(0, { row + 1, col })
+end
+
+vim.api.nvim_buf_create_user_command(bufnr, 'TexReflow', function(opts)
+  reflow(opts.line1, opts.line2)
+end, { range = true, desc = 'Reflow the blocks of prose in the range (default: around the cursor)' })
+
+vim.keymap.set('n', '<leader>F', '<cmd>TexReflow<cr>', { buffer = bufnr, desc = 'Reflow paragraph' })
+vim.keymap.set('x', '<leader>F', ':TexReflow<cr>', { buffer = bufnr, silent = true, desc = 'Reflow selected paragraphs' })
