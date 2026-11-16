@@ -54,11 +54,6 @@ return {
         theme = c_drac,
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
-        refresh = {
-          statusline = 1,
-          tabline = 1,
-          winbar = 1,
-        },
         -- section_separators = { left = '', right = '' },
       },
       --

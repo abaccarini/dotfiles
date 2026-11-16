@@ -202,8 +202,9 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
--- Decrease update time
-vim.opt.updatetime = 0
+-- Decrease update time. Not 0: Neovim runs a full Vimscript garbage collection
+-- whenever it has waited 'updatetime' ms for a key, so 0 means one after every event.
+vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
@@ -654,6 +655,19 @@ require('lazy').setup({
 
         texlab = {
           filetypes = { 'tex', 'plaintex', 'bib' },
+          handlers = {
+            -- texlab reports diagnostics for every project file after each build. For a
+            -- file that isn't open, Neovim (0.12.6) queues a callback per report that all
+            -- run when the file is opened, so opening it gets slower the longer latexmk
+            -- runs. Drop reports for files that aren't loaded; texlab re-reports on open.
+            ['textDocument/publishDiagnostics'] = function(err, result, ctx)
+              local bufnr = result and vim.fn.bufnr(vim.uri_to_fname(result.uri)) or -1
+              if bufnr == -1 or not vim.api.nvim_buf_is_loaded(bufnr) then
+                return
+              end
+              return vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
+            end,
+          },
           settings = {
             texlab = {
               -- bibtexFormatter = 'bibtex-tidy',
